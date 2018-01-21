@@ -1,0 +1,54 @@
+---
+title: Kaggle-in-class Data Challenges can Boost Student Learning
+# to produce blinded version set to 1
+# blinded: 0
+author: 
+  - name: Julia Polak
+    affiliation: Department of Statistics, University of Melbourne
+  - name: Dianne Cook
+    affiliation: Department of Econometrics and Business Statistics, Monash University
+bibliography: bibliography.bib
+link-citations: true
+fig_caption: yes
+#keywords:
+#- 3 to 6 keywords
+#- that do not appear in the title
+abstract: >
+  The text of your abstract.  200 or fewer words.
+output: rticles::asa_article
+---
+
+```{r cache=FALSE, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+#packages:
+library(bookdown)
+library(knitcitations)
+library(RefManageR)
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, kfigr.link=TRUE, kfigr.prefix=TRUE, cache=TRUE, fig.env = TRUE, fig.cap=TRUE, fig.height=3)
+
+options("citation_format" = "pandoc")
+
+BibOptions(check.entries = FALSE, style = "markdown", bib.style = "alphabetic", cite.style = 'alphabetic')
+```
+
+# Introduction
+
+Kaggle is well-known for the richly funded data competitinns, where participants compete to score the lowest error in their model fitting. Recently, they have made it possible to run in-class competitions, private and limited to members of a university course. This work explores how student participation in these challenges improves performance, engagement, interest
+
+@Campbell02 @Schubert13 [@Chi81]
+
+# Data collection
+
+# Methodology
+
+# Results
+
+## Test scores
+
+## Participation
+
+## Interest
+
+# Discussion
+
+# References
+
