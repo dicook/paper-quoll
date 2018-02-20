@@ -23,6 +23,12 @@ output: rticles::asa_article
 library(bookdown)
 library(knitcitations)
 library(RefManageR)
+library("tidyverse")
+library("ggpubr")
+library("readxl")
+library("gridExtra")
+
+
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, kfigr.link=TRUE, kfigr.prefix=TRUE, cache=TRUE, fig.env = TRUE, fig.cap=TRUE, fig.height=3)
 
 options("citation_format" = "pandoc")
@@ -45,6 +51,208 @@ Kaggle is well-known for the richly funded data competitinns, where participants
 ## Test scores
 
 ## Participation
+
+### MAST90083
+
+We have examined two normalizations. Once, we normalized the score for the question (or group of questions) by the maximum possible score for the question (or the group of questions), denoted as $PTQ$. We also normalized by the total exam score, denoted as $PTE$. 
+The $PTQ$ and the $PTE$ scores were calculated for each student for the following four clusters of questions
+
+- Questions related to classification methods
+
+- Questions related to regression methods
+
+- Questions related to the classification and regression methods
+
+- Questions related to other topics that covered during the subject but unrelated to the data competition
+
+In addition, the $PTQ$ and the $PTE$ scores were calculated to each of the questions in the first and the second clasters.
+
+```{r include = FALSE}
+# read Unimelb data
+UniMelbData <- read.csv(file="data/UniMeldUnIndef.csv", header=TRUE, sep=",")
+```
+
+
+
+
+```{r PtqPteBpGroup, echo = FALSE, fig.cap = "\\label{fig:PtqPteBpGroup} PTQ and PTE scores distributions over different question groups", fig.width=6.5, fig.height=8}
+## Groups points questions / total posible points for the questions
+g_ptq_class <- ggplot(UniMelbData, aes(Proj_alloc, ptq_class)) + geom_boxplot() + 
+                xlab("Project allocation") + ylab("")
+g_ptq_reg <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg)) + geom_boxplot() + 
+                xlab("Project allocation") + ylab("")
+g_ptq_class_reg <- ggplot(UniMelbData, aes(Proj_alloc, ptq_class_reg)) + geom_boxplot() + 
+                    xlab("Project allocation") + ylab("")
+g_ptq_noncompq <- ggplot(UniMelbData, aes(Proj_alloc, ptq_noncompq)) + geom_boxplot() + 
+                    xlab("Project allocation") + ylab("")
+                    
+
+g_pte_class <- ggplot(UniMelbData, aes(Proj_alloc, pte_class)) + geom_boxplot() + 
+                xlab("Project allocation") + ylab("")
+g_pte_reg <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg)) + geom_boxplot() + 
+                xlab("Project allocation") + ylab("")
+g_pte_class_reg <- ggplot(UniMelbData, aes(Proj_alloc, pte_class_reg)) + geom_boxplot() + 
+                xlab("Project allocation") + ylab("")
+g_pte_noncompq <- ggplot(UniMelbData, aes(Proj_alloc, pte_noncompq)) + geom_boxplot() + 
+                xlab("Project allocation") + ylab("")
+
+
+pl <- list(g_ptq_class, g_ptq_reg, g_ptq_class_reg,  g_ptq_noncompq,
+           g_pte_class, g_pte_reg, g_pte_class_reg , g_pte_noncompq )
+
+# Create row and column titles
+col.titles = c("PTQ", "PTE")
+row.titles = c( "Classification", "Regression", "Class & Reg", "Other")
+
+# Add row titles
+pl[1:4] = lapply(1:4, function(i) arrangeGrob(pl[[i]], left=row.titles[i]))
+
+# Add column titles and lay out plots
+grid.arrange(grobs=lapply(c(1,5), function(i) {
+  arrangeGrob(grobs=pl[i:(i+3)], top=col.titles[i/4 + 1], ncol=1)
+}), ncol=2)
+
+
+```
+
+
+
+Figure \ref{fig:PtqPteBpGroup} shows the boxplots for the $PTQ$ scores and the $PTE$ scores for each group of students[^1]. 
+
+[^1]: The left boxplot is related to the students that took part in the data competition related to the regression methods, the Melbourne Price competition. The right boxplot is related to the students that took part in the data competition related to the calssification methods, the Spam classification competition.
+
+The plots in the left column summarize the $PTQ$ scores and the plots in the right column summarize the $PTE$ scores. The four questions clusters are corresponding to the four rows in the figure.
+
+Examining the figure, we can see clearly the positive correlation between student’s scores and the type of the data competition.  Namely, the median score ($PTQ$ and $PTE$) of the students that took part in the regression related competition is higher for regression questions. Similarly, for the students that took part in the classification related competitions. There is no significant different in the medians of the two groups of students for the question related to the general question covered both the classification and the regression methods. As well as for the all other question related to other topics covered during the subject.
+
+The statistical significance of this results was examined via the “permutation tests” …[TO COMPLETE].
+
+
+### Examining individual questions 
+
+In the final exam two questions were related to the classification methods (Q1 and Q10) and five questions were related to regression methods (Q5, Q6, Q8, Q15 and Q16). 
+
+
+```{r PtqPteBpClass, echo = FALSE, fig.cap = "\\label{fig:PtqPteBpClass} PTQ and PTE scores distributions for classification questions" , fig.width=6.5, fig.height=3.7}
+
+# Classification: Q1 & Q10 
+UniMelbData$ptq_class_Q1 <- as.factor(UniMelbData$ptq_class_Q1)
+g_ptq_class_Q1 <- ggplot(UniMelbData, aes( ptq_class_Q1)) + geom_bar() + 
+  facet_grid( .  ~ Proj_alloc)  + xlab("") + ylab("Num. of Students")
+g_ptq_class_Q10 <- ggplot(UniMelbData, aes(Proj_alloc, ptq_class_Q10)) + 
+  geom_boxplot() + xlab("Project allocation") + ylab("")
+g_pte_class_Q1 <- ggplot(UniMelbData, aes(Proj_alloc, pte_class_Q1)) + 
+  geom_boxplot() + xlab("Project allocation") + ylab("")
+g_pte_class_Q10 <- ggplot(UniMelbData, aes(Proj_alloc, pte_class_Q10)) + 
+  geom_boxplot() + xlab("Project allocation") + ylab("")
+
+
+pl <- list(g_ptq_class_Q1, g_ptq_class_Q10,
+           g_pte_class_Q1, g_pte_class_Q10 )
+
+
+# Create row and column titles
+col.titles = c("PTQ", "PTE")
+row.titles = c("Q1", "Q2" )
+
+# Add row titles
+pl[1:2] = lapply(1:2, function(i) arrangeGrob(pl[[i]], left=row.titles[i]))
+
+# Add column titles and lay out plots
+grid.arrange(grobs=lapply(c(1,3), function(i) {
+  arrangeGrob(grobs=pl[i:(i+1)], top=col.titles[i/2 + 1], ncol=1)
+}), ncol=2)
+
+
+```
+
+
+
+
+
+Figure \ref{fig:PtqPteBpClass} shows the scores distribution for the classification methods questions: Q1 and Q10.
+  
+Q1 was a multi-chose question, worth only 2 points (out of 100). Both plots, of the $PTQ$ and the $PTE$ scores show no difference between the two groups of students.
+
+Q10, was a relatedly large question, worth 10 points. Examining the medians of the $PTQ$ scores indicate only mild advantage for the students from the classification competition. However, looking on the $PTE$ scores suggests that the classification questions was much easier for the students from the classification competition comparing to all the other questions in the exam.
+
+
+
+
+```{r PtqPteBpReg, echo = FALSE, fig.cap = "\\label{fig:PtqPteBpReg} PTQ and PTE scores distributions for regression questions", fig.width=6.5, fig.height=8}
+
+
+
+## Groups points questions / total posible points for the questions
+# Regression: Q5, Q6, Q8, Q15, Q16
+UniMelbData$ptq_reg_Q5 <- as.factor(UniMelbData$ptq_reg_Q5)
+g_ptq_reg_Q5 <- ggplot(UniMelbData, aes( ptq_reg_Q5)) + geom_bar() + 
+  facet_grid( .  ~ Proj_alloc) + xlab("") + ylab("Num. of Students")
+g_ptq_reg_Q6 <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg_Q6)) + geom_boxplot() + 
+  xlab("Project allocation") + ylab("")
+g_ptq_reg_Q8  <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg_Q8)) + geom_boxplot() + 
+  xlab("Project allocation") + ylab("")
+g_ptq_reg_Q15 <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg_Q15)) + geom_boxplot() + 
+  xlab("Project allocation") + ylab("")
+g_ptq_reg_Q16 <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg_Q16)) + geom_boxplot() + 
+  xlab("Project allocation") + ylab("")
+
+g_pte_reg_Q5 <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg_Q5)) + geom_boxplot() + 
+  xlab("Project allocation") + ylab("")
+g_pte_reg_Q6 <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg_Q6)) + geom_boxplot() + 
+  xlab("Project allocation") + ylab("")
+g_pte_reg_Q8  <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg_Q8)) + geom_boxplot()+ 
+  xlab("Project allocation") + ylab("")
+g_pte_reg_Q15 <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg_Q15)) + geom_boxplot() + 
+  xlab("Project allocation") + ylab("")
+g_pte_reg_Q16 <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg_Q16)) + geom_boxplot() + 
+  xlab("Project allocation") + ylab("") 
+
+
+
+pl <- list(g_ptq_reg_Q5, g_ptq_reg_Q6, g_ptq_reg_Q8, g_ptq_reg_Q15 , g_ptq_reg_Q16 ,
+           g_pte_reg_Q5, g_pte_reg_Q6, g_pte_reg_Q8, g_pte_reg_Q15, g_pte_reg_Q16)
+
+# Create row and column titles
+col.titles = c("PTQ", "PTE")
+row.titles = c( "Q5", "Q6", "Q8", "Q15" , "Q16")
+
+# Add row titles
+pl[1:5] = lapply(1:5, function(i) arrangeGrob(pl[[i]], left=row.titles[i]))
+
+# Add column titles and lay out plots
+grid.arrange(grobs=lapply(c(1,6), function(i) {
+  arrangeGrob(grobs=pl[i:(i+4)], top=col.titles[i/5 + 1], ncol=1)
+}), ncol=2)
+
+
+```
+
+
+
+
+
+
+
+
+
+Figure \ref{fig:PtqPteBpReg} shows the scores distribution for the regression methods questions: Q5, Q6, Q8, Q15 and Q16.
+There was no difference in performances of the two groups in the Q5, a small 2 point, question. Interestingly, for question Q6, 6 point question that asked to explain different line of code, the median $PTQ$ scores were similar in the two groups. However, the lower 50 percent of student’s scores was spread over the much lower scores. In fact, the second quartile of the scores of students participated in the classification competition covered the range of the scores of the 50 percent of student’s scores participated the regression competition. This suggest that participation in the competition help the student to remember the R command better. Similar behaviour can be observed in the performances in Q15, and easy 8 point question, dealing with the differences between Lasso and Ridge regressions. 
+
+
+In the performances in Q8, a 8 point fairly easy question, that dealing with the regression trees, a ‘mirror’ behaviour can be observed. The median $PTQ$ scores were similar in the two groups, however the third quartile of the scores of students participated the regression competition spread in the range of the $3^{rd}$ and the $4^{rd}$ quartile of the students' scores participated the classification competition. 
+
+
+Finally, looking on the $PTQ$ scores, in the Q16, 4 point question, that required a deep understanding of the GAM method, one of the regression technic, the students participated the regression competition had a clear advantage over their pears participated the classification competition.     
+
+
+Examining all the remind exam questions weren’t arise any different between the two groups of students.
+
+
+
+
+
+
 
 ## Interest
 
