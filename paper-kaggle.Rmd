@@ -249,12 +249,67 @@ Finally, looking on the $PTQ$ scores, in the Q16, 4 point question, that require
 Examining all the remind exam questions weren’t arise any different between the two groups of students.
 
 
+## Engagement
+
+To examine the correlation between student’s engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions[^2] ($PTQ$) and once normalizing by total exam marks ($PTE$). 
 
 
+[^2]: For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
+
+
+
+
+
+
+```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Number of submission vs exam grades" , fig.width=6.5, fig.height=6.5}
+
+# Classification: Q1 & Q10 
+gsg <- ggplot(UniMelbData %>% filter(Proj_alloc == "Spam classification"), aes(numsub, ptq_class)) + 
+  geom_point() + xlab("Num. of submissions") + ylab("")
+
+gse <- ggplot(UniMelbData %>% filter(Proj_alloc == "Spam classification"), aes(numsub, pte_class)) + 
+  geom_point() + xlab("Num. of submissions") + ylab("")
+
+grg <- ggplot(UniMelbData %>% filter(Proj_alloc == "Melbourne Price"), aes(numsub, ptq_reg)) + 
+  geom_point() + xlab("Num. of submissions") + ylab("")
+
+gre <- ggplot(UniMelbData %>% filter(Proj_alloc == "Melbourne Price"), aes(numsub, pte_reg)) + 
+  geom_point() + xlab("Num. of submissions") + ylab("")
+
+
+pl <- list(grg, gsg,
+           gre, gse )
+
+
+# Create row and column titles
+col.titles = c("Question related to project type (PTQ)", "Total exam score (PTE)")
+row.titles = c("MElbPrice", "SPAMclass" )
+
+# Add row titles
+pl[1:2] = lapply(1:2, function(i) arrangeGrob(pl[[i]], left=row.titles[i]))
+
+# Add column titles and lay out plots
+grid.arrange(grobs=lapply(c(1,3), function(i) {
+  arrangeGrob(grobs=pl[i:(i+1)], top=col.titles[i/2 + 1], ncol=1)
+}), ncol=2)
+
+
+```
+
+In Figure \ref{fig:numsubmition} we can clearly see a weak positive correlation between the number of submissions during the data competition and the scores normalized to the total possible marks for the relevant cluster of questions. This suggest that as more engaged the student was with the competition, the question about the methods relevant to her competition were easier to her. There is no correlation between the number of submission and the marks for the relevant cluster of questions normalized by the total exam marks ($PTE$). *BECAUSE … the questions that unrelated to the data competitions (51 points)? students put less effort to learn other material? Harder questions?*
+
+
+We didn’t found any evidence for correlation between the performances in the competition (final score) and the performances in the exam. This suggest that the single fact of participation improve the students marks in the exam. Not necessarily better students in the competition have grater chances to success in the exam. 
 
 
 
 ## Interest
+
+
+
+
+
+
 
 # Discussion
 
