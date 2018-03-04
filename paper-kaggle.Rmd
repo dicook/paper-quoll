@@ -42,15 +42,59 @@ Kaggle is well-known for the richly funded data competitinns, where participants
 
 @Campbell02 @Schubert13 [@Chi81]
 
+
+
+
+
 # Data collection
 
+
+
+## Melbourne price data set
+
+This data set was built in two stages. First the original sales in the Melbourne metropole ware downloaded then a few artificial features were add.
+
+The original data was taken from the weekly report published by Domain and compiled by Home Price Guide (R) *COMENT: Found the symbol*. The reports are published as the pdf document. To read them into R we used the XXX package *COMENT: reference to our new package for reading those reports*. The weekly report contains the information about the properties full address, number of bedrooms, property type (house, unit/ duplex, townhouse, development site or other residential), sold price, type of sale (sold, sold prior, passed in, no bid, vendor bid, withdrawn prior to auction, sold after auction and N/A - price or highest bid not available) and agent name. We used the weekly reports from 2nd of February 2013 to 17th of December 2016. We also removed all the records without the price. Over all we had 75,367 sold properties for the data competition.
+
+To enrich this data and make the model building process more interesting we add a few ‘artificial’ features, namely – number of visitors, the average rating gave to the property by the visitors, number of car spaces, number of baths, land size and house size (builded area).	
+
+
+## Spam data set
+
+
+
+
+# Participants
+
+-	To examine different type of students (undergraduate vs post graduate) and different learning environments (different university) the study run across three different subjects and two universities, Monash University (ETC3250 and ETC5242) and University of Melbourne (MAST90083 subject). 
+
+-	Time period: semester two 2016
+
+-	MAST90083: 63 enrolled students; postgraduate level; background: math & stats, IT and actuarial science;  
+
+-	ETC5242
+
+-	ETC3250
+
+
+
 # Methodology
+
+
+
+
+
+
+
+
+
+
+
 
 # Results
 
 ## Test scores
 
-## Participation
 
 ### MAST90083
 
