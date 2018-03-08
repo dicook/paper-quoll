@@ -10,11 +10,10 @@ author:
 bibliography: bibliography.bib
 link-citations: true
 fig_caption: yes
-#keywords:
-#- 3 to 6 keywords
+keywords: technology, statistical modeling, data science, statistics education
 #- that do not appear in the title
 abstract: >
-  The text of your abstract.  200 or fewer words.
+  Kaggle is a data modeling competition service, where participants compete to build a model with lower predictive error than other participants. Several years ago they released a reduced service that enables instructors to run competitions in a classroom setting. This paper describes the results of an experiment to determine if the participating in a predictive modeling competition enhances learning. The evidence suggests it does. In addition, students were surveyed to examine if the competition improved engagement and interest in the class.
 output: rticles::asa_article
 ---
 
@@ -24,7 +23,7 @@ library(bookdown)
 library(knitcitations)
 library(RefManageR)
 library("tidyverse")
-library("ggpubr")
+#library("ggpubr")
 library("readxl")
 library("gridExtra")
 
