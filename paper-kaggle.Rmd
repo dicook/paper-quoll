@@ -1,20 +1,26 @@
 ---
 title: Kaggle-in-class Data Challenges can Boost Student Learning
+
 # to produce blinded version set to 1
-# blinded: 0
-author: 
+blinded: 0
+
+authors: 
   - name: Julia Polak
     affiliation: Department of Statistics, University of Melbourne
   - name: Dianne Cook
     affiliation: Department of Econometrics and Business Statistics, Monash University
+
+keywords:
+- instructional technology
+- statistical modeling
+- data science
+- statistics education
+- data mining
+
+abstract: |
+  Kaggle is a data modeling competition service, where participants compete to build a model with lower predictive error than other participants. Several years ago they released a reduced service that enables instructors to run competitions in a classroom setting. This paper describes the results of an experiment to determine if the participating in a predictive modeling competition enhances learning. The evidence suggests it does. In addition, students were surveyed to examine if the competition improved engagement and interest in the class.
+
 bibliography: bibliography.bib
-link-citations: true
-fig_caption: yes
-#keywords:
-#- 3 to 6 keywords
-#- that do not appear in the title
-abstract: >
-  The text of your abstract.  200 or fewer words.
 output: rticles::asa_article
 ---
 
@@ -24,7 +30,7 @@ library(bookdown)
 library(knitcitations)
 library(RefManageR)
 library("tidyverse")
-library("ggpubr")
+#library("ggpubr")
 library("readxl")
 library("gridExtra")
 
@@ -43,28 +49,13 @@ Kaggle is well-known for the richly funded data competitinns, where participants
 @Campbell02 @Schubert13 [@Chi81]
 
 
+# Experimental setup
 
+## Data collection
 
+Explain experimental design: two compeitions, two locations, two courses, one with students randomised into two groups, the other with control group of students and regression challenge, and exam questions. (Not sure how to incorporate ETC3250 students at the moment.)
 
-# Data collection
-
-
-
-## Melbourne price data set
-
-This data set was built in two stages. First the original sales in the Melbourne metropole ware downloaded then a few artificial features were add.
-
-The original data was taken from the weekly report published by Domain and compiled by Home Price Guide (R) *COMENT: Found the symbol*. The reports are published as the pdf document. To read them into R we used the XXX package *COMENT: reference to our new package for reading those reports*. The weekly report contains the information about the properties full address, number of bedrooms, property type (house, unit/ duplex, townhouse, development site or other residential), sold price, type of sale (sold, sold prior, passed in, no bid, vendor bid, withdrawn prior to auction, sold after auction and N/A - price or highest bid not available) and agent name. We used the weekly reports from 2nd of February 2013 to 17th of December 2016. We also removed all the records without the price. Over all we had 75,367 sold properties for the data competition.
-
-To enrich this data and make the model building process more interesting we add a few ‘artificial’ features, namely – number of visitors, the average rating gave to the property by the visitors, number of car spaces, number of baths, land size and house size (builded area).	
-
-
-## Spam data set
-
-
-
-
-# Participants
+## Participants
 
 -	To examine different type of students (undergraduate vs post graduate) and different learning environments (different university) the study run across three different subjects and two universities, Monash University (ETC3250 and ETC5242) and University of Melbourne (MAST90083 subject). 
 
@@ -83,6 +74,8 @@ Note that the data competition was compulsory to all the students. The volunteer
 -	ETC5242
 
 -	ETC3250
+
+## Competitions
 
 
 
@@ -107,8 +100,7 @@ Kaggle in class (https://inclass.kaggle.com)...
 
 # Results
 
-## Test scores
-
+## Performance
 
 ### MAST90083
 
@@ -125,13 +117,10 @@ The $PTQ$ and the $PTE$ scores were calculated for each student for the followin
 
 In addition, the $PTQ$ and the $PTE$ scores were calculated to each of the questions in the first and the second clasters.
 
-```{r include = FALSE}
+```{r}
 # read Unimelb data
 UniMelbData <- read.csv(file="data/UniMeldUnIndef.csv", header=TRUE, sep=",")
 ```
-
-
-
 
 ```{r PtqPteBpGroup, echo = FALSE, fig.cap = "\\label{fig:PtqPteBpGroup} PTQ and PTE scores distributions over different question groups", fig.width=6.5, fig.height=8}
 ## Groups points questions / total posible points for the questions
@@ -169,15 +158,9 @@ pl[1:4] = lapply(1:4, function(i) arrangeGrob(pl[[i]], left=row.titles[i]))
 grid.arrange(grobs=lapply(c(1,5), function(i) {
   arrangeGrob(grobs=pl[i:(i+3)], top=col.titles[i/4 + 1], ncol=1)
 }), ncol=2)
-
-
 ```
 
-
-
-Figure \ref{fig:PtqPteBpGroup} shows the boxplots for the $PTQ$ scores and the $PTE$ scores for each group of students[^1]. 
-
-[^1]: The left boxplot is related to the students that took part in the data competition related to the regression methods, the Melbourne Price competition. The right boxplot is related to the students that took part in the data competition related to the calssification methods, the Spam classification competition.
+Figure \ref{fig:PtqPteBpGroup} shows the boxplots for the $PTQ$ scores and the $PTE$ scores for each group of students. The left boxplot is related to the students that took part in the data competition related to the regression methods, the Melbourne Price competition. The right boxplot is related to the students that took part in the data competition related to the calssification methods, the Spam classification competition.
 
 The plots in the left column summarize the $PTQ$ scores and the plots in the right column summarize the $PTE$ scores. The four questions clusters are corresponding to the four rows in the figure.
 
@@ -185,8 +168,7 @@ Examining the figure, we can see clearly the positive correlation between studen
 
 The statistical significance of this results was examined via the “permutation tests” …[TO COMPLETE].
 
-
-### Examining individual questions 
+**Examining individual questions**
 
 In the final exam two questions were related to the classification methods (Q1 and Q10) and five questions were related to regression methods (Q5, Q6, Q8, Q15 and Q16). 
 
@@ -225,16 +207,11 @@ grid.arrange(grobs=lapply(c(1,3), function(i) {
 ```
 
 
-
-
-
 Figure \ref{fig:PtqPteBpClass} shows the scores distribution for the classification methods questions: Q1 and Q10.
   
 Q1 was a multi-chose question, worth only 2 points (out of 100). Both plots, of the $PTQ$ and the $PTE$ scores show no difference between the two groups of students.
 
 Q10, was a relatedly large question, worth 10 points. Examining the medians of the $PTQ$ scores indicate only mild advantage for the students from the classification competition. However, looking on the $PTE$ scores suggests that the classification questions was much easier for the students from the classification competition comparing to all the other questions in the exam.
-
-
 
 
 ```{r PtqPteBpReg, echo = FALSE, fig.cap = "\\label{fig:PtqPteBpReg} PTQ and PTE scores distributions for regression questions", fig.width=6.5, fig.height=8}
@@ -287,13 +264,6 @@ grid.arrange(grobs=lapply(c(1,6), function(i) {
 ```
 
 
-
-
-
-
-
-
-
 Figure \ref{fig:PtqPteBpReg} shows the scores distribution for the regression methods questions: Q5, Q6, Q8, Q15 and Q16.
 There was no difference in performances of the two groups in the Q5, a small 2 point, question. Interestingly, for question Q6, 6 point question that asked to explain different line of code, the median $PTQ$ scores were similar in the two groups. However, the lower 50 percent of student’s scores was spread over the much lower scores. In fact, the second quartile of the scores of students participated in the classification competition covered the range of the scores of the 50 percent of student’s scores participated the regression competition. This suggest that participation in the competition help the student to remember the R command better. Similar behaviour can be observed in the performances in Q15, and easy 8 point question, dealing with the differences between Lasso and Ridge regressions. 
 
@@ -306,16 +276,60 @@ Finally, looking on the $PTQ$ scores, in the Q16, 4 point question, that require
 
 Examining all the remind exam questions weren’t arise any different between the two groups of students.
 
+### Monash students
+
+Figure \ref{fig:ETC5242} shows the results for students in the Statistical Thinking course at Monash University. Only the post-graduate students participated in the regression competition, as their additional assessment requirement. Scores for the question on regression in the final exam were compared with the total exam score (PTE defined earlier). The boxplots suggest that the students who participated in the challenge performed realtively better on the regression question than expected given their total exam performance: the median is higher and there is less variability.
+
+```{r ETC5242, fig.cap = "\\label{fig:ETC5242} Performance for regression question relative to total exam score for students who did and didn't do the regression data competition in the Statistical Thinking course at Monash."}
+library(tidyverse)
+
+scores_5242 <- read_csv("data/deidentified_scores_5242.csv")
+scores_2420 <- read_csv("data/deidentified_scores_2420.csv")
+#summary(scores_5242$`7b (8)`)
+#summary(scores_2420$`7b (8)`)
+
+scores_5242$`Exam Tot` <- apply(scores_5242[,4:27],1,sum, na.rm=T)
+scores_2420$`Exam Tot` <- apply(scores_2420[,4:27],1,sum, na.rm=T)
+
+scores_5242 <- scores_5242 %>% mutate(perf = `7b (8)`/`Exam Tot`)
+scores_2420 <- scores_2420 %>% mutate(perf = `7b (8)`/`Exam Tot`)
+scores_5242 <- scores_5242 %>% mutate(class="Yes") %>%
+  filter(!is.na(perf))
+scores_2420 <- scores_2420 %>% mutate(class="No") %>%
+  filter(!is.na(perf))
+
+#summary(scores_5242$perf)
+#summary(scores_2420$perf)
+scores <- bind_rows(scores_5242, scores_2420)
+ggplot(scores, aes(x=class, y=perf)) + 
+  geom_boxplot() + 
+  xlab("Participated in regression competiton") +
+  ylab("Score relative to total score")
+```
+
+```{r permtest}
+pdif <- NULL
+for (i in 1:1000) {
+  x <- scores %>% select(class, perf)
+  x <- x %>% mutate(class = sample(class))
+  pdif <- c(pdif,
+            mean(x$perf[x$class=="Yes"]-
+                   mean(x$perf[x$class=="No"])))
+}
+dif <- mean(scores$perf[scores$class=="Yes"]-
+       mean(scores$perf[scores$class=="No"]))
+```
+```{r}
+tt <- t.test(scores$perf[scores$class=="Yes"], scores$perf[scores$class=="No"], alternative="greater")
+```
+
+On average the students who participated in the kaggle challenge scored `r dif` higher than those that didn't, `r mean(scores$perf[scores$class=="Yes"])` in comaprison to `r mean(scores$perf[scores$class=="No"])`. Using a permutation t-test, this corresponds to a significant difference in means, with $p$-value of `r length(pdif[pdif >= dif])/1000`. A conventional $t$-test, yields similar results with a $p$-value of `r tt$p.value`.
+
+
 
 ## Engagement
 
-To examine the correlation between student’s engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions[^2] ($PTQ$) and once normalizing by total exam marks ($PTE$). 
-
-
-[^2]: For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
-
-
-
+To examine the correlation between student’s engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions ($PTQ$) and once normalizing by total exam marks ($PTE$). For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
 
 
 
@@ -380,3 +394,33 @@ This project (title: Effect of Data Competition on Learning Experience) has been
 
 # References
 
+
+
+
+# Stuff to hang onto for now
+
+\section{Verifications}
+\label{sec:verify}
+This section will be just long enough to illustrate what a full page of
+text looks like, for margins and spacing.
+
+@Campbell02 @Schubert13 [@Chi81]
+
+# Appendix
+
+There were two data sets used for competitions, one was a regression problem and the other a classification problem. 
+
+## Melbourne price data set
+
+This data contained records of auction prices for residentia properties in Melbourne. The data was compiled from auction reports collected between Feb 2, 2013 and Dec 17, 2016. 
+
+Auction reports were published weekly by Domain and compiled by Home Price Guide (R) *COMMENT: Found the symbol* in pdf format. To read them into R we used the XXX package *COMMENT: reference to our new package for reading those reports*. The reports contained the following information about the properties sold during the week: full address, number of bedrooms, property type (house, unit/ duplex, townhouse, development site or other residential), sold price, type of sale (sold, sold prior, passed in, no bid, vendor bid, withdrawn prior to auction, sold after auction and N/A - price or highest bid not available) and agent name. We also removed all the records without the price. Over all we had 75,367 sold properties for the data competition.
+
+To enrich this data, to make it more realistic we added several additional features, number of visitors, the average rating given to the property by the visitors, number of car spaces, number of baths, land size and house size.	It is possible that some of this information might have been extracted from other web sites, given that we had the full address of the property, but the time required to research that was too daunting to tackle for the upcoming teaching period. 
+
+## Spam data set
+
+
+
+
+ 
