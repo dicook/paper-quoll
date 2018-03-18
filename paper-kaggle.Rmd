@@ -68,14 +68,28 @@ To enrich this data and make the model building process more interesting we add 
 
 -	To examine different type of students (undergraduate vs post graduate) and different learning environments (different university) the study run across three different subjects and two universities, Monash University (ETC3250 and ETC5242) and University of Melbourne (MAST90083 subject). 
 
--	Time period: semester two 2016
+-	Time period: semester two 2017
 
--	MAST90083: 63 enrolled students; postgraduate level; background: math & stats, IT and actuarial science;  
+-	MAST90083: 
+
+63 enrolled students; postgraduate level; background: math & stats, IT and actuarial science;  
+
+Students were randomly assigned to one of two groups, regression (R) or classification (C). Each group will have a data competition designed for that topic, made available through kaggle in class (https://inclass.kaggle.com). Students wored individually to build predictive models, and submit predictions for the first 16 days. On the 16^{th} day of the competition students received an email that they allowed to establish groups and continue the competition as a group. The competition was continued for additional 7 days. In case they chose to form a group, the final score of the group in total was accounted as their individual mark towards the final grade for the subject and analysed in this project.  Only 3 groups were formed, two groups with 3 students and one group with two students. All other students chose to continue the competition individually.  
+
+Note that the data competition was compulsory to all the students. The volunteering part was the questionnaire at the end of the semester asking for feedback on aspects of the class such as their competition experience, their favourite topic of the semester, and their enjoyment of the material in the subject.
+
+
 
 -	ETC5242
 
 -	ETC3250
 
+
+
+
+## Used Platform
+
+Kaggle in class (https://inclass.kaggle.com)... 
 
 
 # Methodology
@@ -356,6 +370,13 @@ We didn’t found any evidence for correlation between the performances in the c
 
 
 # Discussion
+
+# Acknowledgments
+
+This project (title: Effect of Data Competition on Learning Experience) has been approved by the Faculty of Science Human Ethics Advisory Group University of Melbourne (Ethics ID: 1749858.1 on September the 4th, 2017) and by XXX Ethics Advisory Group Monash University (Ethics ID: XXX on XXX, 2017). 
+
+
+
 
 # References
 
