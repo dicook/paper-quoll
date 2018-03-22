@@ -168,6 +168,93 @@ Examining the figure, we can see clearly the positive correlation between studen
 
 The statistical significance of this results was examined via the “permutation tests” …[TO COMPLETE].
 
+```{r permutation_function}
+
+perm_t_test <- function(x, n){ # x- table: 1col proj_alloc, 2col perf (relevant score)
+  # Original data
+  mean_reg   <- mean(x$perf[x$proj_alloc=="Melbourne Price"])
+  mean_class <- mean(x$perf[x$proj_alloc=="Spam classification"])
+  dif        <- mean(x$perf[x$proj_alloc=="Melbourne Price"]-
+                  mean(x$perf[x$proj_alloc=="Spam classification"]))
+  
+  # permutation t-test
+  pdif <- NULL
+  for (i in 1:n) {
+  x <- x %>% mutate(proj_alloc = sample(proj_alloc))
+  pdif <- c(pdif,
+            mean(x$perf[x$proj_alloc=="Melbourne Price"]-
+                   mean(x$perf[x$proj_alloc=="Spam classification"])))
+  }
+  pv_perm <- length(pdif[pdif >= dif])/n
+  
+  # conventional t-test
+  pv_ttest <- t.test(x$perf[x$proj_alloc=="Melbourne Price"], 
+                     x$perf[x$proj_alloc=="Spam classification"], 
+                     alternative="greater")$p.value
+    
+    
+  return(list("mean_reg"= mean_reg, "mean_class"= mean_class, "dif" = dif, "pv_perm" = pv_perm, "pv_ttest" = pv_ttest))
+}  
+```
+
+
+```{r permutation_function , echo = FALSE}
+num_permutations = 1000
+set.seed(123456)# fix seed
+
+
+#PTQ
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class)
+perm_t_test_ptq_class <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg)
+perm_t_test_ptq_reg <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class_reg)
+perm_t_test_ptq_class_reg <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_noncompq)
+perm_t_test_ptq_noncompq <- perm_t_test(x = x, n = num_permutations)
+
+### PTE
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class)
+perm_t_test_pte_class <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg)
+perm_t_test_pte_reg <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class_reg)
+perm_t_test_pte_class_reg <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_noncompq)
+perm_t_test_pte_noncompq <- perm_t_test(x = x, n = num_permutations)
+
+## preper a table
+
+tt <- cbind(
+t( cbind(perm_t_test_ptq_class , perm_t_test_ptq_reg , perm_t_test_ptq_class_reg , perm_t_test_ptq_noncompq)),
+
+c("","","",""),
+
+t( cbind(perm_t_test_pte_class , perm_t_test_pte_reg , perm_t_test_pte_class_reg , perm_t_test_pte_noncompq))
+)
+tt <- rbind( c("PTQ" , "PTQ" , "PTQ", "PTQ" , "PTQ" ,"" , "PTE", "PTE", "PTE", "PTE", "PTE") , tt)
+tt <- rbind(c("Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test" , "",
+                  "Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test"), tt)
+
+tt <- cbind( c("", "" , "Classification", "Regression", "Class & Reg", "Other"), tt)
+data.frame(tt)
+
+```
+
+Next we examined the statistical significance of the mean differences between the performances of the two group of students. 
+
+`r print(tt, digits = 2)`
+
+
+
+
+
 **Examining individual questions**
 
 In the final exam two questions were related to the classification methods (Q1 and Q10) and five questions were related to regression methods (Q5, Q6, Q8, Q15 and Q16). 
@@ -212,6 +299,50 @@ Figure \ref{fig:PtqPteBpClass} shows the scores distribution for the classificat
 Q1 was a multi-chose question, worth only 2 points (out of 100). Both plots, of the $PTQ$ and the $PTE$ scores show no difference between the two groups of students.
 
 Q10, was a relatedly large question, worth 10 points. Examining the medians of the $PTQ$ scores indicate only mild advantage for the students from the classification competition. However, looking on the $PTE$ scores suggests that the classification questions was much easier for the students from the classification competition comparing to all the other questions in the exam.
+
+
+```{r permutation_class_questions , echo = FALSE}
+
+set.seed(123456)# fix seed
+
+
+#PTQ
+# x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class_Q1) # 0,1 question
+# perm_t_test_ptq_class_Q1 <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class_Q10)
+perm_t_test_ptq_class_Q10 <- perm_t_test(x = x, n = num_permutations)
+
+#PTE
+# x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class_Q1)
+# perm_t_test_pte_class_Q1 <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class_Q10)
+perm_t_test_pte_class_Q10 <- perm_t_test(x = x, n = num_permutations)
+
+## preper a table
+
+tt <- cbind(
+t(  perm_t_test_ptq_class_Q10),
+
+c(""),
+
+t( perm_t_test_pte_class_Q10 )
+)
+
+tt <- rbind( c("PTQ" , "PTQ" , "PTQ", "PTQ" , "PTQ" ,"" , "PTE", "PTE", "PTE", "PTE", "PTE") , tt)
+tt <- rbind(c("Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test" , "",
+                  "Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test"), tt)
+
+tt <- cbind( c("", "", "Q10"), tt)
+data.frame(tt)
+
+```
+
+Next we examined the statistical significance of the mean differences between the performances of the two group of students for Q10. 
+
+`r print(tt, digits = 2)`
+
 
 
 ```{r PtqPteBpReg, echo = FALSE, fig.cap = "\\label{fig:PtqPteBpReg} PTQ and PTE scores distributions for regression questions", fig.width=6.5, fig.height=8}
@@ -272,6 +403,64 @@ In the performances in Q8, a 8 point fairly easy question, that dealing with the
 
 
 Finally, looking on the $PTQ$ scores, in the Q16, 4 point question, that required a deep understanding of the GAM method, one of the regression technic, the students participated the regression competition had a clear advantage over their pears participated the classification competition.     
+
+
+
+```{r permutation_Reg_questions , echo = FALSE}
+
+set.seed(123456)# fix seed
+
+
+#PTQ
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q6)
+perm_t_test_ptq_reg_Q6 <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q8)
+perm_t_test_ptq_reg_Q8 <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q15)
+perm_t_test_ptq_reg_Q15 <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q16)
+perm_t_test_ptq_reg_Q16 <- perm_t_test(x = x, n = num_permutations)
+
+### PTE
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q6)
+perm_t_test_pte_reg_Q6 <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q8)
+perm_t_test_pte_reg_Q8 <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q15)
+perm_t_test_pte_reg_Q15 <- perm_t_test(x = x, n = num_permutations)
+
+x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q16)
+perm_t_test_pte_reg_Q16 <- perm_t_test(x = x, n = num_permutations)
+
+## preper a table
+
+tt <- cbind(
+t( cbind(perm_t_test_ptq_reg_Q6 , perm_t_test_ptq_reg_Q8, perm_t_test_ptq_reg_Q15 , perm_t_test_ptq_reg_Q16)),
+
+c("","","",""),
+
+t( cbind(perm_t_test_pte_reg_Q6 , perm_t_test_pte_reg_Q8 , perm_t_test_pte_reg_Q15 , perm_t_test_pte_reg_Q16))
+)
+tt <- rbind( c("PTQ" , "PTQ" , "PTQ", "PTQ" , "PTQ" ,"" , "PTE", "PTE", "PTE", "PTE", "PTE") , tt)
+tt <- rbind(c("Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test" , "",
+                  "Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test"), tt)
+
+tt <- cbind( c("", "" , "Q6", "Q8", "Q15", "Q16"), tt)
+data.frame(tt)
+
+```
+
+
+
+
+Next we examined the statistical significance of the mean differences between the performances of the two group of students for Q6, Q8, Q15 and Q16. 
+
+`r print(tt, digits = 2)`
 
 
 Examining all the remind exam questions weren’t arise any different between the two groups of students.
