@@ -44,46 +44,39 @@ BibOptions(check.entries = FALSE, style = "markdown", bib.style = "alphabetic", 
 
 # Introduction
 
-Kaggle is well-known for the richly funded data competitinns, where participants compete to score the lowest error in their model fitting. Recently, they have made it possible to run in-class competitions, private and limited to members of a university course. This work explores how student participation in these challenges improves performance, engagement, interest
-
-@Campbell02 @Schubert13 [@Chi81]
-
+Kaggle [@kaggle] is well-known for the data competitions, some richly funded. It provides a platform for predictive modelling and analytics competitions where participants compete to produce the best predictive model for a given data set. In 2015, Kaggle InClass was introduced, as a self-service platform to conduct competitions. These competitions can be private, limited to members of a university course, and are easy to setup. This paper examines the educational benefits of conducting predictive modeling competitions in class on performance, engagement and interest.
 
 # Experimental setup
 
 ## Data collection
 
-Explain experimental design: two compeitions, two locations, two courses, one with students randomised into two groups, the other with control group of students and regression challenge, and exam questions. (Not sure how to incorporate ETC3250 students at the moment.)
+The experiment was conducted during Fall semester 2017. Data was collected during three classes, one at the University of Melbourne (MAST90083), and two at Monash University (ETC2420/5242 and ETC3250). 
+
+## Competition data
+
+Two data sets were compiled for the kaggle challenges: Melbourne property auction prices and spam classification. The Melbourne auction price data was compiled by extracting information from real estate auction reports (pdf) collected between Feb 2, 2013 and Dec 17, 2016. Students were expected to predict price based on the property characteristics. The spam classificaation data was compiled by graduate students at Iowa State University as part of a statistical computing class by Dr Heike Hofmann, in XXX. Data was compiled by monitoring and extracting information from emails over a period of a week, and manually classifying them as spam or ham. Students were expected to classify the email as spam or not. 
+
+Both data sets provide substantial challenge for prediction.
 
 ## Participants
 
--	To examine different type of students (undergraduate vs post graduate) and different learning environments (different university) the study run across three different subjects and two universities, Monash University (ETC3250 and ETC5242) and University of Melbourne (MAST90083 subject). 
+MAST90083 is titled Computational Statistics and Data Mining, is designed for postgraduate level, for students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). Students individually built prediction models and made submissions for 16 days, and then were allowed to form groups to compete for another 7 days. 
 
--	Time period: semester two 2017
+ETC2420/5242, titled Statistical Thinking, covers regression, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate students were required to participate in the kaggle competition focused on regression (R). The 145 undergraduate students are considered control for examining performance. The competition ran for one month. Students formed their own teams of 2-4 members to compete. Several undergraduates also chose to compete individually. 
 
--	MAST90083: 
+ETC3250, called Business Analytics, is an undergraduate course focusing on data mining. All students participated in a kaggle competition on a classification problem. Because this group had no comparison group, it was difficult to assess performance. This data was primarily used to examine engagement and interest based on a follow-up questionnaire.
 
+<!--
 63 enrolled students; postgraduate level; background: math & stats, IT and actuarial science;  
 
 Students were randomly assigned to one of two groups, regression (R) or classification (C). Each group will have a data competition designed for that topic, made available through kaggle in class (https://inclass.kaggle.com). Students wored individually to build predictive models, and submit predictions for the first 16 days. On the 16^{th} day of the competition students received an email that they allowed to establish groups and continue the competition as a group. The competition was continued for additional 7 days. In case they chose to form a group, the final score of the group in total was accounted as their individual mark towards the final grade for the subject and analysed in this project.  Only 3 groups were formed, two groups with 3 students and one group with two students. All other students chose to continue the competition individually.  
 
 Note that the data competition was compulsory to all the students. The volunteering part was the questionnaire at the end of the semester asking for feedback on aspects of the class such as their competition experience, their favourite topic of the semester, and their enjoyment of the material in the subject.
+-->
 
+## Platform
 
-
--	ETC5242
-
--	ETC3250
-
-## Competitions
-
-
-
-
-## Used Platform
-
-Kaggle in class (https://inclass.kaggle.com)... 
-
+MAST90083 used \url{https://inclass.kaggle.com/c}. ETC2420/5242 used \url{https://inclass.kaggle.com/c/vitticeps}. ETC3250 used \url{}.
 
 # Methodology
 
@@ -119,7 +112,10 @@ In addition, the $PTQ$ and the $PTE$ scores were calculated to each of the quest
 
 ```{r}
 # read Unimelb data
-UniMelbData <- read.csv(file="data/UniMeldUnIndef.csv", header=TRUE, sep=",")
+# UniMelbData <- read_csv(file="data/UniMeldUnIndef.csv")
+# UniMelbData <- UniMelbData %>% select(-LastName, -FirstName, -StudentID)
+# write_csv(UniMelbData, path="data/deidentified_UMelb.csv")
+UniMelbData <- read_csv(file="data/deidentified_UMelb.csv") #, header=TRUE, sep=",")
 ```
 
 ```{r PtqPteBpGroup, echo = FALSE, fig.cap = "\\label{fig:PtqPteBpGroup} PTQ and PTE scores distributions over different question groups", fig.width=6.5, fig.height=8}
@@ -168,22 +164,21 @@ Examining the figure, we can see clearly the positive correlation between studen
 
 The statistical significance of this results was examined via the “permutation tests” …[TO COMPLETE].
 
-```{r permutation_function}
-
-perm_t_test <- function(x, n){ # x- table: 1col proj_alloc, 2col perf (relevant score)
+```{r eval=FALSE}
+perm_test <- function(x, cl, n){ # x- table: 1col proj_alloc, 2col perf (relevant score)
   # Original data
-  mean_reg   <- mean(x$perf[x$proj_alloc=="Melbourne Price"])
-  mean_class <- mean(x$perf[x$proj_alloc=="Spam classification"])
-  dif        <- mean(x$perf[x$proj_alloc=="Melbourne Price"]-
-                  mean(x$perf[x$proj_alloc=="Spam classification"]))
+  mean_reg   <- median(x$perf[x$proj_alloc=="Melbourne Price"])
+  mean_class <- median(x$perf[x$proj_alloc=="Spam classification"])
+  dif        <- median(x$perf[x$proj_alloc=="Melbourne Price"]-
+                  median(x$perf[x$proj_alloc=="Spam classification"]))
   
   # permutation t-test
   pdif <- NULL
   for (i in 1:n) {
   x <- x %>% mutate(proj_alloc = sample(proj_alloc))
   pdif <- c(pdif,
-            mean(x$perf[x$proj_alloc=="Melbourne Price"]-
-                   mean(x$perf[x$proj_alloc=="Spam classification"])))
+            median(x$perf[x$proj_alloc=="Melbourne Price"]-
+                   median(x$perf[x$proj_alloc=="Spam classification"])))
   }
   pv_perm <- length(pdif[pdif >= dif])/n
   
@@ -198,45 +193,45 @@ perm_t_test <- function(x, n){ # x- table: 1col proj_alloc, 2col perf (relevant 
 ```
 
 
-```{r permutation_function , echo = FALSE}
+```{r echo = FALSE, eval=FALSE}
 num_permutations = 1000
 set.seed(123456)# fix seed
 
 
 #PTQ
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class)
-perm_t_test_ptq_class <- perm_t_test(x = x, n = num_permutations)
+perm_test_ptq_class <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg)
-perm_t_test_ptq_reg <- perm_t_test(x = x, n = num_permutations)
+perm_test_ptq_reg <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class_reg)
-perm_t_test_ptq_class_reg <- perm_t_test(x = x, n = num_permutations)
+perm_test_ptq_class_reg <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_noncompq)
-perm_t_test_ptq_noncompq <- perm_t_test(x = x, n = num_permutations)
+perm_test_ptq_noncompq <- perm_test(x = x, n = num_permutations)
 
 ### PTE
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class)
-perm_t_test_pte_class <- perm_t_test(x = x, n = num_permutations)
+perm_test_pte_class <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg)
-perm_t_test_pte_reg <- perm_t_test(x = x, n = num_permutations)
+perm_test_pte_reg <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class_reg)
-perm_t_test_pte_class_reg <- perm_t_test(x = x, n = num_permutations)
+perm_test_pte_class_reg <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_noncompq)
-perm_t_test_pte_noncompq <- perm_t_test(x = x, n = num_permutations)
+perm_test_pte_noncompq <- perm_test(x = x, n = num_permutations)
 
 ## preper a table
 
 tt <- cbind(
-t( cbind(perm_t_test_ptq_class , perm_t_test_ptq_reg , perm_t_test_ptq_class_reg , perm_t_test_ptq_noncompq)),
+t( cbind(perm_test_ptq_class , perm_test_ptq_reg , perm_test_ptq_class_reg , perm_test_ptq_noncompq)),
 
 c("","","",""),
 
-t( cbind(perm_t_test_pte_class , perm_t_test_pte_reg , perm_t_test_pte_class_reg , perm_t_test_pte_noncompq))
+t( cbind(perm_test_pte_class , perm_test_pte_reg , perm_test_pte_class_reg , perm_test_pte_noncompq))
 )
 tt <- rbind( c("PTQ" , "PTQ" , "PTQ", "PTQ" , "PTQ" ,"" , "PTE", "PTE", "PTE", "PTE", "PTE") , tt)
 tt <- rbind(c("Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test" , "",
@@ -247,9 +242,36 @@ data.frame(tt)
 
 ```
 
+```{r}
+pdif <- NULL
+for (i in 1:1000) {
+  x <- UniMelbData %>% select(Proj_alloc, pte_class)
+  x <- x %>% mutate(class = sample(Proj_alloc))
+  pdif <- c(pdif,
+            median(x$pte_class[x$class=="Spam classification"]-
+                   median(x$pte_class[x$class=="Melbourne Price"])))
+}
+dif <- median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="Spam classification"]-
+       median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="Melbourne Price"]))
+length(pdif[pdif >= dif])/1000
+```
+
+```{r}
+pdif <- NULL
+for (i in 1:1000) {
+  x <- UniMelbData %>% select(Proj_alloc, pte_reg)
+  x <- x %>% mutate(class = sample(Proj_alloc))
+  pdif <- c(pdif,
+            median(x$pte_reg[x$class=="Melbourne Price"]-
+                   median(x$pte_reg[x$class=="Spam classification"])))
+}
+dif <- median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="Melbourne Price"]-
+       median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="Spam classification"]))
+length(pdif[pdif >= dif])/1000
+```
+
 Next we examined the statistical significance of the mean differences between the performances of the two group of students. 
 
-`r print(tt, digits = 2)`
 
 
 
@@ -301,33 +323,33 @@ Q1 was a multi-chose question, worth only 2 points (out of 100). Both plots, of 
 Q10, was a relatedly large question, worth 10 points. Examining the medians of the $PTQ$ scores indicate only mild advantage for the students from the classification competition. However, looking on the $PTE$ scores suggests that the classification questions was much easier for the students from the classification competition comparing to all the other questions in the exam.
 
 
-```{r permutation_class_questions , echo = FALSE}
+```{r permutation_class_questions, echo = FALSE, eval=FALSE}
 
 set.seed(123456)# fix seed
 
 
 #PTQ
 # x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class_Q1) # 0,1 question
-# perm_t_test_ptq_class_Q1 <- perm_t_test(x = x, n = num_permutations)
+# perm_test_ptq_class_Q1 <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class_Q10)
-perm_t_test_ptq_class_Q10 <- perm_t_test(x = x, n = num_permutations)
+perm_test_ptq_class_Q10 <- perm_test(x = x, n = num_permutations)
 
 #PTE
 # x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class_Q1)
-# perm_t_test_pte_class_Q1 <- perm_t_test(x = x, n = num_permutations)
+# perm_test_pte_class_Q1 <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class_Q10)
-perm_t_test_pte_class_Q10 <- perm_t_test(x = x, n = num_permutations)
+perm_test_pte_class_Q10 <- perm_test(x = x, n = num_permutations)
 
 ## preper a table
 
 tt <- cbind(
-t(  perm_t_test_ptq_class_Q10),
+t(  perm_test_ptq_class_Q10),
 
 c(""),
 
-t( perm_t_test_pte_class_Q10 )
+t( perm_test_pte_class_Q10 )
 )
 
 tt <- rbind( c("PTQ" , "PTQ" , "PTQ", "PTQ" , "PTQ" ,"" , "PTE", "PTE", "PTE", "PTE", "PTE") , tt)
@@ -340,8 +362,6 @@ data.frame(tt)
 ```
 
 Next we examined the statistical significance of the mean differences between the performances of the two group of students for Q10. 
-
-`r print(tt, digits = 2)`
 
 
 
@@ -406,45 +426,45 @@ Finally, looking on the $PTQ$ scores, in the Q16, 4 point question, that require
 
 
 
-```{r permutation_Reg_questions , echo = FALSE}
+```{r permutation_Reg_questions, echo = FALSE, eval=FALSE}
 
 set.seed(123456)# fix seed
 
 
 #PTQ
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q6)
-perm_t_test_ptq_reg_Q6 <- perm_t_test(x = x, n = num_permutations)
+perm_test_ptq_reg_Q6 <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q8)
-perm_t_test_ptq_reg_Q8 <- perm_t_test(x = x, n = num_permutations)
+perm_test_ptq_reg_Q8 <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q15)
-perm_t_test_ptq_reg_Q15 <- perm_t_test(x = x, n = num_permutations)
+perm_test_ptq_reg_Q15 <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q16)
-perm_t_test_ptq_reg_Q16 <- perm_t_test(x = x, n = num_permutations)
+perm_test_ptq_reg_Q16 <- perm_test(x = x, n = num_permutations)
 
 ### PTE
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q6)
-perm_t_test_pte_reg_Q6 <- perm_t_test(x = x, n = num_permutations)
+perm_test_pte_reg_Q6 <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q8)
-perm_t_test_pte_reg_Q8 <- perm_t_test(x = x, n = num_permutations)
+perm_test_pte_reg_Q8 <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q15)
-perm_t_test_pte_reg_Q15 <- perm_t_test(x = x, n = num_permutations)
+perm_test_pte_reg_Q15 <- perm_test(x = x, n = num_permutations)
 
 x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q16)
-perm_t_test_pte_reg_Q16 <- perm_t_test(x = x, n = num_permutations)
+perm_test_pte_reg_Q16 <- perm_test(x = x, n = num_permutations)
 
 ## preper a table
 
 tt <- cbind(
-t( cbind(perm_t_test_ptq_reg_Q6 , perm_t_test_ptq_reg_Q8, perm_t_test_ptq_reg_Q15 , perm_t_test_ptq_reg_Q16)),
+t( cbind(perm_test_ptq_reg_Q6 , perm_test_ptq_reg_Q8, perm_test_ptq_reg_Q15 , perm_test_ptq_reg_Q16)),
 
 c("","","",""),
 
-t( cbind(perm_t_test_pte_reg_Q6 , perm_t_test_pte_reg_Q8 , perm_t_test_pte_reg_Q15 , perm_t_test_pte_reg_Q16))
+t( cbind(perm_test_pte_reg_Q6 , perm_test_pte_reg_Q8 , perm_test_pte_reg_Q15 , perm_test_pte_reg_Q16))
 )
 tt <- rbind( c("PTQ" , "PTQ" , "PTQ", "PTQ" , "PTQ" ,"" , "PTE", "PTE", "PTE", "PTE", "PTE") , tt)
 tt <- rbind(c("Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test" , "",
@@ -460,7 +480,6 @@ data.frame(tt)
 
 Next we examined the statistical significance of the mean differences between the performances of the two group of students for Q6, Q8, Q15 and Q16. 
 
-`r print(tt, digits = 2)`
 
 
 Examining all the remind exam questions weren’t arise any different between the two groups of students.
@@ -502,17 +521,17 @@ for (i in 1:1000) {
   x <- scores %>% select(class, perf)
   x <- x %>% mutate(class = sample(class))
   pdif <- c(pdif,
-            mean(x$perf[x$class=="Yes"]-
-                   mean(x$perf[x$class=="No"])))
+            median(x$perf[x$class=="Yes"]-
+                   median(x$perf[x$class=="No"])))
 }
-dif <- mean(scores$perf[scores$class=="Yes"]-
-       mean(scores$perf[scores$class=="No"]))
+dif <- median(scores$perf[scores$class=="Yes"]-
+       median(scores$perf[scores$class=="No"]))
 ```
 ```{r}
 tt <- t.test(scores$perf[scores$class=="Yes"], scores$perf[scores$class=="No"], alternative="greater")
 ```
 
-On average the students who participated in the kaggle challenge scored `r dif` higher than those that didn't, `r mean(scores$perf[scores$class=="Yes"])` in comaprison to `r mean(scores$perf[scores$class=="No"])`. Using a permutation t-test, this corresponds to a significant difference in means, with $p$-value of `r length(pdif[pdif >= dif])/1000`. A conventional $t$-test, yields similar results with a $p$-value of `r tt$p.value`.
+On average the students who participated in the kaggle challenge scored `r dif` higher than those that didn't, a median of `r mean(scores$perf[scores$class=="Yes"])` in comparison to `r mean(scores$perf[scores$class=="No"])`. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r length(pdif[pdif >= dif])/1000`. A conventional two-sample $t$-test, of mean difference, yields similar results with a $p$-value of `r tt$p.value`.
 
 
 
@@ -576,7 +595,7 @@ We didn’t found any evidence for correlation between the performances in the c
 
 # Acknowledgments
 
-This project (title: Effect of Data Competition on Learning Experience) has been approved by the Faculty of Science Human Ethics Advisory Group University of Melbourne (Ethics ID: 1749858.1 on September the 4th, 2017) and by XXX Ethics Advisory Group Monash University (Ethics ID: XXX on XXX, 2017). 
+This project (title: Effect of Data Competition on Learning Experience) has been approved by the Faculty of Science Human Ethics Advisory Group University of Melbourne (ID: 1749858.1 on September the 4th, 2017) and by Monash University Human Research Ethics Committee (ID: 9985 on 24/08/2017). 
 
 
 

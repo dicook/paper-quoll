@@ -2,12 +2,15 @@
 %% http://bibdesk.sourceforge.net/
 
 
-%% Created for Galyardt at 2014-08-21 22:49:39 -0400 
+%% Created for Galyardt at 2014-08-21 22:49:39 -0400
 
 
-%% Saved with string encoding Unicode (UTF-8) 
+%% Saved with string encoding Unicode (UTF-8)
 
-
+@misc{kaggle, year=2018,
+  title={The Home of Data Science \& Machine Learning},
+  author={{The Kaggle Team}},
+  howpublished={\url{https://www.kaggle.com}}}
 
 @incollection{Galyardt14mmm,
 	Author = {April Galyardt},
@@ -200,25 +203,25 @@
 	Year = {2013}}
 
 @article{Girolami05,
-	Abstract = {To provide a parsimonious generative representation of the sequential activity of a number of individuals within a population there is a necessary tradeoff between the definition of individual specific and global 
+	Abstract = {To provide a parsimonious generative representation of the sequential activity of a number of individuals within a population there is a necessary tradeoff between the definition of individual specific and global
 representations. A linear-time algorithm is proposed that defines a distributed predictive model for finite state symbolic sequences which represent the traces of the activity of a number of individuals within a group. The algorithm is based on a straightforward generalization of latent Dirichlet allocation to time-invariant Markov chains of arbitrary order. The modelling assumption made is that the possibly heterogeneous behavior of individuals may be represented by a relatively small number of simple and common behavioral traits which may interleave randomly according to an individual-specific distribution. The results of an empirical study on three different application domains indicate that this modelling approach provides an efficient low-complexity and intuitively interpretable representation scheme which is reflected by improved prediction performance over comparable models.},
-	Annote = {Builds a mixed-membership model where the basis profiles are markov chains of varying order. 
+	Annote = {Builds a mixed-membership model where the basis profiles are markov chains of varying order.
 Uses two types of estimation: Variational approximation, and "maximum a posteriori" (MAP)
-Fits model on 3 different data sets of user-log data: actions in a word processor, sequences of calls to different geographic regions (UK), and finally web page browsing. 
+Fits model on 3 different data sets of user-log data: actions in a word processor, sequences of calls to different geographic regions (UK), and finally web page browsing.
 
 Compares models on "perplexity" which they define as the exponential of the negative-normalized log-likelihood.  (Might be a standard markov-chain goodness of fit measure, or it might be more standard to ML)
 They use t-tests and non-parametric Wilcoxon Rank-Sum tests to test for significant differences in perplexity.
 
-They call their model a "simplical mixture of markov chains" and cite Minka and Lafferty 2002. 
+They call their model a "simplical mixture of markov chains" and cite Minka and Lafferty 2002.
 
-For the zero^th order Markov model (when no memory is assumed in the markov process), then their model reduces to a multinomial LDA model. 
+For the zero^th order Markov model (when no memory is assumed in the markov process), then their model reduces to a multinomial LDA model.
 
-They also claim that Hofmann's pLSA algorithm is equivalent to LDA when the MAP estimator is calculated through an iterative convergence method. Suggests that LDA is an improvement over pLSA because of the estimation method used.  Cites Lappalainen and Miskin (2000) on the weakness of MAP estimators. 
+They also claim that Hofmann's pLSA algorithm is equivalent to LDA when the MAP estimator is calculated through an iterative convergence method. Suggests that LDA is an improvement over pLSA because of the estimation method used.  Cites Lappalainen and Miskin (2000) on the weakness of MAP estimators.
 
-For all the data sets, the mixed-membership model offers better results. Better on the goodness-of-fit measures and more interpretable results.  The differences were clearer on the bigger data sets with larger state-spaces. 
+For all the data sets, the mixed-membership model offers better results. Better on the goodness-of-fit measures and more interpretable results.  The differences were clearer on the bigger data sets with larger state-spaces.
 
 Data Structure:  only 1 item per model - the sequences (J=1)
-	many replications of each item (big R) 
+	many replications of each item (big R)
 
 They offer some additional comments on computational algorithms and computational time.},
 	Author = {Mark Girolami and Ata Kaban},
