@@ -26,6 +26,7 @@ output: rticles::asa_article
 
 ```{r cache=FALSE, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 #packages:
+library(knitr)
 library(bookdown)
 library(knitcitations)
 library(RefManageR)
@@ -33,7 +34,6 @@ library("tidyverse")
 #library("ggpubr")
 library("readxl")
 library("gridExtra")
-
 
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, kfigr.link=TRUE, kfigr.prefix=TRUE, cache=TRUE, fig.env = TRUE, fig.cap=TRUE, fig.height=3)
 
@@ -76,428 +76,125 @@ Note that the data competition was compulsory to all the students. The volunteer
 
 ## Platform
 
-MAST90083 used \url{https://inclass.kaggle.com/c}. ETC2420/5242 used \url{https://inclass.kaggle.com/c/vitticeps}. ETC3250 used \url{}.
+MAST90083 used \url{https://inclass.kaggle.com/c/XXX}. ETC2420/5242 used \url{https://inclass.kaggle.com/c/vitticeps}. ETC3250 used \url{https://inclass.kaggle.com/c/XXX}.
 
 # Methodology
 
+## Performance
 
+MAST90083 and ETC2420/5242 included questions on the final exam related to kaggle challenges. Scores for these questions were normalised by the student's total exam score, in order to examine the effect of competition participation on performance. Better performance is equated to better understanding of the material. MAST90083 had the added benefit of multiple part questions with only some parts relating to the competition material. This data was also normalised by question total, to examine understanding in finer detail. ETC2420/5242 covered many topics related to statistical thinking, and included only one of nine questions related to the competition topic.
 
+XXX Can we do % improvement? Need ot be explicit in how the normalisation was conducted. Give formula.
 
+Permutation tests were conducted to examine difference in median scores for students participating or not in a competition. Normalised scores were examined using side-by-side boxplots.  
 
+## Engagement
 
+The students were allowed to submit at most one prediction per day, while the  competition was open. Some students were very engaged in the competition, and took this seriously, competing to get the best model on a daily basis. To examine whether engagement improved performance, exam scores are examined in relation to frequency of submissions during the competition. The variables are shown in a scatterplot, and a linear model was fitted with performance as the response.
 
+## Interest
 
-
-
-
+Students were invited to give feedback about the course, in particular about the data competitions, before the final exam. This information was voluntary, and students who completed the questionnaire were rewarded with a coupon for a free coffee.
 
 # Results
 
 ## Performance
 
-### MAST90083
+Figure \ref{fig:MAST90083} shows the data collected in MAST90083. Normalized scores for the classification and regression questions are plotted as boxplots against type of competition participation. The normalized scores were computed based on overall test score (CE, RE), in plots A, B, as well as by overall question score (CQ, RQ), in plots C, D. The difference in median scores indicates performance improvement. In plot A, the normalized scores for the classification questions were better for students who participated in the classification competition. From plot B, a very small increase in median score on the regression questions can be seen for the students who participated in the regression competition. Plots C, D show the scores normalized by total question score. This increases the difference for the regression performance.
 
-We have examined two normalizations. Once, we normalized the score for the question (or group of questions) by the maximum possible score for the question (or the group of questions), denoted as $PTQ$. We also normalized by the total exam score, denoted as $PTE$. 
-The $PTQ$ and the $PTE$ scores were calculated for each student for the following four clusters of questions
-
-- Questions related to classification methods
-
-- Questions related to regression methods
-
-- Questions related to the classification and regression methods
-
-- Questions related to other topics that covered during the subject but unrelated to the data competition
-
-In addition, the $PTQ$ and the $PTE$ scores were calculated to each of the questions in the first and the second clasters.
-
-```{r}
-# read Unimelb data
-# UniMelbData <- read_csv(file="data/UniMeldUnIndef.csv")
-# UniMelbData <- UniMelbData %>% select(-LastName, -FirstName, -StudentID)
-# write_csv(UniMelbData, path="data/deidentified_UMelb.csv")
-UniMelbData <- read_csv(file="data/deidentified_UMelb.csv") #, header=TRUE, sep=",")
-```
-
-```{r PtqPteBpGroup, echo = FALSE, fig.cap = "\\label{fig:PtqPteBpGroup} PTQ and PTE scores distributions over different question groups", fig.width=6.5, fig.height=8}
-## Groups points questions / total posible points for the questions
-g_ptq_class <- ggplot(UniMelbData, aes(Proj_alloc, ptq_class)) + geom_boxplot() + 
-                xlab("Project allocation") + ylab("")
-g_ptq_reg <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg)) + geom_boxplot() + 
-                xlab("Project allocation") + ylab("")
-g_ptq_class_reg <- ggplot(UniMelbData, aes(Proj_alloc, ptq_class_reg)) + geom_boxplot() + 
-                    xlab("Project allocation") + ylab("")
-g_ptq_noncompq <- ggplot(UniMelbData, aes(Proj_alloc, ptq_noncompq)) + geom_boxplot() + 
-                    xlab("Project allocation") + ylab("")
-                    
-
-g_pte_class <- ggplot(UniMelbData, aes(Proj_alloc, pte_class)) + geom_boxplot() + 
-                xlab("Project allocation") + ylab("")
-g_pte_reg <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg)) + geom_boxplot() + 
-                xlab("Project allocation") + ylab("")
-g_pte_class_reg <- ggplot(UniMelbData, aes(Proj_alloc, pte_class_reg)) + geom_boxplot() + 
-                xlab("Project allocation") + ylab("")
-g_pte_noncompq <- ggplot(UniMelbData, aes(Proj_alloc, pte_noncompq)) + geom_boxplot() + 
-                xlab("Project allocation") + ylab("")
-
-
-pl <- list(g_ptq_class, g_ptq_reg, g_ptq_class_reg,  g_ptq_noncompq,
-           g_pte_class, g_pte_reg, g_pte_class_reg , g_pte_noncompq )
-
-# Create row and column titles
-col.titles = c("PTQ", "PTE")
-row.titles = c( "Classification", "Regression", "Class & Reg", "Other")
-
-# Add row titles
-pl[1:4] = lapply(1:4, function(i) arrangeGrob(pl[[i]], left=row.titles[i]))
-
-# Add column titles and lay out plots
-grid.arrange(grobs=lapply(c(1,5), function(i) {
-  arrangeGrob(grobs=pl[i:(i+3)], top=col.titles[i/4 + 1], ncol=1)
-}), ncol=2)
-```
-
-Figure \ref{fig:PtqPteBpGroup} shows the boxplots for the $PTQ$ scores and the $PTE$ scores for each group of students. The left boxplot is related to the students that took part in the data competition related to the regression methods, the Melbourne Price competition. The right boxplot is related to the students that took part in the data competition related to the calssification methods, the Spam classification competition.
-
-The plots in the left column summarize the $PTQ$ scores and the plots in the right column summarize the $PTE$ scores. The four questions clusters are corresponding to the four rows in the figure.
-
-Examining the figure, we can see clearly the positive correlation between student’s scores and the type of the data competition.  Namely, the median score ($PTQ$ and $PTE$) of the students that took part in the regression related competition is higher for regression questions. Similarly, for the students that took part in the classification related competitions. There is no significant different in the medians of the two groups of students for the question related to the general question covered both the classification and the regression methods. As well as for the all other question related to other topics covered during the subject.
-
-The statistical significance of this results was examined via the “permutation tests” …[TO COMPLETE].
-
-```{r eval=FALSE}
-perm_test <- function(x, cl, n){ # x- table: 1col proj_alloc, 2col perf (relevant score)
-  # Original data
-  mean_reg   <- median(x$perf[x$proj_alloc=="Melbourne Price"])
-  mean_class <- median(x$perf[x$proj_alloc=="Spam classification"])
-  dif        <- median(x$perf[x$proj_alloc=="Melbourne Price"]-
-                  median(x$perf[x$proj_alloc=="Spam classification"]))
-  
-  # permutation t-test
-  pdif <- NULL
-  for (i in 1:n) {
-  x <- x %>% mutate(proj_alloc = sample(proj_alloc))
-  pdif <- c(pdif,
-            median(x$perf[x$proj_alloc=="Melbourne Price"]-
-                   median(x$perf[x$proj_alloc=="Spam classification"])))
-  }
-  pv_perm <- length(pdif[pdif >= dif])/n
-  
-  # conventional t-test
-  pv_ttest <- t.test(x$perf[x$proj_alloc=="Melbourne Price"], 
-                     x$perf[x$proj_alloc=="Spam classification"], 
-                     alternative="greater")$p.value
-    
-    
-  return(list("mean_reg"= mean_reg, "mean_class"= mean_class, "dif" = dif, "pv_perm" = pv_perm, "pv_ttest" = pv_ttest))
-}  
-```
-
-
-```{r echo = FALSE, eval=FALSE}
-num_permutations = 1000
-set.seed(123456)# fix seed
-
-
-#PTQ
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class)
-perm_test_ptq_class <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg)
-perm_test_ptq_reg <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class_reg)
-perm_test_ptq_class_reg <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_noncompq)
-perm_test_ptq_noncompq <- perm_test(x = x, n = num_permutations)
-
-### PTE
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class)
-perm_test_pte_class <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg)
-perm_test_pte_reg <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class_reg)
-perm_test_pte_class_reg <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_noncompq)
-perm_test_pte_noncompq <- perm_test(x = x, n = num_permutations)
-
-## preper a table
-
-tt <- cbind(
-t( cbind(perm_test_ptq_class , perm_test_ptq_reg , perm_test_ptq_class_reg , perm_test_ptq_noncompq)),
-
-c("","","",""),
-
-t( cbind(perm_test_pte_class , perm_test_pte_reg , perm_test_pte_class_reg , perm_test_pte_noncompq))
-)
-tt <- rbind( c("PTQ" , "PTQ" , "PTQ", "PTQ" , "PTQ" ,"" , "PTE", "PTE", "PTE", "PTE", "PTE") , tt)
-tt <- rbind(c("Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test" , "",
-                  "Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test"), tt)
-
-tt <- cbind( c("", "" , "Classification", "Regression", "Class & Reg", "Other"), tt)
-data.frame(tt)
-
-```
-
-```{r}
-pdif <- NULL
+```{r Melb, fig.cap = "\\label{fig:MAST90083} Performance on regression and classification questions relative to total exam score (A, B) and overall question (C, D) for students by type of data competition in MAST90083. Differences in medians indicate improved performance.", fig.height=5, fig.width=6}
+library(tidyverse)
+library(gridExtra)
+library(forcats)
+UniMelbData <- read_csv(file="data/deidentified_UMelb.csv") 
+UniMelbData <- UniMelbData %>% mutate(Proj_alloc=fct_recode(Proj_alloc, "regression"="Melbourne Price", "classification"="Spam classification"))
+g_pte_class <- ggplot(UniMelbData, aes(Proj_alloc, pte_class)) +
+  geom_boxplot() + 
+  xlab("") + 
+  ylab("CE") + 
+  annotate("text", x=0.5, y=0.2, label="A") + 
+  ggtitle("Classification Performance")
+g_pte_reg <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg)) + 
+  geom_boxplot() + 
+  xlab("") + 
+  ylab("RE") + 
+  annotate("text", x=0.5, y=0.4, label="B") + 
+  ggtitle("Regression Performance")
+g_ptq_class <- ggplot(UniMelbData, aes(Proj_alloc, ptq_class)) +
+  geom_boxplot() + 
+  xlab("Competition") + 
+  ylab("CQ") + 
+  annotate("text", x=0.5, y=1.0, label="C")
+g_ptq_reg <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg)) + 
+  geom_boxplot() + 
+  xlab("Competition") + 
+  ylab("RQ") + 
+  annotate("text", x=0.5, y=1.0, label="D")
+grid.arrange(g_pte_class, g_pte_reg, g_ptq_class, g_ptq_reg, ncol=2)
+set.seed(88888)
+pdif_C <- NULL
 for (i in 1:1000) {
   x <- UniMelbData %>% select(Proj_alloc, pte_class)
   x <- x %>% mutate(class = sample(Proj_alloc))
-  pdif <- c(pdif,
-            median(x$pte_class[x$class=="Spam classification"]-
-                   median(x$pte_class[x$class=="Melbourne Price"])))
+  pdif_C <- c(pdif_C,
+            median(x$pte_class[x$class=="classification"]-
+                   median(x$pte_class[x$class=="regression"])))
 }
-dif <- median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="Spam classification"]-
-       median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="Melbourne Price"]))
-length(pdif[pdif >= dif])/1000
-```
-
-```{r}
-pdif <- NULL
+dif_C <- median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="classification"]-
+       median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="regression"]))
+pdif_R <- NULL
 for (i in 1:1000) {
   x <- UniMelbData %>% select(Proj_alloc, pte_reg)
   x <- x %>% mutate(class = sample(Proj_alloc))
-  pdif <- c(pdif,
-            median(x$pte_reg[x$class=="Melbourne Price"]-
-                   median(x$pte_reg[x$class=="Spam classification"])))
+  pdif_R <- c(pdif_R,
+            median(x$pte_reg[x$class=="regression"]-                   median(x$pte_reg[x$class=="classification"])))
 }
-dif <- median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="Melbourne Price"]-
-       median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="Spam classification"]))
-length(pdif[pdif >= dif])/1000
+dif_R <- median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="regression"]-
+       median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="classification"]))
+pdif_CQ <- NULL
+for (i in 1:1000) {
+  x <- UniMelbData %>% select(Proj_alloc, ptq_class)
+  x <- x %>% mutate(class = sample(Proj_alloc))
+  pdif_CQ <- c(pdif_CQ,
+            median(x$ptq_class[x$class=="classification"]-
+            median(x$ptq_class[x$class=="regression"])))
+}
+dif_CQ <- median(UniMelbData$ptq_class[UniMelbData$Proj_alloc=="classification"]-
+       median(UniMelbData$ptq_class[UniMelbData$Proj_alloc=="regression"]))
+pdif_RQ <- NULL
+for (i in 1:1000) {
+  x <- UniMelbData %>% select(Proj_alloc, ptq_reg)
+  x <- x %>% mutate(class = sample(Proj_alloc))
+  pdif_RQ <- c(pdif_RQ,
+            median(x$ptq_reg[x$class=="regression"]-
+              median(x$ptq_reg[x$class=="classification"])))
+}
+dif_RQ <- median(UniMelbData$ptq_reg[UniMelbData$Proj_alloc=="regression"]-
+       median(UniMelbData$ptq_reg[UniMelbData$Proj_alloc=="classification"]))
 ```
 
-Next we examined the statistical significance of the mean differences between the performances of the two group of students. 
+Table \ref{tab:Melb_Perm} shows the results of permutation testing of median difference between the groups. Generally the results support the competition improved performance. Students who participated in the kaggle challenge for classification scored `r round(dif_C, 2)` higher than those that did the regression competition, on the classification problem. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r round(length(pdif_C[pdif_C >= dif_C])/1000, 3)`. 
 
-
-
-
-
-
-**Examining individual questions**
-
-In the final exam two questions were related to the classification methods (Q1 and Q10) and five questions were related to regression methods (Q5, Q6, Q8, Q15 and Q16). 
-
-
-```{r PtqPteBpClass, echo = FALSE, fig.cap = "\\label{fig:PtqPteBpClass} PTQ and PTE scores distributions for classification questions" , fig.width=6.5, fig.height=3.7}
-
-# Classification: Q1 & Q10 
-UniMelbData$ptq_class_Q1 <- as.factor(UniMelbData$ptq_class_Q1)
-g_ptq_class_Q1 <- ggplot(UniMelbData, aes( ptq_class_Q1)) + geom_bar() + 
-  facet_grid( .  ~ Proj_alloc)  + xlab("") + ylab("Num. of Students")
-g_ptq_class_Q10 <- ggplot(UniMelbData, aes(Proj_alloc, ptq_class_Q10)) + 
-  geom_boxplot() + xlab("Project allocation") + ylab("")
-g_pte_class_Q1 <- ggplot(UniMelbData, aes(Proj_alloc, pte_class_Q1)) + 
-  geom_boxplot() + xlab("Project allocation") + ylab("")
-g_pte_class_Q10 <- ggplot(UniMelbData, aes(Proj_alloc, pte_class_Q10)) + 
-  geom_boxplot() + xlab("Project allocation") + ylab("")
-
-
-pl <- list(g_ptq_class_Q1, g_ptq_class_Q10,
-           g_pte_class_Q1, g_pte_class_Q10 )
-
-
-# Create row and column titles
-col.titles = c("PTQ", "PTE")
-row.titles = c("Q1", "Q2" )
-
-# Add row titles
-pl[1:2] = lapply(1:2, function(i) arrangeGrob(pl[[i]], left=row.titles[i]))
-
-# Add column titles and lay out plots
-grid.arrange(grobs=lapply(c(1,3), function(i) {
-  arrangeGrob(grobs=pl[i:(i+1)], top=col.titles[i/2 + 1], ncol=1)
-}), ncol=2)
-
-
+```{r, caption = "\\label{tab:Melb_Perm} Permutation test $p$-values for results from MAST90083, for each of the different normalized scores."}
+library(kableExtra)
+pvals <- data.frame(cl = c("CE", "RE", "CQ", "RQ"),
+  p=c(round(length(pdif_C[pdif_C >= dif_C])/1000, 3),
+      round(length(pdif_R[pdif_R >= dif_R])/1000, 3),
+      round(length(pdif_CQ[pdif_CQ >= dif_CQ])/1000, 3),
+      round(length(pdif_RQ[pdif_RQ >= dif_RQ])/1000, 3)))
+kable(t(pvals), row.names=FALSE)
 ```
 
+Figure \ref{fig:ETC5242} shows the results for students ETC2420/5242. Only the post-graduate students participated in the regression competition, as their additional assessment requirement. Scores for the question on regression in the final exam were compared with the total exam score (RE). The boxplots suggest that the students who participated in the challenge performed relatively better on the regression question than expected given their total exam performance: the median is higher and there is less variability.
 
-Figure \ref{fig:PtqPteBpClass} shows the scores distribution for the classification methods questions: Q1 and Q10.
-  
-Q1 was a multi-chose question, worth only 2 points (out of 100). Both plots, of the $PTQ$ and the $PTE$ scores show no difference between the two groups of students.
-
-Q10, was a relatedly large question, worth 10 points. Examining the medians of the $PTQ$ scores indicate only mild advantage for the students from the classification competition. However, looking on the $PTE$ scores suggests that the classification questions was much easier for the students from the classification competition comparing to all the other questions in the exam.
-
-
-```{r permutation_class_questions, echo = FALSE, eval=FALSE}
-
-set.seed(123456)# fix seed
-
-
-#PTQ
-# x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class_Q1) # 0,1 question
-# perm_test_ptq_class_Q1 <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_class_Q10)
-perm_test_ptq_class_Q10 <- perm_test(x = x, n = num_permutations)
-
-#PTE
-# x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class_Q1)
-# perm_test_pte_class_Q1 <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_class_Q10)
-perm_test_pte_class_Q10 <- perm_test(x = x, n = num_permutations)
-
-## preper a table
-
-tt <- cbind(
-t(  perm_test_ptq_class_Q10),
-
-c(""),
-
-t( perm_test_pte_class_Q10 )
-)
-
-tt <- rbind( c("PTQ" , "PTQ" , "PTQ", "PTQ" , "PTQ" ,"" , "PTE", "PTE", "PTE", "PTE", "PTE") , tt)
-tt <- rbind(c("Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test" , "",
-                  "Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test"), tt)
-
-tt <- cbind( c("", "", "Q10"), tt)
-data.frame(tt)
-
-```
-
-Next we examined the statistical significance of the mean differences between the performances of the two group of students for Q10. 
-
-
-
-```{r PtqPteBpReg, echo = FALSE, fig.cap = "\\label{fig:PtqPteBpReg} PTQ and PTE scores distributions for regression questions", fig.width=6.5, fig.height=8}
-
-
-
-## Groups points questions / total posible points for the questions
-# Regression: Q5, Q6, Q8, Q15, Q16
-UniMelbData$ptq_reg_Q5 <- as.factor(UniMelbData$ptq_reg_Q5)
-g_ptq_reg_Q5 <- ggplot(UniMelbData, aes( ptq_reg_Q5)) + geom_bar() + 
-  facet_grid( .  ~ Proj_alloc) + xlab("") + ylab("Num. of Students")
-g_ptq_reg_Q6 <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg_Q6)) + geom_boxplot() + 
-  xlab("Project allocation") + ylab("")
-g_ptq_reg_Q8  <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg_Q8)) + geom_boxplot() + 
-  xlab("Project allocation") + ylab("")
-g_ptq_reg_Q15 <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg_Q15)) + geom_boxplot() + 
-  xlab("Project allocation") + ylab("")
-g_ptq_reg_Q16 <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg_Q16)) + geom_boxplot() + 
-  xlab("Project allocation") + ylab("")
-
-g_pte_reg_Q5 <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg_Q5)) + geom_boxplot() + 
-  xlab("Project allocation") + ylab("")
-g_pte_reg_Q6 <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg_Q6)) + geom_boxplot() + 
-  xlab("Project allocation") + ylab("")
-g_pte_reg_Q8  <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg_Q8)) + geom_boxplot()+ 
-  xlab("Project allocation") + ylab("")
-g_pte_reg_Q15 <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg_Q15)) + geom_boxplot() + 
-  xlab("Project allocation") + ylab("")
-g_pte_reg_Q16 <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg_Q16)) + geom_boxplot() + 
-  xlab("Project allocation") + ylab("") 
-
-
-
-pl <- list(g_ptq_reg_Q5, g_ptq_reg_Q6, g_ptq_reg_Q8, g_ptq_reg_Q15 , g_ptq_reg_Q16 ,
-           g_pte_reg_Q5, g_pte_reg_Q6, g_pte_reg_Q8, g_pte_reg_Q15, g_pte_reg_Q16)
-
-# Create row and column titles
-col.titles = c("PTQ", "PTE")
-row.titles = c( "Q5", "Q6", "Q8", "Q15" , "Q16")
-
-# Add row titles
-pl[1:5] = lapply(1:5, function(i) arrangeGrob(pl[[i]], left=row.titles[i]))
-
-# Add column titles and lay out plots
-grid.arrange(grobs=lapply(c(1,6), function(i) {
-  arrangeGrob(grobs=pl[i:(i+4)], top=col.titles[i/5 + 1], ncol=1)
-}), ncol=2)
-
-
-```
-
-
-Figure \ref{fig:PtqPteBpReg} shows the scores distribution for the regression methods questions: Q5, Q6, Q8, Q15 and Q16.
-There was no difference in performances of the two groups in the Q5, a small 2 point, question. Interestingly, for question Q6, 6 point question that asked to explain different line of code, the median $PTQ$ scores were similar in the two groups. However, the lower 50 percent of student’s scores was spread over the much lower scores. In fact, the second quartile of the scores of students participated in the classification competition covered the range of the scores of the 50 percent of student’s scores participated the regression competition. This suggest that participation in the competition help the student to remember the R command better. Similar behaviour can be observed in the performances in Q15, and easy 8 point question, dealing with the differences between Lasso and Ridge regressions. 
-
-
-In the performances in Q8, a 8 point fairly easy question, that dealing with the regression trees, a ‘mirror’ behaviour can be observed. The median $PTQ$ scores were similar in the two groups, however the third quartile of the scores of students participated the regression competition spread in the range of the $3^{rd}$ and the $4^{rd}$ quartile of the students' scores participated the classification competition. 
-
-
-Finally, looking on the $PTQ$ scores, in the Q16, 4 point question, that required a deep understanding of the GAM method, one of the regression technic, the students participated the regression competition had a clear advantage over their pears participated the classification competition.     
-
-
-
-```{r permutation_Reg_questions, echo = FALSE, eval=FALSE}
-
-set.seed(123456)# fix seed
-
-
-#PTQ
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q6)
-perm_test_ptq_reg_Q6 <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q8)
-perm_test_ptq_reg_Q8 <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q15)
-perm_test_ptq_reg_Q15 <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = ptq_reg_Q16)
-perm_test_ptq_reg_Q16 <- perm_test(x = x, n = num_permutations)
-
-### PTE
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q6)
-perm_test_pte_reg_Q6 <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q8)
-perm_test_pte_reg_Q8 <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q15)
-perm_test_pte_reg_Q15 <- perm_test(x = x, n = num_permutations)
-
-x <-  UniMelbData %>% select( proj_alloc = Proj_alloc, perf = pte_reg_Q16)
-perm_test_pte_reg_Q16 <- perm_test(x = x, n = num_permutations)
-
-## preper a table
-
-tt <- cbind(
-t( cbind(perm_test_ptq_reg_Q6 , perm_test_ptq_reg_Q8, perm_test_ptq_reg_Q15 , perm_test_ptq_reg_Q16)),
-
-c("","","",""),
-
-t( cbind(perm_test_pte_reg_Q6 , perm_test_pte_reg_Q8 , perm_test_pte_reg_Q15 , perm_test_pte_reg_Q16))
-)
-tt <- rbind( c("PTQ" , "PTQ" , "PTQ", "PTQ" , "PTQ" ,"" , "PTE", "PTE", "PTE", "PTE", "PTE") , tt)
-tt <- rbind(c("Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test" , "",
-                  "Mean MelbP", "Mean Spam" , "Diff", "P.v. Perm", "P.v. t-test"), tt)
-
-tt <- cbind( c("", "" , "Q6", "Q8", "Q15", "Q16"), tt)
-data.frame(tt)
-
-```
-
-
-
-
-Next we examined the statistical significance of the mean differences between the performances of the two group of students for Q6, Q8, Q15 and Q16. 
-
-
-
-Examining all the remind exam questions weren’t arise any different between the two groups of students.
-
-### Monash students
-
-Figure \ref{fig:ETC5242} shows the results for students in the Statistical Thinking course at Monash University. Only the post-graduate students participated in the regression competition, as their additional assessment requirement. Scores for the question on regression in the final exam were compared with the total exam score (PTE defined earlier). The boxplots suggest that the students who participated in the challenge performed realtively better on the regression question than expected given their total exam performance: the median is higher and there is less variability.
-
-```{r ETC5242, fig.cap = "\\label{fig:ETC5242} Performance for regression question relative to total exam score for students who did and didn't do the regression data competition in the Statistical Thinking course at Monash."}
-library(tidyverse)
-
+```{r ETC5242, fig.cap = "\\label{fig:ETC5242} Performance for regression question relative to total exam score for students who did and didn't do the regression data competition in ETC2420/5242.", fig.width=4, fig.height=3}
 scores_5242 <- read_csv("data/deidentified_scores_5242.csv")
 scores_2420 <- read_csv("data/deidentified_scores_2420.csv")
 #summary(scores_5242$`7b (8)`)
 #summary(scores_2420$`7b (8)`)
 
-scores_5242$`Exam Tot` <- apply(scores_5242[,4:27],1,sum, na.rm=T)
-scores_2420$`Exam Tot` <- apply(scores_2420[,4:27],1,sum, na.rm=T)
+scores_5242$`Exam Tot` <- apply(scores_5242[,4:27],1, sum, na.rm=T)
+scores_2420$`Exam Tot` <- apply(scores_2420[,4:27],1, sum, na.rm=T)
 
 scores_5242 <- scores_5242 %>% mutate(perf = `7b (8)`/`Exam Tot`)
 scores_2420 <- scores_2420 %>% mutate(perf = `7b (8)`/`Exam Tot`)
@@ -511,8 +208,8 @@ scores_2420 <- scores_2420 %>% mutate(class="No") %>%
 scores <- bind_rows(scores_5242, scores_2420)
 ggplot(scores, aes(x=class, y=perf)) + 
   geom_boxplot() + 
-  xlab("Participated in regression competiton") +
-  ylab("Score relative to total score")
+  xlab("Participated in competiton") +
+  ylab("RE")
 ```
 
 ```{r permtest}
@@ -527,22 +224,34 @@ for (i in 1:1000) {
 dif <- median(scores$perf[scores$class=="Yes"]-
        median(scores$perf[scores$class=="No"]))
 ```
-```{r}
-tt <- t.test(scores$perf[scores$class=="Yes"], scores$perf[scores$class=="No"], alternative="greater")
-```
 
-On average the students who participated in the kaggle challenge scored `r dif` higher than those that didn't, a median of `r mean(scores$perf[scores$class=="Yes"])` in comparison to `r mean(scores$perf[scores$class=="No"])`. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r length(pdif[pdif >= dif])/1000`. A conventional two-sample $t$-test, of mean difference, yields similar results with a $p$-value of `r tt$p.value`.
+Based on the median, the students who participated in the kaggle challenge scored `r round(dif, 2)` higher than those that didn't, a median of `r round(median(scores$perf[scores$class=="Yes"]), 2)` in comparison to `r round(median(scores$perf[scores$class=="No"]), 2)`. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r round(length(pdif[pdif >= dif])/1000, 3)`. 
 
 
 
 ## Engagement
 
+The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} shows normalized scores and overall exam scores, against frequency of prediction submissions for the MAST90083 competitions. 
+
+<!--
 To examine the correlation between student’s engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions ($PTQ$) and once normalizing by total exam marks ($PTE$). For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
+-->
 
 
+```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplot of the normalised scores, and exam scores, by number of prediction submissions for MAST90083. " , fig.width=6, fig.height=3}
 
-```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Number of submission vs exam grades" , fig.width=6.5, fig.height=6.5}
+UniMelbData_long <- UniMelbData %>%
+  gather(questype, score, ptq_class, pte_class, ptq_reg, pte_reg) %>%
+  separate(questype, c("normtype", "questype")) %>%
+  mutate(questype=fct_recode(questype, "classification"="class", "regression"="reg"))
+ggplot(filter(UniMelbData_long, normtype=="ptq"), aes(x=numsub, y=score)) + 
+  geom_point() + facet_wrap(~questype, ncol=2, scales="free_y") +
+  geom_smooth(method="lm", se=FALSE) + 
+  ylab("Normalized scores") + 
+  xlab("Number of submissions")
+```
 
+```{r eval=FALSE}
 # Classification: Q1 & Q10 
 gsg <- ggplot(UniMelbData %>% filter(Proj_alloc == "Spam classification"), aes(numsub, ptq_class)) + 
   geom_point() + xlab("Num. of submissions") + ylab("")
@@ -572,63 +281,33 @@ pl[1:2] = lapply(1:2, function(i) arrangeGrob(pl[[i]], left=row.titles[i]))
 grid.arrange(grobs=lapply(c(1,3), function(i) {
   arrangeGrob(grobs=pl[i:(i+1)], top=col.titles[i/2 + 1], ncol=1)
 }), ncol=2)
-
-
 ```
 
+<!--
 In Figure \ref{fig:numsubmition} we can clearly see a weak positive correlation between the number of submissions during the data competition and the scores normalized to the total possible marks for the relevant cluster of questions. This suggest that as more engaged the student was with the competition, the question about the methods relevant to her competition were easier to her. There is no correlation between the number of submission and the marks for the relevant cluster of questions normalized by the total exam marks ($PTE$). *BECAUSE … the questions that unrelated to the data competitions (51 points)? students put less effort to learn other material? Harder questions?*
 
 
 We didn’t found any evidence for correlation between the performances in the competition (final score) and the performances in the exam. This suggest that the single fact of participation improve the students marks in the exam. Not necessarily better students in the competition have grater chances to success in the exam. 
-
+-->
 
 
 ## Interest
 
-
-
-
-
-
-
 # Discussion
+
+This paper has discussed results from an experiment to examine the effectiveness of data competitions on student learning, using Kagggle InClass as the vehicle for conducting the competition. The evidence suggests that participating in competitions enhances learning.  
 
 # Acknowledgments
 
-This project (title: Effect of Data Competition on Learning Experience) has been approved by the Faculty of Science Human Ethics Advisory Group University of Melbourne (ID: 1749858.1 on September the 4th, 2017) and by Monash University Human Research Ethics Committee (ID: 9985 on 24/08/2017). 
+This project (title: Effect of Data Competition on Learning Experience) has been approved by the Faculty of Science Human Ethics Advisory Group University of Melbourne (ID: 1749858.1 on September 4, 2017) and by Monash University Human Research Ethics Committee (ID: 9985 on August 24, 2017). 
 
+This document was produced in R [@R] with the package knitr [@knitr]. Data cleaning was conducted using tidyr [@tidyr], dplyr [@dplyr] and plots were made with ggplot2 [@ggplot2].
 
+# Supplementary material
 
+The following material is provided in addition to the main paper. 
+- Code to reproduce the results is in the Rmd document
+- De-identified data 
+- Additional details of analysis
+- Copies of exam scripts 
 
-# References
-
-
-
-
-# Stuff to hang onto for now
-
-\section{Verifications}
-\label{sec:verify}
-This section will be just long enough to illustrate what a full page of
-text looks like, for margins and spacing.
-
-@Campbell02 @Schubert13 [@Chi81]
-
-# Appendix
-
-There were two data sets used for competitions, one was a regression problem and the other a classification problem. 
-
-## Melbourne price data set
-
-This data contained records of auction prices for residentia properties in Melbourne. The data was compiled from auction reports collected between Feb 2, 2013 and Dec 17, 2016. 
-
-Auction reports were published weekly by Domain and compiled by Home Price Guide (R) *COMMENT: Found the symbol* in pdf format. To read them into R we used the XXX package *COMMENT: reference to our new package for reading those reports*. The reports contained the following information about the properties sold during the week: full address, number of bedrooms, property type (house, unit/ duplex, townhouse, development site or other residential), sold price, type of sale (sold, sold prior, passed in, no bid, vendor bid, withdrawn prior to auction, sold after auction and N/A - price or highest bid not available) and agent name. We also removed all the records without the price. Over all we had 75,367 sold properties for the data competition.
-
-To enrich this data, to make it more realistic we added several additional features, number of visitors, the average rating given to the property by the visitors, number of car spaces, number of baths, land size and house size.	It is possible that some of this information might have been extracted from other web sites, given that we had the full address of the property, but the time required to research that was too daunting to tackle for the upcoming teaching period. 
-
-## Spam data set
-
-
-
-
- 
