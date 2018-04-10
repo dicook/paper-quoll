@@ -55,6 +55,8 @@ The $PTQ$ and the $PTE$ scores were calculated for each student for the followin
 In addition, the $PTQ$ and the $PTE$ scores were calculated to each of the questions in the first and the second clasters.
 
 ```{r}
+library(tidyverse)
+library(gridExtra)
 # read Unimelb data
 # UniMelbData <- read_csv(file="data/UniMeldUnIndef.csv")
 # UniMelbData <- UniMelbData %>% select(-LastName, -FirstName, -StudentID)

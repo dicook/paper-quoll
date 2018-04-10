@@ -30,10 +30,10 @@ library(knitr)
 library(bookdown)
 library(knitcitations)
 library(RefManageR)
-library("tidyverse")
-#library("ggpubr")
-library("readxl")
-library("gridExtra")
+library(tidyverse)
+#library(ggpubr)
+library(readxl)
+library(gridExtra)
 
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, kfigr.link=TRUE, kfigr.prefix=TRUE, cache=TRUE, fig.env = TRUE, fig.cap=TRUE, fig.height=3)
 
@@ -193,11 +193,11 @@ scores_2420 <- read_csv("data/deidentified_scores_2420.csv")
 #summary(scores_5242$`7b (8)`)
 #summary(scores_2420$`7b (8)`)
 
-scores_5242$`Exam Tot` <- apply(scores_5242[,4:27],1, sum, na.rm=T)
-scores_2420$`Exam Tot` <- apply(scores_2420[,4:27],1, sum, na.rm=T)
+scores_5242$`Exam Tot` <- apply(scores_5242[,4:27], 1, sum, na.rm=T)
+scores_2420$`Exam Tot` <- apply(scores_2420[,4:27], 1, sum, na.rm=T)
 
-scores_5242 <- scores_5242 %>% mutate(perf = `7b (8)`/`Exam Tot`)
-scores_2420 <- scores_2420 %>% mutate(perf = `7b (8)`/`Exam Tot`)
+scores_5242 <- scores_5242 %>% mutate(perf = ((`7b (8)`+ `7c (3)`)/11)/(`Exam Tot`/100))
+scores_2420 <- scores_2420 %>% mutate(perf = ((`7b (8)`+ `7c (3)`)/11)/(`Exam Tot`/100))
 scores_5242 <- scores_5242 %>% mutate(class="Yes") %>%
   filter(!is.na(perf))
 scores_2420 <- scores_2420 %>% mutate(class="No") %>%
@@ -210,6 +210,66 @@ ggplot(scores, aes(x=class, y=perf)) +
   geom_boxplot() + 
   xlab("Participated in competiton") +
   ylab("RE")
+```
+
+```{r eval=FALSE}
+poss_marks <- c(4, 2, 2, 2, 3, 3, 9, 8, 5, 2, 2, 3, 3, 3, 2, 3, 3, 6, 10, 8, 3, 3, 3, 2, 4, 2)
+scores_pct <- bind_rows(scores_2420, scores_5242)
+scores_pct$group <- c(rep("2420", 145), rep("5242", 34))
+scores_pct <- scores_pct %>% filter(!is.na(`9b (2)`))
+for (i in 1:26)
+  scores_pct[,i+1] <- scores_pct[,i+1]/poss_marks[i]
+
+#div <- function(x) x/poss_marks
+#scores_pct[,2:27] <- apply(scores_pct[,2:27], 1, div)
+scores_pct_long <- scores_pct %>% gather(q, mark, -group, -id)
+ggplot(scores_pct_long, aes(x=q, y=mark, colour=group)) + geom_boxplot()
+
+# Difficulty
+scores_pct_long %>% group_by(q) %>% 
+  summarise(m=mean(mark)) %>% 
+  arrange(m) %>% print(n=30)
+# Discrimination
+scores_pct_long %>% group_by(q) %>% 
+  summarise(s=sd(mark)) %>% 
+  arrange(desc(s)) %>% print(n=30)
+
+scores_pct_m <- scores_pct %>% 
+  group_by(group) %>% summarise_all(mean, na.rm=T) %>% select(-id)
+scores_pct_s <- scores_pct %>% 
+  group_by(group) %>% summarise_all(sd, na.rm=T) %>% select(-id)
+scores_pct_s[1,-1] <- scores_pct_s[1,-1]/sqrt(140)*1.96
+scores_pct_s[2,-1] <- scores_pct_s[2,-1]/sqrt(34)*1.96
+
+ms <- bind_cols(gather(scores_pct_m, q, value, -group), 
+                gather(scores_pct_s, q, value, -group)) %>%
+  select(-group1, -q1) %>%
+  rename(m=value, s=value1)
+ggplot(ms, aes(x=q, y=m, colour=group)) + #geom_point(position="dodge") +
+  geom_errorbar(aes(ymin=m-s, ymax=m+s), position="dodge")
+```
+
+```{r eval=FALSE}
+scores_5242 <- scores_5242 %>% mutate(`adj Exam Tot` = `Exam Tot` - `7b (8)`) %>%
+  mutate(`std adj Exam Tot`=(`adj Exam Tot`-mean(`adj Exam Tot`, na.rm=TRUE))/(sd(`adj Exam Tot`, na.rm=TRUE)),
+         `std 7b (8)` = (`7b (8)`-mean(`7b (8)`, na.rm=TRUE))/sd(`7b (8)`, na.rm=TRUE))
+scores_2420 <- scores_2420 %>% mutate(`adj Exam Tot` = `Exam Tot` - `7b (8)`) %>%
+  mutate(`std adj Exam Tot`=(`adj Exam Tot`-mean(`adj Exam Tot`, na.rm=TRUE))/(sd(`adj Exam Tot`, na.rm=TRUE)),
+         `std 7b (8)` = (`7b (8)`-mean(`7b (8)`, na.rm=TRUE))/sd(`7b (8)`, na.rm=TRUE))
+
+
+scores_5242 <- scores_5242 %>% mutate(perf2 = `std 7b (8)` - `std adj Exam Tot`)
+scores_2420 <- scores_2420 %>% mutate(perf2 = `std 7b (8)` - `std adj Exam Tot`)
+scores_5242 <- scores_5242 %>% mutate(class="Yes") %>%
+  filter(!is.na(perf2))
+scores_2420 <- scores_2420 %>% mutate(class="No") %>%
+  filter(!is.na(perf2))
+scores <- bind_rows(scores_5242, scores_2420)
+
+ggplot(scores, aes(x=class, y=perf2)) + 
+  geom_boxplot() + 
+  xlab("Participated in competiton") +
+  ylab("Standardized RE")
 ```
 
 ```{r permtest}
