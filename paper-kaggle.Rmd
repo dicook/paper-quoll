@@ -208,7 +208,7 @@ scores_2420 <- scores_2420 %>% mutate(class="No") %>%
 scores <- bind_rows(scores_5242, scores_2420)
 ggplot(scores, aes(x=class, y=perf)) + 
   geom_boxplot() + 
-  xlab("Participated in competiton") +
+  xlab("Participated in competition") +
   ylab("RE")
 ```
 
