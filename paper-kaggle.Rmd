@@ -1,5 +1,5 @@
 ---
-title: Kaggle-in-class Data Challenges can Boost Student Learning
+title: Kaggle-in-class Data Challenges Can Boost Student Learning
 
 # to produce blinded version set to 1
 blinded: 0
@@ -50,21 +50,23 @@ Kaggle [@kaggle] is well-known for the data competitions, some richly funded. It
 
 ## Data collection
 
-The experiment was conducted during Fall semester 2017. Data was collected during three classes, one at the University of Melbourne (MAST90083), and two at Monash University (ETC2420/5242 and ETC3250). 
+The experiment was conducted during Semester 2 2017. Data was collected during three classes, one at the University of Melbourne (MAST90083), and two at Monash University (ETC2420/5242 and ETC3250). 
 
 ## Competition data
 
-Two data sets were compiled for the kaggle challenges: Melbourne property auction prices and spam classification. The Melbourne auction price data was compiled by extracting information from real estate auction reports (pdf) collected between Feb 2, 2013 and Dec 17, 2016. Students were expected to predict price based on the property characteristics. The spam classificaation data was compiled by graduate students at Iowa State University as part of a statistical computing class by Dr Heike Hofmann, in XXX. Data was compiled by monitoring and extracting information from emails over a period of a week, and manually classifying them as spam or ham. Students were expected to classify the email as spam or not. 
+Two data sets were compiled for the kaggle challenges: Melbourne property auction prices and spam classification. The Melbourne auction price data was compiled by extracting information from real estate auction reports (pdf) collected between Feb 2, 2013 and Dec 17, 2016. The spam classification data was compiled by graduate students at Iowa State University as part of a data mining class, in 2009. Data was compiled by monitoring and extracting information from their emails by class members, over a period of a week, and manually tagging them as spam or ham.
 
-Both data sets provide substantial challenge for prediction.
+Both data sets were split into training and test sets, for the kaggle challenge. Students had access to the true response variable only for the training data.  For the Melbourne housing data, students were expected to predict price based on the property characteristics. For the spam data, students were expected to build a classifier to predict whether the email as spam or not. 
+
+Both data sets are challenging for prediction, with relatively high error rates.
 
 ## Participants
 
 MAST90083 is titled Computational Statistics and Data Mining, is designed for postgraduate level, for students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). Students individually built prediction models and made submissions for 16 days, and then were allowed to form groups to compete for another 7 days. 
 
-ETC2420/5242, titled Statistical Thinking, covers regression, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate students were required to participate in the kaggle competition focused on regression (R). The 145 undergraduate students are considered control for examining performance. The competition ran for one month. Students formed their own teams of 2-4 members to compete. Several undergraduates also chose to compete individually. 
+ETC2420/5242, titled Statistical Thinking, covers regression, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate students were required to participate in the kaggle competition focused on regression (R). The 145 undergraduate students are considered control for examining performance. The competition ran for one month. Students formed their own teams of 2-4 members to compete. Several undergraduates also chose to compete individually. The material on regression methods, particularly the computational methods needed to successfully predict housing prices was new to both groups of students. 
 
-ETC3250, called Business Analytics, is an undergraduate course focusing on data mining. All students participated in a kaggle competition on a classification problem. Because this group had no comparison group, it was difficult to assess performance. This data was primarily used to examine engagement and interest based on a follow-up questionnaire.
+ETC3250, called Business Analytics, is an undergraduate course focusing on data mining. All students participated in a kaggle competition on the classification problem. Because this group had no comparison group, it was difficult to assess performance. This data was primarily used to examine engagement and interest based on a follow-up questionnaire.
 
 <!--
 63 enrolled students; postgraduate level; background: math & stats, IT and actuarial science;  
@@ -82,11 +84,13 @@ MAST90083 used \url{https://inclass.kaggle.com/c/XXX}. ETC2420/5242 used \url{ht
 
 ## Performance
 
-MAST90083 and ETC2420/5242 included questions on the final exam related to kaggle challenges. Scores for these questions were normalised by the student's total exam score, in order to examine the effect of competition participation on performance. Better performance is equated to better understanding of the material. MAST90083 had the added benefit of multiple part questions with only some parts relating to the competition material. This data was also normalised by question total, to examine understanding in finer detail. ETC2420/5242 covered many topics related to statistical thinking, and included only one of nine questions related to the competition topic.
+Better performance is equated to better understanding of the material, as measured in the final exam. MAST90083 and ETC2420/5242 included questions, with several parts, on the final exam related to kaggle challenges. These questions were identified prior to data analysis. 
 
-XXX Can we do % improvement? Need ot be explicit in how the normalisation was conducted. Give formula.
+For all questions in the exam difficulty and discrimination scores were computed, using the mean and standard deviations. Of the questions pre-identified as being relevant to the data challenges, only the parts that corresponded to high level of difficulty and high discrimination were included in the comparison of performance. 
 
-Permutation tests were conducted to examine difference in median scores for students participating or not in a competition. Normalised scores were examined using side-by-side boxplots.  
+Scores for the relevant questions were summed, and converted into percentage of the possible score. The total exam score was converted to a percentage. Performance for each student was computed as the ratio of these two numbers. A value of 1 would indicate that the student's performance on that set of questions was consistent with their overall exam performance, greater than 1 that they performed better than expected, and lower than 1 meant less than expected on that topic. 
+
+The distribution of the performance scores by group is shown as a boxplot. Focus is on the difference in median between the groups. Permutation tests were conducted to examine difference in median scores for students participating or not in a competition. 
 
 ## Engagement
 
@@ -185,26 +189,24 @@ pvals <- data.frame(cl = c("CE", "RE", "CQ", "RQ"),
 kable(t(pvals), row.names=FALSE)
 ```
 
-Figure \ref{fig:ETC5242} shows the results for students ETC2420/5242. Only the post-graduate students participated in the regression competition, as their additional assessment requirement. Scores for the question on regression in the final exam were compared with the total exam score (RE). The boxplots suggest that the students who participated in the challenge performed relatively better on the regression question than expected given their total exam performance: the median is higher and there is less variability.
+Figure \ref{fig:ETC5242} shows the results for students ETC2420/5242. The boxplots suggest that the students who participated in the challenge performed relatively better than those that didn't on the regression question than expected given their total exam performance. 
+
+Only the post-graduate students participated in the regression competition, as their additional assessment requirement. Scores for the question on regression (Q7a,b,c) in the final exam were compared with the total exam score (RE). On these question parts, a, b, c, over all the students all three were in the top 10 of difficulty, with students scoring less than 70%, on average. Parts b, c were in the top 10 for discrimination, and part a was at rank 13. 
 
 ```{r ETC5242, fig.cap = "\\label{fig:ETC5242} Performance for regression question relative to total exam score for students who did and didn't do the regression data competition in ETC2420/5242.", fig.width=4, fig.height=3}
 scores_5242 <- read_csv("data/deidentified_scores_5242.csv")
 scores_2420 <- read_csv("data/deidentified_scores_2420.csv")
-#summary(scores_5242$`7b (8)`)
-#summary(scores_2420$`7b (8)`)
 
 scores_5242$`Exam Tot` <- apply(scores_5242[,4:27], 1, sum, na.rm=T)
 scores_2420$`Exam Tot` <- apply(scores_2420[,4:27], 1, sum, na.rm=T)
 
-scores_5242 <- scores_5242 %>% mutate(perf = ((`7b (8)`+ `7c (3)`)/11)/(`Exam Tot`/100))
-scores_2420 <- scores_2420 %>% mutate(perf = ((`7b (8)`+ `7c (3)`)/11)/(`Exam Tot`/100))
+scores_5242 <- scores_5242 %>% mutate(perf = ((`7a (10)` + `7b (8)` + `7c (3)`)/21)/(`Exam Tot`/100))
+scores_2420 <- scores_2420 %>% mutate(perf = ((`7a (10)` + `7b (8)` + `7c (3)`)/21)/(`Exam Tot`/100))
 scores_5242 <- scores_5242 %>% mutate(class="Yes") %>%
   filter(!is.na(perf))
 scores_2420 <- scores_2420 %>% mutate(class="No") %>%
   filter(!is.na(perf))
 
-#summary(scores_5242$perf)
-#summary(scores_2420$perf)
 scores <- bind_rows(scores_5242, scores_2420)
 ggplot(scores, aes(x=class, y=perf)) + 
   geom_boxplot() + 
@@ -213,6 +215,13 @@ ggplot(scores, aes(x=class, y=perf)) +
 ```
 
 ```{r eval=FALSE}
+# This code was used to examine the scores across all questions, and understand 
+# the variability in the two groups.
+# Difficulty and discrimination for each question is computed. 
+# Parts a, b, c of Q7 for ETC2420/5242 are both high in difficulty and discrimination.
+# 
+scores_5242 <- read_csv("data/deidentified_scores_5242.csv")
+scores_2420 <- read_csv("data/deidentified_scores_2420.csv")
 poss_marks <- c(4, 2, 2, 2, 3, 3, 9, 8, 5, 2, 2, 3, 3, 3, 2, 3, 3, 6, 10, 8, 3, 3, 3, 2, 4, 2)
 scores_pct <- bind_rows(scores_2420, scores_5242)
 scores_pct$group <- c(rep("2420", 145), rep("5242", 34))
@@ -220,10 +229,7 @@ scores_pct <- scores_pct %>% filter(!is.na(`9b (2)`))
 for (i in 1:26)
   scores_pct[,i+1] <- scores_pct[,i+1]/poss_marks[i]
 
-#div <- function(x) x/poss_marks
-#scores_pct[,2:27] <- apply(scores_pct[,2:27], 1, div)
 scores_pct_long <- scores_pct %>% gather(q, mark, -group, -id)
-ggplot(scores_pct_long, aes(x=q, y=mark, colour=group)) + geom_boxplot()
 
 # Difficulty
 scores_pct_long %>% group_by(q) %>% 
@@ -245,11 +251,12 @@ ms <- bind_cols(gather(scores_pct_m, q, value, -group),
                 gather(scores_pct_s, q, value, -group)) %>%
   select(-group1, -q1) %>%
   rename(m=value, s=value1)
-ggplot(ms, aes(x=q, y=m, colour=group)) + #geom_point(position="dodge") +
+ggplot(ms, aes(x=q, y=m, colour=group)) + 
   geom_errorbar(aes(ymin=m-s, ymax=m+s), position="dodge")
 ```
 
 ```{r eval=FALSE}
+# This is not the right approach
 scores_5242 <- scores_5242 %>% mutate(`adj Exam Tot` = `Exam Tot` - `7b (8)`) %>%
   mutate(`std adj Exam Tot`=(`adj Exam Tot`-mean(`adj Exam Tot`, na.rm=TRUE))/(sd(`adj Exam Tot`, na.rm=TRUE)),
          `std 7b (8)` = (`7b (8)`-mean(`7b (8)`, na.rm=TRUE))/sd(`7b (8)`, na.rm=TRUE))
