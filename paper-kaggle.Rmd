@@ -106,12 +106,29 @@ Students were invited to give feedback about the course, in particular about the
 
 Figure \ref{fig:MAST90083} shows the data collected in MAST90083. Normalized scores for the classification and regression questions are plotted as boxplots against type of competition participation. The normalized scores were computed based on overall test score (CE, RE), in plots A, B, as well as by overall question score (CQ, RQ), in plots C, D. The difference in median scores indicates performance improvement. In plot A, the normalized scores for the classification questions were better for students who participated in the classification competition. From plot B, a very small increase in median score on the regression questions can be seen for the students who participated in the regression competition. Plots C, D show the scores normalized by total question score. This increases the difference for the regression performance.
 
-```{r Melb, fig.cap = "\\label{fig:MAST90083} Performance on regression and classification questions relative to total exam score (A, B) and overall question (C, D) for students by type of data competition in MAST90083. Differences in medians indicate improved performance.", fig.height=5, fig.width=6}
+```{r Melb, fig.cap = "\\label{fig:MAST90083} Performance on regression and classification questions relative to total exam score (A, B) and overall question (C, D) for students by type of data competition in MAST90083. Differences in medians indicate improved performance.", fig.height=3, fig.width=6}
 library(tidyverse)
 library(gridExtra)
 library(forcats)
 UniMelbData <- read_csv(file="data/deidentified_UMelb.csv") 
 UniMelbData <- UniMelbData %>% mutate(Proj_alloc=fct_recode(Proj_alloc, "regression"="Melbourne Price", "classification"="Spam classification"))
+UniMelbData <- UniMelbData %>% 
+  mutate(perf_class = ((`Q1_p2`+`Q10_p3_A`+`Q10_p7_B`)/12)/(`Total_100`/100)) %>%
+  mutate(perf_reg = ((`Q6_p2_A`+`Q6_p2_B`+`Q6_p2_C`+`Q8_p2_C`+`Q8_p2_D`+`Q16_p2_B`)/12)/(`Total_100`/100)) 
+  
+p1 <- ggplot(UniMelbData, aes(x=Proj_alloc, y=perf_class)) +
+  geom_boxplot() +
+  xlab("Classification competition") +
+  ylab("Performance")
+p2 <- ggplot(UniMelbData, aes(x=Proj_alloc, y=perf_reg)) +
+  geom_boxplot() +
+  xlab("Regression competition") +
+  ylab("Performance")
+grid.arrange(p1, p2, ncol=2)
+```
+
+```{r eval=FALSE}
+# Didn't take into account difficulty and discrimination
 g_pte_class <- ggplot(UniMelbData, aes(Proj_alloc, pte_class)) +
   geom_boxplot() + 
   xlab("") + 
@@ -177,17 +194,62 @@ dif_RQ <- median(UniMelbData$ptq_reg[UniMelbData$Proj_alloc=="regression"]-
        median(UniMelbData$ptq_reg[UniMelbData$Proj_alloc=="classification"]))
 ```
 
-Table \ref{tab:Melb_Perm} shows the results of permutation testing of median difference between the groups. Generally the results support the competition improved performance. Students who participated in the kaggle challenge for classification scored `r round(dif_C, 2)` higher than those that did the regression competition, on the classification problem. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r round(length(pdif_C[pdif_C >= dif_C])/1000, 3)`. 
-
-```{r, caption = "\\label{tab:Melb_Perm} Permutation test $p$-values for results from MAST90083, for each of the different normalized scores."}
-library(kableExtra)
-pvals <- data.frame(cl = c("CE", "RE", "CQ", "RQ"),
-  p=c(round(length(pdif_C[pdif_C >= dif_C])/1000, 3),
-      round(length(pdif_R[pdif_R >= dif_R])/1000, 3),
-      round(length(pdif_CQ[pdif_CQ >= dif_CQ])/1000, 3),
-      round(length(pdif_RQ[pdif_RQ >= dif_RQ])/1000, 3)))
-kable(t(pvals), row.names=FALSE)
+```{r eval=FALSE}
+# This code was used to examine the scores across all questions, 
+# and understand the variability among the groups.
+# Difficulty and discrimination for each question is computed. 
+UniMelbData_Qs <- UniMelbData %>% 
+  select(ID,Q1_p2:Q16_p2_B) %>%
+  gather(Q, score, -ID) %>%
+  separate(Q, c("Q", "pts", "part")) %>%
+  mutate(pts = as.numeric(sub("p", "", pts))) %>%
+  mutate(pct = score/pts*100)
+diff_discr <- UniMelbData_Qs %>% 
+  group_by(Q, part) %>%
+  summarise(m = mean(pct, na.rm=TRUE), s = sd(pct, na.rm=TRUE))
+diff_discr %>% arrange(m) 
+diff_discr %>% arrange(desc(s))
+library(plotly)
+ggplot(diff_discr, aes(x=m, y=s, label=paste(Q, part))) + geom_point()
+ggplotly()
+keep <- diff_discr %>% filter(m<71, s>20)
+# 1,10, 16B, 6A,B,C, 8C,D, 2,3,4
 ```
+
+```{r}
+pdif_cl <- NULL
+pdif_reg <- NULL
+for (i in 1:1000) {
+  x <- UniMelbData %>% select(Proj_alloc, perf_class)
+  x <- x %>% mutate(class = sample(Proj_alloc))
+  pdif_cl <- c(pdif_cl,
+            median(x$perf_class[x$class=="classification"])-
+              median(x$perf_class[x$class=="regression"]))
+  pdif_reg <- c(pdif_reg,
+            median(x$perf_reg[x$class=="regression"])-
+              median(x$perf_reg[x$class=="classification"]))
+}
+pdif_cl_true <- median(UniMelbData$perf_class[UniMelbData$Proj_alloc=="classification"])-
+              median(UniMelbData$perf_class[UniMelbData$Proj_alloc=="regression"])
+pdif_reg_true <- median(UniMelbData$perf_reg[UniMelbData$Proj_alloc=="regression"])-
+              median(UniMelbData$perf_reg[UniMelbData$Proj_alloc=="classification"])
+pval_cl <- length(pdif_cl[pdif_cl > pdif_cl_true])/1000
+pval_reg <- length(pdif_reg[pdif_reg > pdif_reg_true])/1000
+```
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|r|r|}\hline
+Question Set & Median difference & Permutation $p$-value \\\hline
+Classification & 0.250 & 0.012\\
+Regression & 0.104 & 0.00\\\hline
+\end{tabular}
+\caption{Comparison of median difference in performance by competition group.}
+\end{center}
+\label{tab:Melb_Perm}
+\end{table}
+
+Table \ref{tab:Melb_Perm} shows the results of permutation testing of median difference between the groups. Generally the results support the competition improved performance. Students who participated in the kaggle challenge for classification scored higher than those that did the regression competition, on the classification problem. Using a permutation test, this corresponds to a significant difference in medians. Similarly the results show that students who did the regression challenge, performed better on these exam questions.
 
 Figure \ref{fig:ETC5242} shows the results for students ETC2420/5242. The boxplots suggest that the students who participated in the challenge performed relatively better than those that didn't on the regression question than expected given their total exam performance. 
 
@@ -211,7 +273,7 @@ scores <- bind_rows(scores_5242, scores_2420)
 ggplot(scores, aes(x=class, y=perf)) + 
   geom_boxplot() + 
   xlab("Participated in competition") +
-  ylab("RE")
+  ylab("Performance")
 ```
 
 ```{r eval=FALSE}
