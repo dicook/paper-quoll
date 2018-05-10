@@ -360,24 +360,52 @@ Based on the median, the students who participated in the kaggle challenge score
 
 ## Engagement
 
-The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} shows normalized scores and overall exam scores, against frequency of prediction submissions for the MAST90083 competitions. 
+The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} shows performance on the classification and regression questions, respectively, against their frequency of prediction submissions for the MAST90083 competitions. The relationship is weak in both groups, and this mirrors insignificant results from fitting a linear model to both subsets. 
 
 <!--
 To examine the correlation between student’s engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions ($PTQ$) and once normalizing by total exam marks ($PTE$). For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
 -->
 
 
-```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplot of the normalised scores, and exam scores, by number of prediction submissions for MAST90083. " , fig.width=6, fig.height=3}
-
-UniMelbData_long <- UniMelbData %>%
-  gather(questype, score, ptq_class, pte_class, ptq_reg, pte_reg) %>%
-  separate(questype, c("normtype", "questype")) %>%
-  mutate(questype=fct_recode(questype, "classification"="class", "regression"="reg"))
-ggplot(filter(UniMelbData_long, normtype=="ptq"), aes(x=numsub, y=score)) + 
-  geom_point() + facet_wrap(~questype, ncol=2, scales="free_y") +
+```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplot of the performance of classification questions (left), and regression questions (right) by number of prediction submissions for MAST90083. The relationships with exam performance are weak. For the regression competition, a clear pattern is that predictions improved substantially with more submissions." , fig.width=6, fig.height=6}
+p1 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=perf_class)) +
+  geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
-  ylab("Normalized scores") + 
-  xlab("Number of submissions")
+  ylab("Performance on classification Qs") + 
+  xlab("Number of submissions") +
+  xlim(c(1,5))
+p2 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=perf_reg)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  ylab("Performance on regression Qs") + 
+  xlab("Number of submissions") +
+  xlim(c(1,12))
+#grid.arrange(p1, p2, ncol=2)
+p3 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=PrivetScore)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  ylab("Accuracy of predictions") + 
+  xlab("Number of submissions") +
+  xlim(c(1,5))
+p4 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=PrivetScore)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  #ylab("Error in predictions") + 
+  xlab("Number of submissions") +
+  scale_y_continuous("Error in predictions ('0000s)", breaks=seq(110000, 170000, 10000), labels=seq(11,17,1))
+  #xlim(c(1,12))
+grid.arrange(p1, p2, p3, p4, ncol=2)
+
+```
+
+```{r eval=FALSE}
+library(broom)
+m1 <- lm(perf_class~numsub, data=filter(UniMelbData, Proj_alloc == "classification"))
+tidy(m1)
+glance(m1)
+m2 <- lm(perf_class~numsub, data=filter(UniMelbData, Proj_alloc == "regression"))
+tidy(m2)
+glance(m2)
 ```
 
 ```{r eval=FALSE}
