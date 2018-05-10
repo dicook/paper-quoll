@@ -360,41 +360,53 @@ Based on the median, the students who participated in the kaggle challenge score
 
 ## Engagement
 
-The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} shows performance on the classification and regression questions, respectively, against their frequency of prediction submissions for the MAST90083 competitions. The relationship is weak in both groups, and this mirrors insignificant results from fitting a linear model to both subsets. 
+The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} shows performance on the classification and regression questions, respectively, against their frequency of prediction submissions for the three student groups (MAST90083 classification and regression, ETC5242 regression) competitions. The relationship is weak in all groups, and this mirrors insignificant results from a linear model fit to both subsets. On the other hand, the predictive accuracy improved with the number of submissions for the regression competitions.
 
 <!--
 To examine the correlation between student’s engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions ($PTQ$) and once normalizing by total exam marks ($PTE$). For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
 -->
 
 
-```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplot of the performance of classification questions (left), and regression questions (right) by number of prediction submissions for MAST90083. The relationships with exam performance are weak. For the regression competition, a clear pattern is that predictions improved substantially with more submissions." , fig.width=6, fig.height=6}
+```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplot of the performance by number of prediction submissions, for three student groups. The relationships with exam performance are weak. For the MAST90083 and ETC5242 regression competitions, a clear pattern is that predictions improved substantially with more submissions." , fig.width=6, fig.height=6}
+etc5242 <- read_csv("data/competition_5242.csv")
+scores_5242_comp <- scores_5242 %>% left_join(etc5242, by="id")
 p1 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=perf_class)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Performance on classification Qs") + 
   xlab("Number of submissions") +
-  xlim(c(1,5))
+  xlim(c(1,5)) + ggtitle("a. MAST90083 cls")
 p2 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=perf_reg)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Performance on regression Qs") + 
   xlab("Number of submissions") +
-  xlim(c(1,12))
+  xlim(c(1,12)) + ggtitle("b. MAST90083 reg")
+p3 <- ggplot(scores_5242_comp, aes(x=numsub, y=perf)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  ylab("Performance") + 
+  xlab("Number of submissions") + ggtitle("c. ETC5242")
 #grid.arrange(p1, p2, ncol=2)
-p3 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=PrivetScore)) +
+p4 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=PrivetScore)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Accuracy of predictions") + 
   xlab("Number of submissions") +
-  xlim(c(1,5))
-p4 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=PrivetScore)) +
+  xlim(c(1,5)) + ggtitle("d. MAST90083 cls")
+p5 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=PrivetScore)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   #ylab("Error in predictions") + 
   xlab("Number of submissions") +
-  scale_y_continuous("Error in predictions ('0000s)", breaks=seq(110000, 170000, 10000), labels=seq(11,17,1))
+  scale_y_continuous("Error in predictions ('0000s)", breaks=seq(110000, 170000, 10000), labels=seq(11,17,1)) + ggtitle("e. MAST90083 reg")
   #xlim(c(1,12))
-grid.arrange(p1, p2, p3, p4, ncol=2)
+p6 <- ggplot(scores_5242_comp, aes(x=numsub, y=score)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  ylab("Error in predictions") + 
+  xlab("Number of submissions") + ggtitle("f. ETC5242")
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
 
 ```
 
