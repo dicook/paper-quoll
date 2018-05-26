@@ -496,7 +496,7 @@ ggplot(Q, aes(x=question, weight = n,
               fill=fct_relevel(response, "Strongly Disagree", 
                                "Disagree", "Neutral", "Agree", 
                                "Strongly Agree"))) + 
-  xlab("") +
+  xlab("") + ylab("") +
   geom_bar(position="fill") + coord_flip() +
   scale_fill_manual("", values=c("#CA0020","#F4A582","#F7F7F7","#92C5DE", "#0571B0")) +
   theme(legend.position = "bottom")
