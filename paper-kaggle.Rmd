@@ -476,7 +476,7 @@ We didn’t found any evidence for correlation between the performances in the c
 
 Response rate was 55%, with 34 of 61 students completed the survey.
 
-```{r likert, fig.caption="Stacked bar charts of responses to survey."}
+```{r likert, fig.cap="Stacked bar charts of responses to survey."}
 MAST90083_survey <- read_xlsx("data/Data Competition Feedback MAST90083.xlsx") %>% filter(`Email Address` != "julia.polak@unimelb.edu.au")
 MAST90083_likert <- MAST90083_survey %>% 
   rename(Q1=`1. I found the data competition is great fun.`) %>%
