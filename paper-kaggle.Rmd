@@ -51,7 +51,7 @@ Kaggle [@kaggle] is well-known for the data competitions, some richly funded. It
 
 ## Data collection
 
-The experiment was conducted during Semester 2 2017. Data was collected during three classes, one at the University of Melbourne (MAST90083), and two at Monash University (ETC2420/5242 and ETC3250). 
+The experiment was conducted during Semester 2 2017. Data was collected during three classes, one at the University of Melbourne (MAST90083), and one at Monash University (ETC2420/5242). 
 
 ## Competition data
 
@@ -67,7 +67,9 @@ MAST90083 is titled Computational Statistics and Data Mining, is designed for po
 
 ETC2420/5242, titled Statistical Thinking, covers regression, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (5242) students were required to participate in the kaggle competition focused on regression (R). The 145 undergraduate (2420) students are considered control for examining performance. The competition ran for one month. Students formed their own teams of 2-4 members to compete. Several undergraduates also chose to compete individually. The material on regression methods, particularly the computational methods needed to successfully predict housing prices was new to both groups of students. 
 
+<!--
 ETC3250, called Business Analytics, is an undergraduate course focusing on data mining. All students participated in a kaggle competition on the classification challenge. Because this group had no comparison group, it was difficult to assess performance. 
+-->
 
 <!--
 The data from the follow-up questionnaire was used to examine interest in the competition.
@@ -364,7 +366,7 @@ Based on the median, the students who participated in the kaggle challenge score
 
 The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} (top row) shows performance on the classification and regression questions, respectively, against their frequency of prediction submissions for the three student groups (MAST90083 classification and regression, ETC5242 regression) competitions. The relationship is weak in all groups, and this mirrors insignificant results from a linear model fit to both subsets. On the other hand, the predictive accuracy improved with the number of submissions for the regression competitions.
 
-The competition performance relative to number of submissions is shown in plots d-f. Each point corresponds to one student, and accuracy or error of the best predictions submitted is used. The regression competition seemed to engage students more than the classification challenge. Students submitted more predictiona, and their models improved with more submissions.
+The competition performance relative to number of submissions is shown in plots (d)-(f). Each point corresponds to one student, and accuracy or error of the best predictions submitted is used. The regression competition seemed to engage students more than the classification challenge. Students submitted more predictiona, and their models improved with more submissions.
 
 <!--
 To examine the correlation between student’s engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions ($PTQ$) and once normalizing by total exam marks ($PTE$). For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
@@ -472,15 +474,18 @@ We didn’t found any evidence for correlation between the performances in the c
 - Match exam performance to engagement?
 -->
 
-### MAST90083
+Figure \ref{fig:likert} shows the survey responses related to the kaggle competition, for MAST90083 and ETC5242. The response rate for MAST90083 was 55%, with 34 of 61 students completed the survey. The response rate for ETC5242 was 50%, 17 students out of 34 completed the survey.
 
-Response rate was 55%, with 34 of 61 students completed the survey.
 
-```{r likert, fig.cap="Stacked bar charts of responses to survey."}
+```{r likert, fig.cap="\\label{fig:likert}Summary of responses to survey of kaggle competition participants. Overwhelmingly the response to the competition was positive in both classes, especially the questions on enjoyment and engagement in the class, and obtaining practical experience."}
 MAST90083_survey <- read_xlsx("data/Data Competition Feedback MAST90083.xlsx") %>% filter(`Email Address` != "julia.polak@unimelb.edu.au")
 MAST90083_likert <- MAST90083_survey %>% 
   rename(Q1=`1. I found the data competition is great fun.`) %>%
-  rename(Q2=`2. Taking part in the data competition contributed a lot to my engagement with the subject.`) 
+  rename(Q2=`2. Taking part in the data competition contributed a lot to my engagement with the subject.`)  %>%
+  rename(Q3=`3. Taking part in the data competition improved my confidence in my understanding of the covered material.`)  %>%
+  rename(Q4=`4. Taking part in the data competition improved my confidence in my success in the final exam.`) %>%
+  rename(Q5=`5. Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.`) %>%
+  rename(Q6=`6. I feel that the required time investment in the data competition was worthy.`)
 Q1 <- MAST90083_likert %>% count(Q1) %>% filter(!is.na(Q1)) %>%
   mutate(response = fct_relevel(Q1, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
   mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
@@ -491,133 +496,108 @@ Q2 <- MAST90083_likert %>% count(Q2) %>% filter(!is.na(Q2)) %>%
   mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
   mutate(question = "Q2")  %>%
   mutate(pct = n/sum(n))
-Q <- bind_rows(Q1, Q2)
+Q3 <- MAST90083_likert %>% count(Q3) %>% filter(!is.na(Q3)) %>%
+  mutate(response = fct_relevel(Q3, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q3")  %>%
+  mutate(pct = n/sum(n))
+Q4 <- MAST90083_likert %>% count(Q4) %>% filter(!is.na(Q4)) %>%
+  mutate(response = fct_relevel(Q4, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q4")  %>%
+  mutate(pct = n/sum(n))
+Q5 <- MAST90083_likert %>% count(Q5) %>% filter(!is.na(Q5)) %>%
+  mutate(response = fct_relevel(Q5, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q5")  %>%
+  mutate(pct = n/sum(n))
+Q6 <- MAST90083_likert %>% count(Q6) %>% filter(!is.na(Q6)) %>%
+  mutate(response = fct_relevel(Q6, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q6")  %>%
+  mutate(pct = n/sum(n))
+MAST90083_Q <- bind_rows(Q1, Q2, Q1, Q2, Q3, Q4, Q5, Q6)
+
+ETC5242_survey <- read_xlsx("data/Data Competition Feedback ETC Di.xlsx") %>% filter(Name != "Dianne Cook")
+ETC5242_likert <- ETC5242_survey %>% 
+  rename(Q1=`1. I found the data competition is great fun.`) %>%
+  rename(Q2=`2. Taking part in the data competition contributed a lot to my engagement with the subject.`)  %>%
+  rename(Q3=`3. Taking part in the data competition improved my confidence in my understanding of the covered material.`)  %>%
+  rename(Q4=`4. Taking part in the data competition improved my confidence in my success in the final exam.`) %>%
+  rename(Q5=`5. Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.`) %>%
+  rename(Q6=`6. I feel that the required time investment in the data competition was worthy.`)
+Q1 <- ETC5242_likert %>% count(Q1) %>% filter(!is.na(Q1)) %>%
+  mutate(response = fct_relevel(Q1, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q1") %>%
+  mutate(pct = n/sum(n))
+Q2 <- ETC5242_likert %>% count(Q2) %>% filter(!is.na(Q2)) %>%
+  mutate(response = fct_relevel(Q2, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q2")  %>%
+  mutate(pct = n/sum(n))
+Q3 <- ETC5242_likert %>% count(Q3) %>% filter(!is.na(Q3)) %>%
+  mutate(response = fct_relevel(Q3, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q3")  %>%
+  mutate(pct = n/sum(n))
+Q4 <- ETC5242_likert %>% count(Q4) %>% filter(!is.na(Q4)) %>%
+  mutate(response = fct_relevel(Q4, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q4")  %>%
+  mutate(pct = n/sum(n))
+Q5 <- ETC5242_likert %>% count(Q5) %>% filter(!is.na(Q5)) %>%
+  mutate(response = fct_relevel(Q5, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q5")  %>%
+  mutate(pct = n/sum(n))
+Q6 <- ETC5242_likert %>% count(Q6) %>% filter(!is.na(Q6)) %>%
+  mutate(response = fct_relevel(Q6, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q6")  %>%
+  mutate(pct = n/sum(n))
+ETC5242_Q <- bind_rows(Q1, Q2, Q1, Q2, Q3, Q4, Q5, Q6)
+MAST90083_Q <- MAST90083_Q %>% mutate(class = "MAST90083")
+ETC5242_Q <- ETC5242_Q %>% mutate(class = "ETC5242")
+Q <- bind_rows(MAST90083_Q, ETC5242_Q)
+Q <- Q %>% mutate(class = fct_relevel(class, "MAST90083", "ETC5242"))
 ggplot(Q, aes(x=question, weight = n, 
               fill=fct_relevel(response, "Strongly Disagree", 
                                "Disagree", "Neutral", "Agree", 
                                "Strongly Agree"))) + 
   xlab("") + ylab("") +
+  facet_wrap(~class, ncol=2) +
   geom_bar(position="fill") + coord_flip() +
-  scale_fill_manual("", values=c("#CA0020","#F4A582","#F7F7F7","#92C5DE", "#0571B0")) +
-  theme(legend.position = "bottom")
+  scale_fill_manual("", values=c("#CA0020","#F4A582","#F7F7F7","#92C5DE", "#0571B0")) + 
+  theme_bw() +
+  theme(legend.position = "bottom") 
 ```
 
-<!--
-\begin{table}[ht]
-\begin{tabular}{}
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|p{15cm}|}\hline
+Label & Question \\\hline
+Q1 & I found the data competition is great fun.\\\hline
+Q2 & Taking part in the data competition contributed a lot to my engagement with the subject.\\\hline
+Q3 & Taking part in the data competition improved my confidence in my understanding of the covered material.\\\hline
+Q4 & Taking part in the data competition improved my confidence in my success in the final exam.\\\hline
+Q5 & Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.\\\hline
+Q6 & I feel that the required time investment in the data competition was worthy. \\\hline
+\end{tabular}
+\end{center}
+\caption{Questions asked in the survey of competition participants.}
+\label{survey_Q}
 \end{table}
--->
 
-```{r eval=FALSE}
-# Di's survey
-# Check that they agreed to the use of this data, Q2
-# Qs
-# Q1. I found the data competition is great fun.
-# Q2. Taking part in the data competition contributed a lot to my engagement with the subject.
-# Q3. Taking part in the data competition improved my confidence in my understanding of the covered material.
-# Q4. Taking part in the data competition improved my confidence in my success in the final exam.
-# Q5. Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.
-# Q6. I feel that the required time investment in the data competition was worthy.
-# Q7. What was your favorite topic in this subject during the semester?
-# Q8. How heavily have you been involved in the submissions? Rate from 1 to 5 (1-not involved at all, 5- very much involved).
-# Q9. Your level of involvement in the submissions, compared to your team members, was
-# Q10. How heavily have you been involved in the model development? Rate from 1 to 5 (1-not involved at all, 5- very much involved).
-# Q11. Your involvement in the model development, compared to your team members, was
-MAST90083_survey <- read_xlsx("data/Data Competition Feedback MAST90083.xlsx") %>% filter(`Email Address` != "julia.polak@unimelb.edu.au")
-MAST90083_survey %>% count(`1. I found the data competition is great fun.`)
-MAST90083_survey %>% count(`2. Taking part in the data competition contributed a lot to my engagement with the subject.`)
-MAST90083_survey %>% count(`3. Taking part in the data competition improved my confidence in my understanding of the covered material.`)
-MAST90083_survey %>% count(`4. Taking part in the data competition improved my confidence in my success in the final exam.`)
-MAST90083_survey %>% count(`5. Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.`)
-MAST90083_survey %>% count(`6. I feel that the required time investment in the data competition was worthy.`)
-MAST90083_survey$`7. What was your favorite topic in this subject during the semester?`
-MAST90083_survey %>% count(`8. How heavily have you been involved in the submissions? Rate from 1 to 5 (1-not involved at all, 5- very much involved).` )
-MAST90083_survey %>% count(`9. Your level of involvement in the submissions, compared to your team members, was`)
-MAST90083_survey %>% count(`10. How heavily have you been involved in the model development? Rate from 1 to 5 (1-not involved at all, 5- very much involved).` )
-MAST90083_survey %>% count(`11. Your involvement in the model development, compared to your team members, was`)
-```
-
-### ETC5242
-
-The response rate was 50%, 17 students out of 34 completed the survey.
-
-```{r eval=FALSE}
-# Di's survey
-# Check that they agreed to the use of this data, Q2
-# Qs
-# Q1. I found the data competition is great fun.
-# Q2. Taking part in the data competition contributed a lot to my engagement with the subject.
-# Q3. Taking part in the data competition improved my confidence in my understanding of the covered material.
-# Q4. Taking part in the data competition improved my confidence in my success in the final exam.
-# Q5. Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.
-# Q6. I feel that the required time investment in the data competition was worthy.
-# Q7. What was your favorite topic in this subject during the semester?
-# Q8. How heavily have you been involved in the submissions? Rate from 1 to 5 (1-not involved at all, 5- very much involved).
-# Q9. Your level of involvement in the submissions, compared to your team members, was
-# Q10. How heavily have you been involved in the model development? Rate from 1 to 5 (1-not involved at all, 5- very much involved).
-# Q11. Your involvement in the model development, compared to your team members, was
-ETC5242_survey <- read_xlsx("data/Data Competition Feedback ETC Di.xlsx") %>% filter(Name != "Dianne Cook")
-ETC5242_survey %>% count(`1. I found the data competition is great fun.`)
-ETC5242_survey %>% count(`2. Taking part in the data competition contributed a lot to my engagement with the subject.`)
-ETC5242_survey %>% count(`3. Taking part in the data competition improved my confidence in my understanding of the covered material.`)
-ETC5242_survey %>% count(`4. Taking part in the data competition improved my confidence in my success in the final exam.`)
-ETC5242_survey %>% count(`5. Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.`)
-ETC5242_survey %>% count(`6. I feel that the required time investment in the data competition was worthy.`)
-ETC5242_survey$`7. What was your favorite topic in this subject during the semester?`
-ETC5242_survey %>% count(`8. How heavily have you been involved in the submissions? Rate from 1 to 5 (1-not involved at all, 5- very much involved).` )
-ETC5242_survey %>% count(`9. Your level of involvement in the submissions, compared to your team members, was`)
-ETC5242_survey %>% count(`10. How heavily have you been involved in the model development? Rate from 1 to 5 (1-not involved at all, 5- very much involved).` )
-ETC5242_survey %>% count(`11. Your involvement in the model development, compared to your team members, was`)
-
-```
-
-
-### ETC3250
-
-```{r eval=FALSE}
-# Di's survey
-# Check that they agreed to the use of this data, Q2
-# Qs
-# Q1. I found the data competition is great fun.
-# Q2. Taking part in the data competition contributed a lot to my engagement with the subject.
-# Q3. Taking part in the data competition improved my confidence in my understanding of the covered material.
-# Q4. Taking part in the data competition improved my confidence in my success in the final exam.
-# Q5. Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.
-# Q6. I feel that the required time investment in the data competition was worthy.
-# Q7. What was your favorite topic in this subject during the semester?
-# Q8. How heavily have you been involved in the submissions? Rate from 1 to 5 (1-not involved at all, 5- very much involved).
-# Q9. Your level of involvement in the submissions, compared to your team members, was
-# Q10. How heavily have you been involved in the model development? Rate from 1 to 5 (1-not involved at all, 5- very much involved).
-# Q11. Your involvement in the model development, compared to your team members, was
-ETC3250_survey <- read_xlsx("data/Data Competition Feedback ETC3250.xlsx") %>% filter(`Email Address` != "dicook@monash.edu") %>% filter(`Email Address` != "souhaib.bentaieb@monash.edu")
-ETC3250_survey %>% count(`1. I found the data competition is great fun.`)
-ETC3250_survey %>% count(`2. Taking part in the data competition contributed a lot to my engagement with the subject.`)
-ETC3250_survey %>% count(`3. Taking part in the data competition improved my confidence in my understanding of the covered material.`)
-ETC3250_survey %>% count(`4. Taking part in the data competition improved my confidence in my success in the final exam.`)
-ETC3250_survey %>% count(`5. Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.`)
-ETC3250_survey %>% count(`6. I feel that the required time investment in the data competition was worthy.`)
-ETC3250_survey$`7. What was your favorite topic in this subject during the semester?`
-ETC3250_survey %>% count(`8. How heavily have you been involved in the submissions? Rate from 1 to 5 (1-not involved at all, 5- very much involved).` )
-ETC3250_survey %>% count(`9. Your level of involvement in the submissions, compared to your team members, was`)
-ETC3250_survey %>% count(`10. How heavily have you been involved in the model development? Rate from 1 to 5 (1-not involved at all, 5- very much involved).` )
-ETC3250_survey %>% count(`11. Your involvement in the model development, compared to your team members, was`)
-```
 
 # Discussion
 
-This paper has discussed results from an experiment to examine the effectiveness of data competitions on student learning, using Kagggle InClass as the vehicle for conducting the competition. The evidence suggests that participating in competitions enhances learning.  
+This paper has described the setup and results of an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The experiment was conducted in the classroom settings as part of the normal teaching of the courses, which imposes limitations on the design. However, with both MAST90083 and ETC2420/5242, either a randomized assignment of students to two topic groups, or a control group was possible, which enabled comparing performance. 
+
+The primary finding is that participating in competitions results in statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, anecdotally the competitions enhanced interest and engagement in the course.
 
 # Acknowledgments
 
 This project (title: Effect of Data Competition on Learning Experience) has been approved by the Faculty of Science Human Ethics Advisory Group University of Melbourne (ID: 1749858.1 on September 4, 2017) and by Monash University Human Research Ethics Committee (ID: 9985 on August 24, 2017). 
 
-This document was produced in R [@R] with the package knitr [@knitr]. Data cleaning was conducted using tidyr [@tidyr], dplyr [@dplyr] and plots were made with ggplot2 [@ggplot2].
-
-# Supplementary material
-
-The following material is provided in addition to the main paper. 
-- Code to reproduce the results is in the Rmd document
-- De-identified data 
-- Additional details of analysis
-- Copies of relevant exam questions
-
+This document was produced in R [@R] with the package knitr [@knitr]. Data cleaning was conducted using tidyr [@tidyr], dplyr [@dplyr] and plots were made with ggplot2 [@ggplot2]. The materials to reproduce the work are available at https://github.com/dicook/paper-quoll. 
