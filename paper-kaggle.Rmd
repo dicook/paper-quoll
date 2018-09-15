@@ -24,6 +24,19 @@ bibliography: bibliography.bib
 output: rticles::asa_article
 ---
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(
+  echo=FALSE, 
+  message=FALSE, 
+  warning=FALSE, 
+  kfigr.link=TRUE, 
+  kfigr.prefix=TRUE, 
+  cache=FALSE, 
+  fig.env = TRUE, 
+  fig.cap=TRUE, 
+  fig.height=3)
+```
+
 ```{r cache=FALSE, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 #packages:
 library(knitr)
@@ -35,8 +48,6 @@ library(tidyverse)
 library(readxl)
 library(gridExtra)
 library(forcats)
-
-knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, kfigr.link=TRUE, kfigr.prefix=TRUE, cache=TRUE, fig.env = TRUE, fig.cap=TRUE, fig.height=3)
 
 options("citation_format" = "pandoc")
 
@@ -165,40 +176,40 @@ for (i in 1:1000) {
   x <- UniMelbData %>% select(Proj_alloc, pte_class)
   x <- x %>% mutate(class = sample(Proj_alloc))
   pdif_C <- c(pdif_C,
-            median(x$pte_class[x$class=="classification"]-
-                   median(x$pte_class[x$class=="regression"])))
+            median(x$pte_class[x$class=="classification"])-
+                   median(x$pte_class[x$class=="regression"]))
 }
-dif_C <- median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="classification"]-
-       median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="regression"]))
+dif_C <- median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="classification"])-
+       median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="regression"])
 pdif_R <- NULL
 for (i in 1:1000) {
   x <- UniMelbData %>% select(Proj_alloc, pte_reg)
   x <- x %>% mutate(class = sample(Proj_alloc))
   pdif_R <- c(pdif_R,
-            median(x$pte_reg[x$class=="regression"]-                   median(x$pte_reg[x$class=="classification"])))
+            median(x$pte_reg[x$class=="regression"])-                   median(x$pte_reg[x$class=="classification"]))
 }
-dif_R <- median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="regression"]-
-       median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="classification"]))
+dif_R <- median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="regression"])-
+       median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="classification"])
 pdif_CQ <- NULL
 for (i in 1:1000) {
   x <- UniMelbData %>% select(Proj_alloc, ptq_class)
   x <- x %>% mutate(class = sample(Proj_alloc))
   pdif_CQ <- c(pdif_CQ,
-            median(x$ptq_class[x$class=="classification"]-
-            median(x$ptq_class[x$class=="regression"])))
+            median(x$ptq_class[x$class=="classification"])-
+            median(x$ptq_class[x$class=="regression"]))
 }
-dif_CQ <- median(UniMelbData$ptq_class[UniMelbData$Proj_alloc=="classification"]-
-       median(UniMelbData$ptq_class[UniMelbData$Proj_alloc=="regression"]))
+dif_CQ <- median(UniMelbData$ptq_class[UniMelbData$Proj_alloc=="classification"])-
+       median(UniMelbData$ptq_class[UniMelbData$Proj_alloc=="regression"])
 pdif_RQ <- NULL
 for (i in 1:1000) {
   x <- UniMelbData %>% select(Proj_alloc, ptq_reg)
   x <- x %>% mutate(class = sample(Proj_alloc))
   pdif_RQ <- c(pdif_RQ,
-            median(x$ptq_reg[x$class=="regression"]-
-              median(x$ptq_reg[x$class=="classification"])))
+            median(x$ptq_reg[x$class=="regression"])-
+              median(x$ptq_reg[x$class=="classification"]))
 }
-dif_RQ <- median(UniMelbData$ptq_reg[UniMelbData$Proj_alloc=="regression"]-
-       median(UniMelbData$ptq_reg[UniMelbData$Proj_alloc=="classification"]))
+dif_RQ <- median(UniMelbData$ptq_reg[UniMelbData$Proj_alloc=="regression"])-
+       median(UniMelbData$ptq_reg[UniMelbData$Proj_alloc=="classification"])
 ```
 
 ```{r eval=FALSE}
@@ -224,6 +235,7 @@ keep <- diff_discr %>% filter(m<71, s>20)
 ```
 
 ```{r}
+# This code conducts the permutation test
 pdif_cl <- NULL
 pdif_reg <- NULL
 for (i in 1:1000) {
@@ -248,8 +260,8 @@ pval_reg <- length(pdif_reg[pdif_reg > pdif_reg_true])/1000
 \begin{center}
 \begin{tabular}{|l|r|r|}\hline
 Question Set & Median difference & Permutation $p$-value \\\hline
-Classification & 0.250 & 0.012\\
-Regression & 0.104 & 0.00\\\hline
+Classification & 0.250 & 0.033\\
+Regression & 0.104 & 0.000\\\hline
 \end{tabular}
 \caption{Comparison of median difference in performance by competition group, for MAST90083 students, using permutation tests. Both sets of medians are significantly different, indicating improved scores for questions on the topic related to the Kaggle competition.}
 \end{center}
@@ -354,11 +366,11 @@ for (i in 1:1000) {
   x <- scores %>% select(class, perf)
   x <- x %>% mutate(class = sample(class))
   pdif <- c(pdif,
-            median(x$perf[x$class=="Yes"]-
-                   median(x$perf[x$class=="No"])))
+            median(x$perf[x$class=="Yes"])-
+                   median(x$perf[x$class=="No"]))
 }
-dif <- median(scores$perf[scores$class=="Yes"]-
-       median(scores$perf[scores$class=="No"]))
+dif <- median(scores$perf[scores$class=="Yes"])-
+       median(scores$perf[scores$class=="No"])
 ```
 
 Based on the median, the students who participated in the kaggle challenge scored `r round(dif, 2)` higher than those that didn't, a median of `r round(median(scores$perf[scores$class=="Yes"]), 2)` in comparison to `r round(median(scores$perf[scores$class=="No"]), 2)`. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r round(length(pdif[pdif >= dif])/1000, 3)`. 
@@ -368,7 +380,7 @@ Based on the median, the students who participated in the kaggle challenge score
 
 The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} (top row) shows performance on the classification and regression questions, respectively, against their frequency of prediction submissions for the three student groups (MAST90083 classification and regression, ETC5242 regression) competitions. The relationship is weak in all groups, and this mirrors insignificant results from a linear model fit to both subsets. On the other hand, the predictive accuracy improved with the number of submissions for the regression competitions.
 
-The competition performance relative to number of submissions is shown in plots (d)-(f). Each point corresponds to one student, and accuracy or error of the best predictions submitted is used. The regression competition seemed to engage students more than the classification challenge. Students submitted more predictiona, and their models improved with more submissions.
+The competition performance relative to number of submissions is shown in plots (d)-(f). Each point corresponds to one student, and accuracy or error of the best predictions submitted is used. The regression competition seemed to engage students more than the classification challenge. Students submitted more predictions, and their models improved with more submissions.
 
 <!--
 To examine the correlation between student’s engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions ($PTQ$) and once normalizing by total exam marks ($PTE$). For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
