@@ -18,7 +18,7 @@ keywords:
 - data mining
 
 abstract: |
-  Kaggle is a data modeling competition service, where participants compete to build a model with lower predictive error than other participants. Several years ago they released a reduced service that enables instructors to run competitions in a classroom setting. This paper describes the results of an experiment to determine if the participating in a predictive modeling competition enhances learning. The evidence suggests it does. In addition, students were surveyed to examine if the competition improved engagement and interest in the class.
+  Kaggle is a data modeling competition service, where participants compete to build a model with lower predictive error than other participants. Several years ago they released a reduced service that enables instructors to run competitions in a classroom setting. This paper describes the results of an experiment to determine if participating in a predictive modeling competition enhances learning. The evidence suggests it does. In addition, students were surveyed to examine if the competition improved engagement and interest in the class.
 
 bibliography: bibliography.bib
 output: rticles::asa_article
@@ -51,11 +51,11 @@ Kaggle [@kaggle] is well-known for the data competitions, some richly funded. It
 
 ## Data collection
 
-The experiment was conducted during Semester 2 2017. Data was collected during three classes, one at the University of Melbourne (MAST90083), and one at Monash University (ETC2420/5242). 
+The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of Melbourne (MAST90083), and one at Monash University (ETC2420/5242). 
 
 ## Competition data
 
-Two data sets were compiled for the kaggle challenges: Melbourne property auction prices and spam classification. The Melbourne auction price data was compiled by extracting information from real estate auction reports (pdf) collected between Feb 2, 2013 and Dec 17, 2016. The spam classification data was compiled by graduate students at Iowa State University as part of a data mining class, in 2009. Data was compiled by monitoring and extracting information from their emails by class members, over a period of a week, and manually tagging them as spam or ham.
+Two data sets were compiled for the kaggle challenges: Melbourne property auction prices and spam classification. The Melbourne auction price data was collected by extracting information from real estate auction reports (pdf) collected between Feb 2, 2013 and Dec 17, 2016. The spam classification data was compiled by graduate students at Iowa State University as part of a data mining class, in 2009. Data was compiled by monitoring and extracting information from their emails by class members, over a period of a week, and manually tagging them as spam or ham.
 
 Both data sets were split into training and test sets, for the kaggle challenge. Students had access to the true response variable only for the training data.  For the Melbourne housing data, students were expected to predict price based on the property characteristics. For the spam data, students were expected to build a classifier to predict whether the email as spam or not. 
 
@@ -63,10 +63,12 @@ Both data sets are challenging for prediction, with relatively high error rates.
 
 ## Participants
 
-MAST90083 is titled Computational Statistics and Data Mining, is designed for postgraduate level, for students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). Students individually built prediction models and made submissions for 16 days, and then were allowed to form groups to compete for another 7 days. 
+MAST90083 is titled Computational Statistics and Data Mining, is designed for postgraduate level, for students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). Students built prediction models and made submissions individually for 16 days, and then were allowed to form groups to compete for another 7 days. 
 
-ETC2420/5242, titled Statistical Thinking, covers regression, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (5242) students were required to participate in the kaggle competition focused on regression (R). The 145 undergraduate (2420) students are considered control for examining performance. The competition ran for one month. Students formed their own teams of 2-4 members to compete. Several undergraduates also chose to compete individually. The material on regression methods, particularly the computational methods needed to successfully predict housing prices was new to both groups of students. 
-
+ETC2420/5242, titled Statistical Thinking, covers regression, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (5242) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the University of Melbourne competition. The 145 undergraduate (2420) students were used as controls for examining performance of the postgraduate students. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
+<!--
+Several undergraduates also chose to compete individually. The material on regression methods, particularly the computational methods needed to successfully predict housing prices was new to both groups of students. 
+-->
 <!--
 ETC3250, called Business Analytics, is an undergraduate course focusing on data mining. All students participated in a kaggle competition on the classification challenge. Because this group had no comparison group, it was difficult to assess performance. 
 -->
@@ -79,11 +81,11 @@ The data from the follow-up questionnaire was used to examine interest in the co
 Students were randomly assigned to one of two groups, regression (R) or classification (C). Each group will have a data competition designed for that topic, made available through kaggle in class (https://inclass.kaggle.com). Students wored individually to build predictive models, and submit predictions for the first 16 days. On the 16^{th} day of the competition students received an email that they allowed to establish groups and continue the competition as a group. The competition was continued for additional 7 days. In case they chose to form a group, the final score of the group in total was accounted as their individual mark towards the final grade for the subject and analysed in this project.  Only 3 groups were formed, two groups with 3 students and one group with two students. All other students chose to continue the competition individually.  
 
 Note that the data competition was compulsory to all the students. The volunteering part was the questionnaire at the end of the semester asking for feedback on aspects of the class such as their competition experience, their favourite topic of the semester, and their enjoyment of the material in the subject.
--->
 
 ## Platform
 
 MAST90083 used \url{https://inclass.kaggle.com/c/XXX}. ETC2420/5242 used \url{https://inclass.kaggle.com/c/vitticeps}. 
+-->
 
 # Methodology
 
@@ -91,7 +93,7 @@ MAST90083 used \url{https://inclass.kaggle.com/c/XXX}. ETC2420/5242 used \url{ht
 
 Better performance is equated to better understanding of the material, as measured in the final exam. MAST90083 and ETC2420/5242 included questions, with several parts, on the final exam related to kaggle challenges. These questions were identified prior to data analysis. 
 
-For all questions in the exam difficulty and discrimination scores were computed, using the mean and standard deviations. Of the questions pre-identified as being relevant to the data challenges, only the parts that corresponded to high level of difficulty and high discrimination were included in the comparison of performance. 
+For all questions in the exam, difficulty and discrimination scores were computed, using the mean and standard deviations. Of the questions pre-identified as being relevant to the data challenges, only the parts that corresponded to high level of difficulty and high discrimination were included in the comparison of performance. 
 
 Scores for the relevant questions were summed, and converted into percentage of the possible score. The total exam score was converted to a percentage. Performance for each student was computed as the ratio of these two numbers. A value of 1 would indicate that the student's performance on that set of questions was consistent with their overall exam performance, greater than 1 that they performed better than expected, and lower than 1 meant less than expected on that topic. 
 
@@ -99,7 +101,7 @@ The distribution of the performance scores by group is shown as a boxplot. Focus
 
 ## Engagement
 
-The students were allowed to submit at most one prediction per day, while the  competitions were open. The frequency of submissions, and the accuracy or error of theire predictions, made by individual students, is recorded as a part of the kaggle system. To examine whether engagement improved performance, scores on the questions related to the competition normalised by total exam score (as computed in the performance section) is examined in relation to frequency of submissions during the competition. In addition, performance in the competition as measured by accuracy or error, is also examined in relation to the number of submissions. Scatterplots, correlation and linear models are used to examine the associations.  
+The students were allowed to submit at most one prediction per day, while the  competitions were open. The frequency of submissions, and the accuracy (or error) of their predictions, made by individual students, is recorded as a part of the kaggle system. To examine whether engagement improved performance, scores on the questions related to the competition normalised by total exam score (as computed in the performance section) is examined in relation to frequency of submissions during the competition. In addition, performance in the competition as measured by accuracy or error, is also examined in relation to the number of submissions. Scatterplots, correlation and linear models are used to examine the associations.  
 
 ## Interest
 
@@ -109,9 +111,9 @@ Students in MAST90083 and ETC5242 were invited to give feedback about the course
 
 ## Performance
 
-Figure \ref{fig:MAST90083} shows the data collected in MAST90083. Normalized scores for the classification and regression questions are plotted as boxplots against type of competition participation. The normalized scores were computed based on overall test score (CE, RE), in plots A, B, as well as by overall question score (CQ, RQ), in plots C, D. The difference in median scores indicates performance improvement. In plot A, the normalized scores for the classification questions were better for students who participated in the classification competition. From plot B, a very small increase in median score on the regression questions can be seen for the students who participated in the regression competition. Plots C, D show the scores normalized by total question score. This increases the difference for the regression performance.
+Figure \ref{fig:MAST90083} shows the data collected in MAST90083. Performance is plotted against type of question, separately for the competition they completed.  The difference in median scores indicates performance improvement. Students who completed the classification competition (left) performed relatively better on the classification questions than the regression questions in the final exam. Conversely, students who participated in the regression competition performed relatively better on the regression questions.
 
-```{r Melb, fig.cap = "\\label{fig:MAST90083} Performance on regression and classification questions relative to total exam score (A, B) and overall question (C, D) for students by type of data competition in MAST90083. Differences in medians indicate improved performance.", fig.height=3, fig.width=6}
+```{r Melb, fig.cap = "\\label{fig:MAST90083} Boxplots of performance on regression and classification questions in the final exam, by type of data competition completed in MAST90083. Students generally performed better on the questions corresponding to the competition they participated in.", fig.height=3, fig.width=6}
 library(tidyverse)
 library(gridExtra)
 library(forcats)
@@ -249,12 +251,12 @@ Question Set & Median difference & Permutation $p$-value \\\hline
 Classification & 0.250 & 0.012\\
 Regression & 0.104 & 0.00\\\hline
 \end{tabular}
-\caption{Comparison of median difference in performance by competition group.}
+\caption{Comparison of median difference in performance by competition group, for MAST90083 students, using permutation tests. Both sets of medians are significantly different, indicating improved scores for questions on the topic related to the Kaggle competition.}
 \end{center}
 \label{tab:Melb_Perm}
 \end{table}
 
-Table \ref{tab:Melb_Perm} shows the results of permutation testing of median difference between the groups. Generally the results support the competition improved performance. Students who participated in the kaggle challenge for classification scored higher than those that did the regression competition, on the classification problem. Using a permutation test, this corresponds to a significant difference in medians. Similarly the results show that students who did the regression challenge, performed better on these exam questions.
+Table 1 shows the results of permutation testing of median difference between the groups. Generally the results support the competition improved performance. Students who participated in the kaggle challenge for classification scored higher than those that did the regression competition, on the classification problem. Using a permutation test, this corresponds to a significant difference in medians. Similarly the results show that students who did the regression challenge, performed better on these exam questions.
 
 Figure \ref{fig:ETC5242} shows the results for students ETC2420/5242. The boxplots suggest that the students who participated in the challenge performed relatively better than those that didn't on the regression question than expected given their total exam performance. 
 
@@ -373,7 +375,7 @@ To examine the correlation between student’s engagement levels and the perform
 -->
 
 
-```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplots of the exam performance (a-c) and competition performance (d-f) by number of prediction submissions, for the three student groups. The relationships with exam performance are weak. For the MAST90083 and ETC5242 regression competitions, a clear pattern is that predictions improved substantially with more submissions." , fig.width=6, fig.height=5}
+```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplots of the exam performance (a-c) and competition performance (d-f) by number of prediction submissions, for the three student groups. The relationships with exam performance are weak. For the MAST90083 and ETC5242 regression competitions, a clear pattern is that predictions improved substantially with more submissions. (House price in ETC5242 were divided by 100,000, explaining the difference in magnitude of error between two competitions.)" , fig.width=6, fig.height=5}
 etc5242 <- read_csv("data/competition_5242.csv")
 scores_5242_comp <- scores_5242 %>% left_join(etc5242, by="id")
 p1 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=perf_class)) +
@@ -474,10 +476,10 @@ We didn’t found any evidence for correlation between the performances in the c
 - Match exam performance to engagement?
 -->
 
-Figure \ref{fig:likert} shows the survey responses related to the kaggle competition, for MAST90083 and ETC5242. The response rate for MAST90083 was 55%, with 34 of 61 students completed the survey. The response rate for ETC5242 was 50%, 17 students out of 34 completed the survey.
+Figure \ref{fig:likert} shows the survey responses related to the kaggle competition, for MAST90083 and ETC5242. The response rate for MAST90083 was 55%, with 34 of 61 students completed the survey. The response rate for ETC5242 was 50%, 17 students out of 34 completed the survey. Overwhelmingly, students reported that they found the competition interesting and helpful for their learning in the course.
 
 
-```{r likert, fig.cap="\\label{fig:likert}Summary of responses to survey of kaggle competition participants. Overwhelmingly the response to the competition was positive in both classes, especially the questions on enjoyment and engagement in the class, and obtaining practical experience."}
+```{r likert, fig.cap="\\label{fig:likert}Summary of responses to survey of kaggle competition participants. Overwhelmingly the response to the competition was positive in both classes, especially the questions on enjoyment and engagement in the class, and obtaining practical experience. (Table 2 lists the questions.)"}
 MAST90083_survey <- read_xlsx("data/Data Competition Feedback MAST90083.xlsx") %>% filter(`Email Address` != "julia.polak@unimelb.edu.au")
 MAST90083_likert <- MAST90083_survey %>% 
   rename(Q1=`1. I found the data competition is great fun.`) %>%
@@ -594,10 +596,12 @@ Q6 & I feel that the required time investment in the data competition was worthy
 
 This paper has described the setup and results of an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The experiment was conducted in the classroom settings as part of the normal teaching of the courses, which imposes limitations on the design. However, with both MAST90083 and ETC2420/5242, either a randomized assignment of students to two topic groups, or a control group was possible, which enabled comparing performance. 
 
-The primary finding is that participating in competitions results in statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, anecdotally the competitions enhanced interest and engagement in the course.
+The primary finding is that participating in competitions results produces a statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, anecdotally, the competitions enhanced interest and engagement in the course. 
 
 # Acknowledgments
 
 This project (title: Effect of Data Competition on Learning Experience) has been approved by the Faculty of Science Human Ethics Advisory Group University of Melbourne (ID: 1749858.1 on September 4, 2017) and by Monash University Human Research Ethics Committee (ID: 9985 on August 24, 2017). 
 
 This document was produced in R [@R] with the package knitr [@knitr]. Data cleaning was conducted using tidyr [@tidyr], dplyr [@dplyr] and plots were made with ggplot2 [@ggplot2]. The materials to reproduce the work are available at https://github.com/dicook/paper-quoll. 
+
+Information on setting up a Kaggle InClass challenge can be found at https://www.kaggle.com/about/inclass/overview. 
