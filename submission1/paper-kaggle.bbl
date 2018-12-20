@@ -1,0 +1,35 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{{R Core Team}}{2017}{R}
+{R Core Team}  \harvardyearleft 2017\harvardyearright , {\em R: A Language and
+  Environment for Statistical Computing}, R Foundation for Statistical
+  Computing, Vienna, Austria.
+\newline\harvardurl{\url{https://www.R-project.org/}}
+
+\harvarditem{{The Kaggle Team}}{2018}{kaggle}
+{The Kaggle Team}  \harvardyearleft 2018\harvardyearright , `The home of data
+  science \& machine learning', \url{https://www.kaggle.com}.
+
+\harvarditem{Wickham}{2016}{ggplot2}
+Wickham, H.  \harvardyearleft 2016\harvardyearright , {\em ggplot2: Elegant
+  Graphics for Data Analysis}, Springer-Verlag New York.
+\newline\harvardurl{\url{http://ggplot2.org}}
+
+\harvarditem[Wickham et~al.]{Wickham, Francois, Henry \harvardand\
+  Muller}{2017}{dplyr}
+Wickham, H., Francois, R., Henry, L. \harvardand\ Muller, K.  \harvardyearleft
+  2017\harvardyearright , {\em dplyr: A Grammar of Data Manipulation}.
+\newblock R package version 0.7.4.
+\newline\harvardurl{\url{https://CRAN.R-project.org/package=dplyr}}
+
+\harvarditem{Wickham \harvardand\ Henry}{2018}{tidyr}
+Wickham, H. \harvardand\ Henry, L.  \harvardyearleft 2018\harvardyearright ,
+  {\em tidyr: Easily Tidy Data with 'spread()' and 'gather()' Functions}.
+\newblock R package version 0.8.0.
+\newline\harvardurl{\url{https://CRAN.R-project.org/package=tidyr}}
+
+\harvarditem{Xie}{2015}{knitr}
+Xie, Y.  \harvardyearleft 2015\harvardyearright , {\em Dynamic Documents with R
+  and knitr (2nd edition)}, Chapman and Hall/CRC.
+
+\end{thebibliography}
