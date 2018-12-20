@@ -1,0 +1,54 @@
+Reviewer(s)' Comments to Author:
+
+Reviewer: 1
+
+Comments to the Author
+I enjoyed this paper and think it makes a contribution to the literature.  However,  I would like to see some improvements made.
+Briefly discussing the experience from the professor side of things would be helpful.  So in addition to the student survey it would be helpful to read how hard it was to set up and work with the Kaggle competitions and any logistical challenges.
+
+Also more discussion of study limitations is needed.  For example,  in the ETC class the "treatment" is confounded with level of student ( graduate/ undergraduate).  Other limitations should be briefly discussed as well.  I also would like to see suggestions for future research.
+Sentence misworded in line 29 page 9
+Also in Figure 3, it would seem there is some non-linearity in a couple of the graphs.  I would like to see that mentioned and discussed.  It seems there is a point of diminishing return, in graphs E and F.
+
+I also think it is a study weakness that all the survey questions are worded in a positive manner and this could be leading.  I realize given the study is done this can’t be changed but it would be worth noting in the discussion ways the survey might be improved.
+It might be more productive in future work to directly ask for level of engagement first, then one could also ask students who did not do the competition as well the question.
+“How would you rate your level of engagement in this course?”
+Not at all engaged--- up to extremely engaged with choices in between.
+
+
+
+Reviewer: 2
+
+Comments to the Author
+Kaggle is an online platform that brings together two communities: one that is willing to contribute data and another that is interested in analyzing data. Kaggle has become one of the popular platforms used in quantitative statistical courses, where individual students or teams can obtain a data set to analyze, and often compete (for monetary prize or otherwise). The main aim of the article is to provide empirical evidence in support of the effectiveness of Kaggle competitions in improving student learning.
+In terms of grammar, style, and narrative the article is written adequately. It gives a concise summary of the empirical results that it uses to support the claims of effectiveness. However, there are major issues related to the motivation and relatedly the (absence of) literature review; details and guidelines; and the quantitative assessment of effectiveness of the competition. The major issues are outlined below, followed by a few minor comments. In reviewer’s opinion, the adequate resolution of all of those observations is a necessary precondition for the publication of the work.
+
+Major Comments
+- The article does not provide a motivation for incorporating a predictive competition in a coursework. What is the educational aim of the competitive element as compared to more “standard” projects where students do not compete? Relatedly, what are the advantages and limitations of the proposed competitive format? A literature review, which currently is completely missing from the article, would be more than appropriate, summarizing thoroughly the existing work on project-based learning and putting the proposed format of Kaggle competitions vis-à-vis the project-based pedagogy.
+- The article does not provide details regarding the implementation/administration of the competition in a classroom setting, and lacks practical guidelines for teachers of statistics and data science. Thus, in the current form it has little to offer if the reader considers replicating Kaggle competitions in her/his classroom. Some of the important details that are left out of the article include but are not limited to the time and involvement required from the instructor from start to finish; the format of instructor’s involvement with students/teams; time in the semester (start? middle? end?) when the projects get assigned; presence of a teaching assistant (TA), etc.
+- Many of the datasets on Kaggle are in need of preprocessing/cleaning prior to the application of predictive models. In authors’ view, should these tasks be carried out by instructors/TAs or left to students instead? What are the pros and cons of each of these approaches?
+- For many Kaggle datasets there are existing (at least preliminary) solutions on the web. Reliance on those resources may drastically deteriorate student involvement, interest, and takeaways from the projects. In authors’ view, what steps can be taken by instructors in that regard?
+- In the first paragraph of section 2.3 authors mention that students were allowed to first submit individually and then form groups. It would be helpful if authors could explain the motivation behind that format.
+- In the second paragraph of section 3.1, as well as in section 4.1 authors note/imply that the postgrad cohort in ETC2420 took part in the Kaggle challenge while the undergraduate cohort was used as the control group. This could introduce confounding, as the average quantitative preparedness in the postgraduate cohort could be significantly higher than that of the undergraduate group prior to the Kaggle challenge. As such, the choice of the undergraduate cohort could be inappropriate as a control group.
+- To understand the assessment of student performance more thoroughly, it would be helpful if authors could provide the complete final exam at least for one of the two courses (perhaps in supplementary materials), clearly marking the questions pertaining to the Kaggle challenges.
+- In section 3.1 authors introduce the metric that they use in the assessment of student performance. As authors discuss in the third paragraph of section 3.1, the constructed metric measures the consistency of students’ performance on a specific set of questions in relation to the overall exam performance. Subsequently authors use the defined metric for the assessment of performance, and attribute change in medians to improved performance (e.g. second paragraph of section 4.2). In reviewer’s view, change in medians shows change in consistency of performance, and that does not necessarily translate to improvement in learning. It is possible to construct a hypothetical example where the defined metric increases without any change in the performance on the regression- (or equivalently classification-) related part. It is not clear why authors used the “ratio” metric, as opposed to, for example, simply the percentage of the possible points received on a specific subset of questions (e.g.
+regression- or classification-related). As such, the use of the proposed measure does not seem to be justified as being appropriate for the assessment of performance. If the currently used metric is retained, then the authors should explain the construction of it more clearly, exemplify it using numbers, and justify why an increase in the metric signals improvement in learning (rather than improvement in consistency).
+- The entries in the “Median difference” column in Table 1 do not correspond to the differences in the median bars implied from Figure 1 (e.g. the difference between the median bars in the “regression” box from the left sub-figure and the “regression” box from the right sub-figure is not 0.1 as entered in Table 1).
+Minor Comments
+- It was not clear whether the training and testing sets noted in section 2.2 were the same across the two institutions.
+- It is unclear if the survey mentioned in section 4.3 was anonymous. If it was, please stress that, and if it was not then address the bias that would be introduced in survey responses due to the lack of anonymity.
+- It is mentioned in section 2.3 that there were 63 students randomized to regression and classification competitions, while in section 4.3 the total number goes down to 61. Please clarify.
+- Further details behind Kaggle including but not limited to examples of popular datasets/competitions that it has hosted, data contributors, the motivation for contributing data, and the consequences of winning a competition or scoring high – would be helpful in the introduction.
+
+Associate Editor
+Comments to the Author:
+I thought the article was well written and the topic definitely adds something new to the literature:
+
+Notes:
+1) There is no literature review. Even a short review of papers that have used projects or competitions would put this paper in context. Also some review (if it is out there) of your performance metric might help the readers to understand why you measured learning gains in this way.
+
+2) Discussion of the logistics of setting up such a competition would be very helpful to the reader. The kaggle link should be more prominently placed in the article as well as your personal insight/experience to what kind of investment a professor needs to make in order to make this happen.
+
+3) There needs to be a better explanation of why undergraduates were used as a control group at one of the universities. This jumped out to several reviewers. 
+
+4) I would argue for a data display/analysis that shows for each individual student the difference between their performance score on their "treatment" questions versus their "non-treatment" questions, i.e. the classification students that did “better than expected” on classification questions, how many of those also did “better than expected” on the regression questions and so on.
