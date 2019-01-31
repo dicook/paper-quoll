@@ -75,9 +75,21 @@ Both data sets were split into training and test sets, for the kaggle challenge.
 
 Both data sets are challenging for prediction, with relatively high error rates.
 
+The training and the testing data sets of the Melbourne auction price data were similar but not identical across the two institutions. Some of the variables in the data set were simulated, e.g. property land size and house size. The simulated data was generated slightly differently for different institutions. This was done deliberately to prevent students passing answers from one institution to another. 
+
+
+Students received clean data ready for modelling as we only aimed to examine students ability to apply covered material. If the instructor's aim is rather to mimic real-life situation when prior to modelling/forecasting data needs to be processed and cleaned, then this task should be left to students. In our opinion, this approach is more suitable for advanced classes.  
+
+
+
 ## Participants
 
 MAST90083 is titled Computational Statistics and Data Mining, is designed for postgraduate level, for students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). Students built prediction models and made submissions individually for 16 days, and then were allowed to form groups to compete for another 7 days. 
+
+The reason for this strategy was first to motivate each of the students to think about modelling and be actively engaged in the competitions through individual submission. The lecturer allowed to create groups towards the end of the competition to illustrate the advantages of group work and mixing models. Another motivation for this stratagem was the university policy, requiring a strategy to assign students individually in group assignments.
+
+0ne of the 63 students didn't took part in the competition. Another student didn't sit the exam. Therefore, the analysed sample size reduced to 61.
+
 
 ETC2420/5242, titled Statistical Thinking, covers regression, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (5242) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the University of AB competition. The 145 undergraduate (2420) students were used as controls for examining performance of the postgraduate students. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
 <!--
@@ -98,8 +110,22 @@ Note that the data competition was compulsory to all the students. The volunteer
 
 ## Platform
 
-MAST90083 used \url{https://inclass.kaggle.com/c/XXX}. ETC2420/5242 used \url{https://inclass.kaggle.com/c/vitticeps}. 
+MAST90083 used \url{https://www.kaggle.com/c/amiaspam} and \url{https://www.kaggle.com/c/melbprice}. ETC2420/5242 used \url{https://inclass.kaggle.com/c/vitticeps}. 
 -->
+
+## Working with the Kaggle InClass platform
+
+
+Creating a new competition is surprisingly easy. 
+Information on setting up a Kaggle InClass challenge can be found at https://www.kaggle.com/about/inclass/overview. 
+To ease the setting process, we created a short video illustrating the steps to establish a competition....
+
+Once you open the competition, it runs without any intervention from the instructor. The instructor can monitor students progress: the number of submissions, student scores and even the uploaded data at any time. When the competition ends the "Leaderboard" page provides a list of students ordered by the final score. It also provides all the scores from all past submissions (under "Raw Data" on "Public Leaderboard"). 
+
+From our experience, we recommend limiting the number of daily submissions to one. It encourages students to think about more efficient improvement of their model before the next submissions.  We also believe that it is better to start the competition in the second half of the semester and finish it two to one week before the end of the semester. It allows to cover many different statistical methods that students may apply during the competition. Finishing some time before the end of the semester reduces students anxiety at the end of the semester and the approaching exams.  
+
+
+
 
 # Methodology
 
@@ -390,6 +416,9 @@ To examine the correlation between student’s engagement levels and the perform
 -->
 
 
+
+
+
 ```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplots of the exam performance (a-c) and competition performance (d-f) by number of prediction submissions, for the three student groups. The relationships with exam performance are weak. For the MAST90083 and ETC5242 regression competitions, a clear pattern is that predictions improved substantially with more submissions. (House price in ETC5242 were divided by 100,000, explaining the difference in magnitude of error between two competitions.)" , fig.width=6, fig.height=5}
 etc5242 <- read_csv("data/competition_5242.csv")
 scores_5242_comp <- scores_5242 %>% left_join(etc5242, by="id")
@@ -483,6 +512,55 @@ We didn’t found any evidence for correlation between the performances in the c
 -->
 
 
+
+
+```{r crossperformances, echo=FALSE, fig.cap="\\label{fig:crossperformances} Students performance in classification and regression questions by competition type. Each quarter of the plot also contains  the counted number of students in the brackets. The number of students that participated in the classification competition is shown first, followed by the number of students that took part in the  regression competition. ", fig.width=6,fig.height=5  } 
+
+t <- UniMelbData %>%
+ count(Proj_alloc, perf_class >=1, perf_reg >=1, sort = TRUE) %>%
+  setNames(., c("Proj_alloc", "outperf_class", "outperf_reg" , "n"))
+
+a <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == FALSE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == FALSE)["n"]) ,")")
+
+b <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == TRUE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == TRUE)["n"]) ,")")
+
+c <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == TRUE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == TRUE)["n"]) ,")")
+
+d <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == FALSE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == FALSE)["n"]) ,")")
+
+# filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg >=1) %>% select(., perf_class, perf_reg)
+# filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg <1) %>% select(., perf_class, perf_reg)
+
+
+
+ggplot(UniMelbData, aes(x=perf_class, y=perf_reg, color = Proj_alloc)) +
+      geom_point() +
+      ylab("Regression questions performance") + 
+      xlab("Classification questions performance") +
+      theme(legend.position="bottom") +
+      xlim(0,2) + ylim(0, 2) +
+      scale_color_discrete(name="Competiotion", 
+                          breaks=c("regression", "classification"),   
+                          labels=c("Regression", "Classification")) +
+      geom_hline(yintercept = 1, color = "gray", size=0.7) +  #linetype="dotted",
+      geom_vline(xintercept = 1, color = "gray", size=0.7) +
+      annotate("text", x = c(0.1,0.1,1.9,1.9), y=c(0.1,1.9,1.9,0.1), 
+               label = c(  a,  #(1,1)
+                           b,  # "(2,2)"
+                           c,  #"(3,3)"
+                           d )) #"(4,4)"
+      # annotate("text", x=0.1, y=1.8, label= "(,)")
+
+```
+    
+
+Figure \ref{fig: crossperformances} presents students' scores for classification and regression questions. A score over 1 is considered outperformance (relative to the expectation). Quarters one and three include students that underperform or outperform on both types of questions, respectively. In both cases the number of students that participated in the classification competition is very close to the number of students that participated in the regression competition (excluding a few regression students on the border of score 1). Students in quarters two and four outperform on one type of questions but not on the other type. We can see that more regression students outperform on regression questions than classification students (12 vs. 7). Similarly, classification students do better on classification questions (11 vs. 3). This is another evidence towards positive influence of the data competition on student's performances.
+
+
 ## Interest
 
 <!--
@@ -491,7 +569,12 @@ We didn’t found any evidence for correlation between the performances in the c
 - Match exam performance to engagement?
 -->
 
-Figure \ref{fig:likert} shows the survey responses related to the kaggle competition, for MAST90083 and ETC5242. The response rate for MAST90083 was 55%, with 34 of 61 students completed the survey. The response rate for ETC5242 was 50%, 17 students out of 34 completed the survey. Overwhelmingly, students reported that they found the competition interesting and helpful for their learning in the course.
+Figure \ref{fig:likert} shows the survey responses related to the kaggle competition, for MAST90083 and ETC5242. The response rate for MAST90083 was 55%, with 34 of 61 students completing the survey. 
+The response rate for ETC5242 was 50%, 17 students out of 34 completed the survey. Overwhelmingly, students reported that they found the competition interesting and helpful for their learning in the course.
+
+After collecting the survey from the students we were told that the questions about students engagement were positively worded. This may have potentially led to some bias. An improved way could be to ask directly about student's engagement, e.g. "How would you rate your level of engagement in this course?" with set answer options of "not at all engaged" -- up to "extremely engaged" with several choices in between. Another improvement could be asking ETC2420 students that didn't take part in the competition about their level of engagement and compare the answers with other students of ETC5242. We acknowledge that the differences in the engagement levels may not necessarily be a result of participation in the competition but it is still an interesting aspect.
+
+The survey was not anonymous. However, the results became available to the lectures only after all the grades were realised to the students. This point was emphasized in the instructions to the students at the beginning of the survey.
 
 
 ```{r likert, fig.cap="\\label{fig:likert}Summary of responses to survey of kaggle competition participants. Overwhelmingly the response to the competition was positive in both classes, especially the questions on enjoyment and engagement in the class, and obtaining practical experience. (Table 2 lists the questions.)"}
