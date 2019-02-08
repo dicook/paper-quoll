@@ -35,7 +35,6 @@ knitr::opts_chunk$set(
   kfigr.link=TRUE, 
   kfigr.prefix=TRUE, 
   cache=FALSE, 
-  fig.env = TRUE, 
   fig.cap=TRUE, 
   fig.height=3)
 ```
@@ -60,6 +59,14 @@ BibOptions(check.entries = FALSE, style = "markdown", bib.style = "alphabetic", 
 # Introduction
 
 Kaggle [@kaggle] is well-known for the data competitions, some richly funded. It provides a platform for predictive modelling and analytics competitions where participants compete to produce the best predictive model for a given data set. In 2015, Kaggle InClass was introduced, as a self-service platform to conduct competitions. These competitions can be private, limited to members of a university course, and are easy to setup. This paper examines the educational benefits of conducting predictive modeling competitions in class on performance, engagement and interest.
+
+<!--
+Background literature:
+- Data competition
+- Competition and pedagogy
+- Gold standard (randomized control studies) for evaluating new pedagogy
+- active learning
+-->
 
 # Experimental setup
 
@@ -532,27 +539,36 @@ c <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outper
 d <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == FALSE)["n"]), ",", 
                  as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == FALSE)["n"]) ,")")
 
+a <- "Overall weak students"
+b <- "Classification competition \n students perform well\n on classification questions"
+c <- "Overall strong students"
+d <- "Regression competition \n students perform well\n on regression questions"
+
 # filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg >=1) %>% select(., perf_class, perf_reg)
 # filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg <1) %>% select(., perf_class, perf_reg)
 
 
 
-ggplot(UniMelbData, aes(x=perf_class, y=perf_reg, color = Proj_alloc)) +
-      geom_point() +
+ggplot() +
+      annotate("rect", xmin = 0, xmax = 0.99, ymin = 1.01, ymax = 2, fill = "yellow", alpha = 0.3) +
+      annotate("rect", xmin = 1.01, xmax = 2, ymin = 0, ymax = 0.99, fill = "yellow", alpha = 0.3) +
+      geom_point(data=UniMelbData, aes(x=perf_class, y=perf_reg, color = Proj_alloc), size=3, alpha=0.8) +
       ylab("Regression questions performance") + 
       xlab("Classification questions performance") +
-      theme(legend.position="bottom") +
       xlim(0,2) + ylim(0, 2) +
-      scale_color_discrete(name="Competiotion", 
+      scale_color_brewer(palette="Dark2", name="Competition", 
                           breaks=c("regression", "classification"),   
                           labels=c("Regression", "Classification")) +
       geom_hline(yintercept = 1, color = "gray", size=0.7) +  #linetype="dotted",
       geom_vline(xintercept = 1, color = "gray", size=0.7) +
-      annotate("text", x = c(0.1,0.1,1.9,1.9), y=c(0.1,1.9,1.9,0.1), 
+      annotate("text", x = c(0.2,0.2,1.7,1.7), y=c(0.1,1.9,1.9,0.1), 
                label = c(  a,  #(1,1)
                            b,  # "(2,2)"
                            c,  #"(3,3)"
-                           d )) #"(4,4)"
+                           d )) +
+  theme_bw() +
+        theme(legend.position="bottom") 
+#"(4,4)"
       # annotate("text", x=0.1, y=1.8, label= "(,)")
 
 ```
