@@ -154,7 +154,12 @@ Better performance is equated to better understanding of the material, as measur
 
 For all questions in the exam, difficulty and discrimination scores were computed, using the mean and standard deviations. Of the questions pre-identified as being relevant to the data challenges, only the parts that corresponded to high level of difficulty and high discrimination were included in the comparison of performance. 
 
-Scores for the relevant questions were summed, and converted into percentage of the possible score. The total exam score was converted to a percentage. Performance for each student was computed as the ratio of these two numbers. A value of 1 would indicate that the student's performance on that set of questions was consistent with their overall exam performance, greater than 1 that they performed better than expected, and lower than 1 meant less than expected on that topic. 
+Scores for the relevant questions were summed, and converted into percentage of the possible score. The total exam score was converted to a percentage.
+One can expect, that on average, student's success rate for each question will be about the same as the success rate in the total exam. Understanding one topic better than another will result in higher success rate for questions asking about the better understood topic compared to the scores for other topics. For example, we would expect from a student with a 70% exam mark to get 70% marks on each of the questions in the exam, if she has similar knowledge level on all the exam topics. If in some topic, say regression, the student has better knowledge, she will perform better on the regression questions. Her success rate on regression question will be higher than 70%. Consequently, her performance on some other questions should be below 70% which is associated with lesser understanding of these topics. 
+
+Therefore, performance for each student was computed as the ratio of these two numbers, percentage success in the regression (classification) questions and percentage success in the total exam. A value of 1 would indicate that the student's performance on that set of questions was consistent with their overall exam performance, greater than 1 that they performed better than expected, and lower than 1 meant less than expected on that topic. 
+
+Using only the percentage of successes for each set of questions, instead of the proposed ratio, will not differentiate between a better performance and just a better student. Especially in the case of ETC2420/5242 that have a mixed population of master and undergraduate student.
 
 The distribution of the performance scores by group is shown as a boxplot. Focus is on the difference in median between the groups. Permutation tests were conducted to examine difference in median scores for students participating or not in a competition. 
 
@@ -533,7 +538,7 @@ We didn’t found any evidence for correlation between the performances in the c
 
 
 
-```{r crossperformances, echo=FALSE, fig.cap="\\label{fig:crossperformances} Students performance in classification and regression questions by competition type. Each quarter of the plot also contains  the counted number of students in the brackets. The number of students that participated in the classification competition is shown first, followed by the number of students that took part in the  regression competition. ", fig.width=6,fig.height=5  } 
+```{r crossperformances, echo=FALSE, fig.cap="\\label{fig:crossperformances} Students performance in classification and regression questions by competition type.", fig.width=6,fig.height=5  } 
 
 t <- UniMelbData %>%
  count(Proj_alloc, perf_class >=1, perf_reg >=1, sort = TRUE) %>%
@@ -552,9 +557,9 @@ d <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outper
                  as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == FALSE)["n"]) ,")")
 
 a <- "Overall weak students"
-b <- "Classification competition \n students perform well\n on classification questions"
+b <- "Regression competition \n students perform well\n on regression questions" 
 c <- "Overall strong students"
-d <- "Regression competition \n students perform well\n on regression questions"
+d <- "Classification competition \n students perform well\n on classification questions"
 
 # filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg >=1) %>% select(., perf_class, perf_reg)
 # filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg <1) %>% select(., perf_class, perf_reg)
@@ -562,8 +567,8 @@ d <- "Regression competition \n students perform well\n on regression questions"
 
 
 ggplot() +
-      annotate("rect", xmin = 0, xmax = 0.99, ymin = 1.01, ymax = 2, fill = "yellow", alpha = 0.3) +
-      annotate("rect", xmin = 1.01, xmax = 2, ymin = 0, ymax = 0.99, fill = "yellow", alpha = 0.3) +
+      annotate("rect", xmin = 0, xmax = 0.99, ymin = 1.01, ymax = 2, fill = "yellow", alpha = 0.25) +
+      annotate("rect", xmin = 1.01, xmax = 2, ymin = 0, ymax = 0.99, fill = "yellow", alpha = 0.25) +
       geom_point(data=UniMelbData, aes(x=perf_class, y=perf_reg, color = Proj_alloc), size=3, alpha=0.8) +
       ylab("Regression questions performance") + 
       xlab("Classification questions performance") +
@@ -573,7 +578,7 @@ ggplot() +
                           labels=c("Regression", "Classification")) +
       geom_hline(yintercept = 1, color = "gray", size=0.7) +  #linetype="dotted",
       geom_vline(xintercept = 1, color = "gray", size=0.7) +
-      annotate("text", x = c(0.2,0.2,1.7,1.7), y=c(0.1,1.9,1.9,0.1), 
+      annotate("text", x = c(0.3,0.32,1.7,1.61), y=c(0.1,1.85,1.95,0.18), 
                label = c(  a,  #(1,1)
                            b,  # "(2,2)"
                            c,  #"(3,3)"
@@ -586,7 +591,14 @@ ggplot() +
 ```
     
 
-Figure \ref{fig: crossperformances} presents students' scores for classification and regression questions. A score over 1 is considered outperformance (relative to the expectation). Quarters one and three include students that underperform or outperform on both types of questions, respectively. In both cases the number of students that participated in the classification competition is very close to the number of students that participated in the regression competition (excluding a few regression students on the border of score 1). Students in quarters two and four outperform on one type of questions but not on the other type. We can see that more regression students outperform on regression questions than classification students (12 vs. 7). Similarly, classification students do better on classification questions (11 vs. 3). This is another evidence towards positive influence of the data competition on student's performances.
+Figure \ref{fig: crossperformances} presents students' scores for classification and regression questions. A score over 1 is considered outperformance (relative to the expectation). Quarters one and three include students that underperform or outperform on both types of questions, respectively. In both cases the number of students that participated in the classification competition is very close to the number of students that participated in the regression competition (excluding a few regression students on the border of score 1). Students in quarters two and four outperform on one type of questions but not on the other type. We can see that more regression students outperform on regression questions than classification students 
+(`r filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 12 --> vs. 
+ `r filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 7 -->). 
+Similarly, classification students do better on classification questions 
+(`r filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == FALSE)["n"]`<!-- 11 --> vs. 
+ `r filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == FALSE)["n"]`<!-- 3 -->). 
+This is another evidence towards positive influence of the data competition on student's performances.
+
 
 
 ## Interest
