@@ -64,7 +64,7 @@ Kaggle [@kaggle] is well-known for the data competitions, some richly funded. It
 *Di any``famous'' data competition examples ???*
 
 The competitors participating in these competitions have different motivations, but it is mainly fame and financial reward for the winner. 
-Occasionally, inventors of new methods and algorithms use Kaggle competitions as a platform to prove the superiority of their methods. A famous example are Geoffrey Hinton and George Dahl with deep neural networks and Tianqi Chen and Carlos Guestrin with XGBoost.
+Occasionally, inventors of new methods and algorithms use Kaggle competitions as a platform to prove the superiority of their methods. A famous example are Geoffrey Hinton and George Dahl with deep neural networks [@HintonDahi12] and Tianqi Chen and Carlos Guestrin with XGBoost [@ChenXGBoost].
 
 Individuals and organizations that contribute the data and open it for a competition gain expertise from many professionals at once. This increases the chance for an improved and innovative solution to their problem.
 
@@ -77,6 +77,24 @@ Background literature:
 - Gold standard (randomized control studies) for evaluating new pedagogy
 - active learning
 -->
+
+In the past few years, educational community started to collect positive evidence on including a competition in the classroom (see for example @Calnon12, @Canada15 and @VanNuland15).
+The most comparable to our experiment is the educational experiment conducted by @VanNuland15. 
+The authors found significant improvement in student's exam marks due to taking part in the competition. The experiment (crossover design) was conducted in a similar class size ($n=67$). However, these were undergraduate students that took the human anatomy subject at Western University.
+
+The competition is an example of active learning. A large body of literature has been published on the latter topic. @Prince04
+surveyed the literature and found that all forms of active learning have positive effect on the learning experience and student's achievements. The magnitude of the effect of different approaches, though, varies. What's more, @Freeman14 examined 158 studies published in about 50 STEM educational journals. The authors found that student's exam marks increased by almost half SD under active learning. Moreover, students in classes with traditional lecturing were 1.5 times more likely to fail than their peers in classes with active learning.
+
+A competition, like any other assessment method has its advantages and disadvantages. It brings the 'game' feeling, increases the interest level among students and motivates for higher performance (@Shindler09, p 105). But, it may have negative influence if set wrongly. Among the negative influences are potential stress and increased anxiety (of low ranking, fear to fail or technology barrier). In addition, students may invest disproportional time and effort into competition.      
+
+Despite some received criticism, a properly set competition can benefit the students greatly. The competition should be relatively short in duration as it consumes a lot of students' energy. Students should be clear about the rules and the goal. They should be properly rewarded and most important, feel that they have reasonable chance to win or achieve high mark [@Shindler09]. 
+
+@Shelley08 raised the need for more quantitative and statistical analysis of evidence in science education. In this paper we will contribute to this call by offering statistical analysis of the experiment's results. 
+
+
+
+
+
 
 # Experimental setup
 
@@ -101,7 +119,8 @@ Students received clean data ready for modelling as we only aimed to examine stu
 
 ## Participants
 
-MAST90083 is titled Computational Statistics and Data Mining, is designed for postgraduate level, for students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). Students built prediction models and made submissions individually for 16 days, and then were allowed to form groups to compete for another 7 days. 
+MAST90083 is titled Computational Statistics and Data Mining, is designed for postgraduate level, for students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). This setup mimics randomized control trials, which is the 'gold standard, in experiment design (@Shelley09CH1, ch. 1).
+Students built prediction models and made submissions individually for 16 days, and then were allowed to form groups to compete for another 7 days. 
 
 The reason for this strategy was first to motivate each of the students to think about modelling and be actively engaged in the competitions through individual submission. The lecturer allowed to create groups towards the end of the competition to illustrate the advantages of group work and mixing models. Another motivation for this stratagem was the university policy, requiring a strategy to assign students individually in group assignments.
 
@@ -591,7 +610,7 @@ ggplot() +
 ```
     
 
-Figure \ref{fig: crossperformances} presents students' scores for classification and regression questions. A score over 1 is considered outperformance (relative to the expectation). Quarters one and three include students that underperform or outperform on both types of questions, respectively. In both cases the number of students that participated in the classification competition is very close to the number of students that participated in the regression competition (excluding a few regression students on the border of score 1). Students in quarters two and four outperform on one type of questions but not on the other type. We can see that more regression students outperform on regression questions than classification students 
+Figure \ref{fig:crossperformances} presents students' scores for classification and regression questions. A score over 1 is considered outperformance (relative to the expectation). Quarters one and three include students that underperform or outperform on both types of questions, respectively. In both cases the number of students that participated in the classification competition is very close to the number of students that participated in the regression competition (excluding a few regression students on the border of score 1). Students in quarters two and four outperform on one type of questions but not on the other type. We can see that more regression students outperform on regression questions than classification students 
 (`r filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 12 --> vs. 
  `r filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 7 -->). 
 Similarly, classification students do better on classification questions 
