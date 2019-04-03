@@ -21,7 +21,7 @@ keywords:
 - data mining
 
 abstract: |
-  Kaggle is a data modeling competition service, where participants compete to build a model with lower predictive error than other participants. Several years ago they released a reduced service that enables instructors to run competitions in a classroom setting. This paper describes the results of an experiment to determine if participating in a predictive modeling competition enhances learning. The evidence suggests it does. In addition, students were surveyed to examine if the competition improved engagement and interest in the class.
+  Kaggle is a data modeling competition service, where participants compete to build a model with lower predictive error than other participants. Several years ago they released a simplified service that is ideal for instructors to run competitions in a classroom setting. This paper describes the results of an experiment to determine if participating in a predictive modeling competition enhances learning. The evidence suggests it does. In addition, students were surveyed to examine if the competition improved engagement and interest in the class.
 
 bibliography: bibliography.bib
 output: rticles::asa_article
@@ -58,17 +58,9 @@ BibOptions(check.entries = FALSE, style = "markdown", bib.style = "alphabetic", 
 
 # Introduction
 
-Kaggle [@kaggle] is well-known for the data competitions, some richly funded. It provides a platform for predictive modelling and analytics competitions where participants compete to produce the best predictive model for a given data set. One of the well-known competitions is the ``Titanic: Machine Learning from Disaster'' in which, mainly the beginners, can practice their skills to predict survival on the Titanic and get familiar with the Kaggle platform and some of the machine learning techniques.      
+Kaggle [@kaggle] is a platform for predictive modelling and analytics competitions where participants compete to produce the best predictive model for a given data set. It is well-known for its competitions (e.g. @darkmatter), some of which come with rich monetary prizes (e.g. @heritage). There are also learning competitions [@kagglelearn], designed to help novices hone their data mining skills. Winners are typically expected to share their code, and occasionally new algorithms have emerged, for example, deep neural networks [@HintonDahi12] and XGBoost [@ChenXGBoost]. 
 
-
-*Di any``famous'' data competition examples ???*
-
-The competitors participating in these competitions have different motivations, but it is mainly fame and financial reward for the winner. 
-Occasionally, inventors of new methods and algorithms use Kaggle competitions as a platform to prove the superiority of their methods. A famous example are Geoffrey Hinton and George Dahl with deep neural networks [@HintonDahi12] and Tianqi Chen and Carlos Guestrin with XGBoost [@ChenXGBoost].
-
-Individuals and organizations that contribute the data and open it for a competition gain expertise from many professionals at once. This increases the chance for an improved and innovative solution to their problem.
-
-In 2015, Kaggle InClass was introduced, as a self-service platform to conduct competitions. These competitions can be private, limited to members of a university course, and are easy to setup. This paper examines the educational benefits of conducting predictive modeling competitions in class on performance, engagement and interest.
+In 2015, Kaggle InClass was introduced, as a self-service platform to conduct competitions. These competitions can be private, limited to members of a university course, and are easy to setup. This is an opportunity for educators to provide a vehicle for students to objectively test their learning of predictive modelling. As a competition, with an independent clear performance metric, along with a dynamic leader board, students can see how their model predictions compare with the models produced by other students. Being able to make multiple submissions over a several week time frame, enables them to try out approaches to improve their models.  This paper examines the educational benefits of conducting predictive modeling competitions in class on performance, engagement and interest.
 
 <!--
 Background literature:
@@ -78,22 +70,13 @@ Background literature:
 - active learning
 -->
 
-In the past few years, educational community started to collect positive evidence on including a competition in the classroom (see for example @Calnon12, @Canada15 and @VanNuland15).
-The most comparable to our experiment is the educational experiment conducted by @VanNuland15. 
-The authors found significant improvement in student's exam marks due to taking part in the competition. The experiment (crossover design) was conducted in a similar class size ($n=67$). However, these were undergraduate students that took the human anatomy subject at Western University.
+In the past few years, the educational community started to collect positive evidence on including competitions in the classroom.  None of these were data analysis competitions.  @VanNuland15 ran a competition assessing anatomical knowledge, as part of an undergraduate anatomy course. @Calnon12 discusses robotics competitions as part of computer science education. @Canada15 discusses the participation of students in externally run artificial intelligence competitions. All of these studies found significant improvement in student exam marks accredited to participation in competition.
 
-The competition is an example of active learning. A large body of literature has been published on the latter topic. @Prince04
-surveyed the literature and found that all forms of active learning have positive effect on the learning experience and student's achievements. The magnitude of the effect of different approaches, though, varies. What's more, @Freeman14 examined 158 studies published in about 50 STEM educational journals. The authors found that student's exam marks increased by almost half SD under active learning. Moreover, students in classes with traditional lecturing were 1.5 times more likely to fail than their peers in classes with active learning.
+Classroom competition is an example of active learning, which has been shown to be pedagogically beneficial. @Prince04 surveyed the literature and found that all forms of active learning have positive effect on the learning experience and student achievement. The magnitude of the effect of different approaches, though, varies. What's more, @Freeman14 examined 158 studies published in about 50 STEM educational journals. The authors found that student exam scores increased by almost half a standard deviation through active learning. Moreover, students in classes with traditional lecturing were 1.5 times more likely to fail than their peers in classes with active learning.
 
-A competition, like any other assessment method has its advantages and disadvantages. It brings the 'game' feeling, increases the interest level among students and motivates for higher performance (@Shindler09, p 105). But, it may have negative influence if set wrongly. Among the negative influences are potential stress and increased anxiety (of low ranking, fear to fail or technology barrier). In addition, students may invest disproportional time and effort into competition.      
+A competition, like any other assessment method has its advantages and disadvantages. It brings the 'game' feeling, increases the interest level among students and motivates for higher performance (@Shindler09, p 105). But, it may have negative influence if constructed poorly. Among the negative influences are  increased stress and anxiety, induced by fearing a low ranking, failure or technology barriers. In addition, students may invest a disproportionate amount of time and effort into competition. Despite some received criticism, a properly set competition can benefit the students greatly. The competition should be relatively short in duration to avoid consuming undue energy. Students should be clear about the rules and the goal. They should be properly rewarded and most important, feel that they have reasonable chance to win or achieve high mark [@Shindler09]. 
 
-Despite some received criticism, a properly set competition can benefit the students greatly. The competition should be relatively short in duration as it consumes a lot of students' energy. Students should be clear about the rules and the goal. They should be properly rewarded and most important, feel that they have reasonable chance to win or achieve high mark [@Shindler09]. 
-
-@Shelley08 raised the need for more quantitative and statistical analysis of evidence in science education. In this paper we will contribute to this call by offering statistical analysis of the experiment's results. 
-
-
-
-
+@Shelley08 raised the need for more quantitative and statistical analysis of evidence in science education. This paper contributes to this call by offering statistical analysis of theffects on learning of classroom data competitions. 
 
 
 # Experimental setup
