@@ -171,7 +171,7 @@ The students were allowed to submit at most one prediction per day, while the  c
 
 ## Interest
 
-Students in MAST90083 and ETC5242 were invited to give feedback about the course, in particular about the data competitions, before the final exam. This information was voluntary, and students who completed the questionnaire were rewarded with a coupon for a free coffee. The data from this survey was viewed by the researchers after all course grades had been reported.
+Students in MAST90083 and ETC5242 were invited to give feedback about the course, in particular about the data competitions, before the final exam. This information was voluntary, and students who completed the questionnaire were rewarded with a coupon for a free coffee. The data from this survey was viewed by the researchers after all course grades had been reported. To reduce potential bias in students replies, we emphasize this point as part of the instruction at the beginning of the survey. 
 
 # Results
 
@@ -431,6 +431,70 @@ dif <- median(scores$perf[scores$class=="Yes"])-
 Based on the median, the students who participated in the kaggle challenge scored `r round(dif, 2)` higher than those that didn't, a median of `r round(median(scores$perf[scores$class=="Yes"]), 2)` in comparison to `r round(median(scores$perf[scores$class=="No"]), 2)`. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r round(length(pdif[pdif >= dif])/1000, 3)`. 
 
 
+```{r crossperformances, echo=FALSE, fig.cap="\\label{fig:crossperformances} Students performance in classification and regression questions by competition type.", fig.width=6,fig.height=5  } 
+
+t <- UniMelbData %>%
+ count(Proj_alloc, perf_class >=1, perf_reg >=1, sort = TRUE) %>%
+  setNames(., c("Proj_alloc", "outperf_class", "outperf_reg" , "n"))
+
+a <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == FALSE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == FALSE)["n"]) ,")")
+
+b <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == TRUE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == TRUE)["n"]) ,")")
+
+c <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == TRUE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == TRUE)["n"]) ,")")
+
+d <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == FALSE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == FALSE)["n"]) ,")")
+
+a <- "Overall weak students"
+b <- "Regression competition \n students perform well\n on regression questions" 
+c <- "Overall strong students"
+d <- "Classification competition \n students perform well\n on classification questions"
+
+# filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg >=1) %>% select(., perf_class, perf_reg)
+# filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg <1) %>% select(., perf_class, perf_reg)
+
+
+
+ggplot() +
+      annotate("rect", xmin = 0, xmax = 0.99, ymin = 1.01, ymax = 2, fill = "yellow", alpha = 0.25) +
+      annotate("rect", xmin = 1.01, xmax = 2, ymin = 0, ymax = 0.99, fill = "yellow", alpha = 0.25) +
+      geom_point(data=UniMelbData, aes(x=perf_class, y=perf_reg, color = Proj_alloc), size=3, alpha=0.8) +
+      ylab("Regression questions performance") + 
+      xlab("Classification questions performance") +
+      xlim(0,2) + ylim(0, 2) +
+      scale_color_brewer(palette="Dark2", name="Competition", 
+                          breaks=c("regression", "classification"),   
+                          labels=c("Regression", "Classification")) +
+      geom_hline(yintercept = 1, color = "gray", size=0.7) +  #linetype="dotted",
+      geom_vline(xintercept = 1, color = "gray", size=0.7) +
+      annotate("text", x = c(0.3,0.32,1.7,1.61), y=c(0.1,1.85,1.95,0.18), 
+               label = c(  a,  #(1,1)
+                           b,  # "(2,2)"
+                           c,  #"(3,3)"
+                           d )) +
+  theme_bw() +
+        theme(legend.position="bottom") 
+#"(4,4)"
+      # annotate("text", x=0.1, y=1.8, label= "(,)")
+
+```
+    
+
+Figure \ref{fig:crossperformances} presents students' scores for classification and regression questions. A score over 1 is considered outperformance (relative to the expectation). Quarters one and three include students that underperform or outperform on both types of questions, respectively. In both cases the number of students that participated in the classification competition is very close to the number of students that participated in the regression competition (excluding a few regression students on the border of score 1). Students in quarters two and four outperform on one type of questions but not on the other type. We can see that more regression students outperform on regression questions than classification students 
+(`r filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 12 --> vs. 
+ `r filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 7 -->). 
+Similarly, classification students do better on classification questions 
+(`r filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == FALSE)["n"]`<!-- 11 --> vs. 
+ `r filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == FALSE)["n"]`<!-- 3 -->). 
+This is another evidence towards positive influence of the data competition on student's performances.
+
+
+
+
 ## Engagement
 
 The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} (top row) shows performance on the classification and regression questions, respectively, against their frequency of prediction submissions for the three student groups (MAST90083 classification and regression, ETC5242 regression) competitions. The relationship is weak in all groups, and this mirrors insignificant results from a linear model fit to both subsets. On the other hand, the predictive accuracy improved with the number of submissions for the regression competitions. There appears to be some nonlinearity present in these plots, suggesting reduced returns, less reduction in error as more attempts are made. That is reasonable to expect. Also, some students strategically make very poor initial predictions to get a baseline on error corresponding to guessing. 
@@ -539,67 +603,6 @@ We didn’t found any evidence for correlation between the performances in the c
 
 
 
-
-```{r crossperformances, echo=FALSE, fig.cap="\\label{fig:crossperformances} Students performance in classification and regression questions by competition type.", fig.width=6,fig.height=5  } 
-
-t <- UniMelbData %>%
- count(Proj_alloc, perf_class >=1, perf_reg >=1, sort = TRUE) %>%
-  setNames(., c("Proj_alloc", "outperf_class", "outperf_reg" , "n"))
-
-a <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == FALSE)["n"]), ",", 
-                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == FALSE)["n"]) ,")")
-
-b <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == TRUE)["n"]), ",", 
-                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == TRUE)["n"]) ,")")
-
-c <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == TRUE)["n"]), ",", 
-                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == TRUE)["n"]) ,")")
-
-d <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == FALSE)["n"]), ",", 
-                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == FALSE)["n"]) ,")")
-
-a <- "Overall weak students"
-b <- "Regression competition \n students perform well\n on regression questions" 
-c <- "Overall strong students"
-d <- "Classification competition \n students perform well\n on classification questions"
-
-# filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg >=1) %>% select(., perf_class, perf_reg)
-# filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg <1) %>% select(., perf_class, perf_reg)
-
-
-
-ggplot() +
-      annotate("rect", xmin = 0, xmax = 0.99, ymin = 1.01, ymax = 2, fill = "yellow", alpha = 0.25) +
-      annotate("rect", xmin = 1.01, xmax = 2, ymin = 0, ymax = 0.99, fill = "yellow", alpha = 0.25) +
-      geom_point(data=UniMelbData, aes(x=perf_class, y=perf_reg, color = Proj_alloc), size=3, alpha=0.8) +
-      ylab("Regression questions performance") + 
-      xlab("Classification questions performance") +
-      xlim(0,2) + ylim(0, 2) +
-      scale_color_brewer(palette="Dark2", name="Competition", 
-                          breaks=c("regression", "classification"),   
-                          labels=c("Regression", "Classification")) +
-      geom_hline(yintercept = 1, color = "gray", size=0.7) +  #linetype="dotted",
-      geom_vline(xintercept = 1, color = "gray", size=0.7) +
-      annotate("text", x = c(0.3,0.32,1.7,1.61), y=c(0.1,1.85,1.95,0.18), 
-               label = c(  a,  #(1,1)
-                           b,  # "(2,2)"
-                           c,  #"(3,3)"
-                           d )) +
-  theme_bw() +
-        theme(legend.position="bottom") 
-#"(4,4)"
-      # annotate("text", x=0.1, y=1.8, label= "(,)")
-
-```
-    
-
-Figure \ref{fig:crossperformances} presents students' scores for classification and regression questions. A score over 1 is considered outperformance (relative to the expectation). Quarters one and three include students that underperform or outperform on both types of questions, respectively. In both cases the number of students that participated in the classification competition is very close to the number of students that participated in the regression competition (excluding a few regression students on the border of score 1). Students in quarters two and four outperform on one type of questions but not on the other type. We can see that more regression students outperform on regression questions than classification students 
-(`r filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 12 --> vs. 
- `r filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 7 -->). 
-Similarly, classification students do better on classification questions 
-(`r filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == FALSE)["n"]`<!-- 11 --> vs. 
- `r filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == FALSE)["n"]`<!-- 3 -->). 
-This is another evidence towards positive influence of the data competition on student's performances.
 
 
 
@@ -737,6 +740,11 @@ Q6 & I feel that the required time investment in the data competition was worthy
 This paper has described the setup and results of an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The experiment was conducted in the classroom settings as part of the normal teaching of the courses, which imposes limitations on the design. However, with both MAST90083 and ETC2420/5242, either a randomized assignment of students to two topic groups, or a control group was possible, which enabled comparing performance. 
 
 The primary finding, is that participating in a data challenge competition,  produces a statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, anecdotally, the competitions enhanced interest and engagement in the course. 
+
+# Future work
+
+This work is one of a few quantitative analyses of data competition influences on students' performance. More evidence needs to be collected from other STEM courses to demonstrate consistent positive influence. Moreover, future investigation is required to understand the influence of the different aspects of data competition implementation on the magnitude of the performance improvement. For example, the competition duration, availability and accessibility of additional material, requirement of writing a final report or giving a short oral presentation are elements worth investigating. In this work we couldn't provide statistically significant evidence for positive influence of the data competition on the engagement and the interest. This should be addressed in a future work. Finally, it will be interesting to investigate if some sub-group of students benefits more from proposed competitions, e.g. undergraduate vs graduate students or female vs male students.
+
 
 # Acknowledgments
 
