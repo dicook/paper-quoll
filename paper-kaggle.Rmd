@@ -95,9 +95,9 @@ Both data sets are challenging for prediction, with relatively high error rates.
 
 The training and the testing data sets of the Melbourne auction price data were similar but not identical across the two institutions. Some of the variables in the data set were simulated, e.g. property land size and house size. The simulated data was generated slightly differently for different institutions. This was done deliberately to prevent students passing answers from one institution to another. 
 
-
+<!-- 
 Students received clean data ready for modelling as we only aimed to examine students ability to apply covered material. If the instructor's aim is rather to mimic real-life situation when prior to modelling/forecasting data needs to be processed and cleaned, then this task should be left to students. In our opinion, this approach is more suitable for advanced classes.  
-
+-->
 
 
 ## Participants
@@ -602,10 +602,6 @@ We didn’t found any evidence for correlation between the performances in the c
 Figure \ref{fig:likert} shows the survey responses related to the kaggle competition, for MAST90083 and ETC5242. The response rate for MAST90083 was 55%, with 34 of 61 students completing the survey. 
 The response rate for ETC5242 was 50%, 17 students out of 34 completed the survey. Overwhelmingly, students reported that they found the competition interesting and helpful for their learning in the course.
 
-After collecting the survey from the students we were told that the questions about students engagement were positively worded. This may have potentially led to some bias. An improved way could be to ask directly about student's engagement, e.g. "How would you rate your level of engagement in this course?" with set answer options of "not at all engaged" -- up to "extremely engaged" with several choices in between. Another improvement could be asking ETC2420 students that didn't take part in the competition about their level of engagement and compare the answers with other students of ETC5242. We acknowledge that the differences in the engagement levels may not necessarily be a result of participation in the competition but it is still an interesting aspect.
-
-The survey was not anonymous. However, the results became available to the lectures only after all the grades were realised to the students. This point was emphasized in the instructions to the students at the beginning of the survey.
-
 
 ```{r likert, fig.cap="\\label{fig:likert}Summary of responses to survey of kaggle competition participants. Overwhelmingly the response to the competition was positive in both classes, especially the questions on enjoyment and engagement in the class, and obtaining practical experience. (Table 2 lists the questions.)"}
 MAST90083_survey <- read_xlsx("data/Data Competition Feedback MAST90083.xlsx") %>% filter(`Email Address` != "julia.polak@unimelb.edu.au")
@@ -703,7 +699,7 @@ ggplot(Q, aes(x=question, weight = n,
   theme(legend.position = "bottom") 
 ```
 
-\begin{table}[h]
+\begin{table}[b!]
 \begin{center}
 \begin{tabular}{|l|p{15cm}|}\hline
 Label & Question \\\hline
@@ -719,16 +715,21 @@ Q6 & I feel that the required time investment in the data competition was worthy
 \label{survey_Q}
 \end{table}
 
+After collecting the survey from the students we were told that the questions about students engagement were positively worded. This may have potentially led to some bias. An improved way could be to ask directly about student's engagement, e.g. "How would you rate your level of engagement in this course?" with set answer options of "not at all engaged" -- up to "extremely engaged" with several choices in between. Another improvement could be asking ETC2420 students that didn't take part in the competition about their level of engagement and compare the answers with other students of ETC5242. We acknowledge that the differences in the engagement levels may not necessarily be a result of participation in the competition but it is still an interesting aspect.
+
+The survey was not anonymous. However, the results became available to the lectures only after all the grades were realised to the students. This point was emphasized in the instructions to the students at the beginning of the survey.
+
 # Teachers' corner 
 
 Creating a new competition is surprisingly easy. Information on setting up a Kaggle InClass challenge is available on the service's web site (https://www.kaggle.com/about/inclass/overview). There is a setup wizard for step-by-step guidance on getting your competition underway. We have created a short video illustrating the steps to establish a new competition, and this is provided in supplementary material for the paper.
 
-Finding a suitable data set for a competition can be a challenge. The criteria for a good data set are:
+The kaggle service provides some data sets, primarily for student self-learning. These are not suitable for use in a class challenge, because all the data is available, and solutions are also provided. We recommend providing your own data for the class challenge.  Finding a suitable data set for a competition can be a difficult task. The criteria for a good data set are:
 
 1. the full set is not available to the students, to avoid cheating.
-2. the data is not too easy, or too hard, to model, so that there is some discriminatory ower in the results.
-3. contains some challenges, that make standard off-the-shelf modeling less successful, like different variable types that need processing or transforming, some outliers, large number of variables. 
-4. If it is a classification challenge, it will work better with relatively balanced classes, because the overall accuracy is the easiest metric to use. 
+2. the data is not too easy, or too hard, to model so that there is some discriminatory power in the results.
+3. data should be relatively clean, to the point where the instructor has tested that a model can be fitted.
+4. contains some challenges, that make standard off-the-shelf modeling less successful, like different variable types that need processing or transforming, some outliers, large number of variables. 
+5. if it is a classification challenge, it will work better with relatively balanced classes, because the overall accuracy is the easiest metric to use. 
 
 <!--It is not recommended to take freely available data sets from the Internet. A clever student will always try to check if the data is on the web. If it is, she will use the answers from the data set instead of predicting the answers with a self-developed model. As a statistician, and an instructor in a subject, you or one of your colleagues usually have some interesting data set to use. In such a case, the data set and particularly the target values will be unfamiliar to the students.
 -->
@@ -741,10 +742,11 @@ It is a good idea to build a basic model yourself on the training data, and pred
 
 The competition needs to run without any intervention from the instructor. The instructor can monitor students progress: the number of submissions, student scores and even the uploaded data at any time. When the competition ends the "Leaderboard" page provides a list of students ordered by the final score. It also provides all the scores from all past submissions (under "Raw Data" on "Public Leaderboard"). 
 
-It may be recommended to limit students to one submission per day. It encourages students to think about more efficient improvement of their model before the next submission. It also prevents the student spending too much time building and submitting models. Some students will become so engaged in the competition tha they might neglect their other coursework. About halfway throug hthe coompetition 
-<!--We also believe that it is better to start the competition in the second half of the semester and finish it two to one week before the end of the semester. It allows to cover many different statistical methods that students may apply during the competition. Finishing some time before the end of the semester reduces students anxiety at the end of the semester and the approaching exams. --> 
+It may be recommended to limit students to one submission per day. It encourages students to think about more efficient improvement of their model before the next submission. It also prevents the student spending too much time building and submitting models. Some students will become so engaged in the competition that they might neglect their other coursework. About halfway through the coompetition, students might be allowed to form teams, to learn how averaging models can boost performance. 
 
 In awarding course points to student effort, we typically align it to performance. Participant ranks based on their performance on the private part of the test data are recorded. Performance scores that are pretty close to each other should be given the same rank, reflecting that there may not be a significant difference between them. The best gets perhaps, 5 points, then a half a point drop until about 2.5 points, so that the worst performing students still get 50% for the task. Kaggle does not allow you to download participants email addresses. All you see is their kaggle name. Record the student names in kaggle to match with your class records. 
+
+Along with the competition, students were expected to submit a report that explained their modeling strategy, and what they had learned about the data beyond the modeling. The overall score for this part of the course was a combination of the mark for their report and their performance in the challenge. In both courses this accounted for 10% of the final mark. 
 
 From an instructor perspective, its very rewarding watching the students participate in the competition. It provides a truly objective way to assess their ability to model in practice. Students are often motivated to consult with the instructor about why their model is underperforming, or what other approaches might produce better results. 
 
@@ -769,4 +771,4 @@ This document was produced in R [@R] with the package knitr [@knitr]. Data clean
 <!--
 https://github.com/dicook/paper-quoll. 
 -->
-Information on setting up a Kaggle InClass challenge can be found at https://www.kaggle.com/about/inclass/overview. 
+
