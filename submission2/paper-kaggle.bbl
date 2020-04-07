@@ -1,0 +1,116 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Agarwal}{2018}{kagglelearn}
+Agarwal, N.  \harvardyearleft 2018\harvardyearright , `Use kaggle to start (and
+  guide) your ml/ data science journey - why and how',
+  \url{https://towardsdatascience.com/use-kaggle-to-start-and-guide-your-ml-data-science-journey-f09154baba35}.
+
+\harvarditem[Calnon et~al.]{Calnon, Gifford \harvardand\ Agah}{2012}{Calnon12}
+Calnon, M., Gifford, C.~M. \harvardand\ Agah, A.  \harvardyearleft
+  2012\harvardyearright , `Robotics competitions in the classroom: Enriching
+  graduate-level education in computer science and engineering', {\em Global
+  Journal of Engineering Education} {\bf 14}(1),~6--13.
+
+\harvarditem[Carpio Ca\~{n}ada et~al.]{Carpio Ca\~{n}ada, Mateo~Sanguino,
+  Merelo~Guerv\'{0}s \harvardand\ Rivas~Santos}{2015}{Canada15}
+Carpio Ca\~{n}ada, J., Mateo~Sanguino, T., Merelo~Guerv\'{0}s, J. \harvardand\
+  Rivas~Santos, V.  \harvardyearleft 2015\harvardyearright , `Open classroom:
+  enhancing student achievement on artificial intelligence through an
+  international online competition', {\em Journal of Computer Assisted
+  Learning} {\bf 31}(1),~14--31.
+\newline\harvardurl{https://onlinelibrary.wiley.com/doi/abs/10.1111/jcal.12075}
+
+\harvarditem{Chen \harvardand\ Guestrin}{2016}{ChenXGBoost}
+Chen, T. \harvardand\ Guestrin, C.  \harvardyearleft 2016\harvardyearright ,
+  Xgboost: A scalable tree boosting system.
+\newblock ArXiv e-prints.
+\newline\harvardurl{https://www.kdd.org/kdd2016/papers/files/rfp0697-chenAemb.pdf}
+
+\harvarditem[Freeman et~al.]{Freeman, Eddy, McDonough, Smith, Okoroafor, Jordt
+  \harvardand\ Wenderoth}{2014}{Freeman14}
+Freeman, S., Eddy, S.~L., McDonough, M., Smith, M.~K., Okoroafor, N., Jordt, H.
+  \harvardand\ Wenderoth, M.~P.  \harvardyearleft 2014\harvardyearright ,
+  `Active learning increases student performance in science, engineering, and
+  mathematics', {\em Proceedings of the National Academy of Sciences} {\bf
+  111}(23),~8410--8415.
+
+\harvarditem{Hinton \harvardand\ Dahl}{2012}{HintonDahi12}
+Hinton, G. \harvardand\ Dahl, G.  \harvardyearleft 2012\harvardyearright ,
+  `{Deep Learning How I Did It: Merck 1st place interview}', {\em No Free Hunch
+  by Kaggle Team} .
+\newline\harvardurl{http://blog.kaggle.com/2012/11/01/deep-learning-how-i-did-it-merck-1st-place-interview/}
+
+\harvarditem{Howard}{2013}{heritage}
+Howard, J.  \harvardyearleft 2013\harvardyearright , `{POWERDOT awarded
+  \$500,000 and Announcing Heritage Health Prize 2.0}',
+  http://blog.kaggle.com/2013/06/03/powerdot-awarded-500000-and-announcing-heritage-health-prize-2-0/.
+
+\harvarditem{Prince}{2004}{Prince04}
+Prince, M.  \harvardyearleft 2004\harvardyearright , `Does active learning
+  work? a review of the research', {\em Journal of engineering education} {\bf
+  93}(3),~223--231.
+
+\harvarditem{{R Core Team}}{2017}{R}
+{R Core Team}  \harvardyearleft 2017\harvardyearright , {\em R: A Language and
+  Environment for Statistical Computing}, R Foundation for Statistical
+  Computing, Vienna, Austria.
+\newline\harvardurl{\url{https://www.R-project.org/}}
+
+\harvarditem{Rhodes}{2011}{darkmatter}
+Rhodes, J.  \harvardyearleft 2011\harvardyearright , `Competition shines light
+  on dark matter',
+  \url{https://obamawhitehouse.archives.gov/blog/2011/06/27/competition-shines-light-dark-matter}.
+
+\harvarditem[Shelley et~al.]{Shelley, Yore \harvardand\ Hand}{2009{\em
+  a}}{Shelley09CH1}
+Shelley, M.~C., Yore, L.~D. \harvardand\ Hand, B.  \harvardyearleft 2009{\em
+  a}\harvardyearright , Education research meets the gold standard: Evaluation,
+  research methods, and statistics after no child left behind, {\em in}
+  `Quality Research in Literacy and Science Education', Springer, pp.~3--15.
+
+\harvarditem[Shelley et~al.]{Shelley, Yore \harvardand\ Hand}{2009{\em
+  b}}{Shelley08}
+Shelley, M.~C., Yore, L.~D. \harvardand\ Hand, B., eds  \harvardyearleft
+  2009{\em b}\harvardyearright , {\em Quality research in literacy and science
+  education: international perspectives and gold standards}, Springer Science
+  \& Business Media.
+
+\harvarditem{Shindler}{2009}{Shindler09}
+Shindler, J.  \harvardyearleft 2009\harvardyearright , {\em Transformative
+  classroom management: Positive strategies to engage all students and promote
+  a psychology of success}, John Wiley \& Sons.
+
+\harvarditem{{The Kaggle Team}}{2018}{kaggle}
+{The Kaggle Team}  \harvardyearleft 2018\harvardyearright , `The home of data
+  science \& machine learning', \url{https://www.kaggle.com}.
+
+\harvarditem[Van~Nuland et~al.]{Van~Nuland, Roach, Wilson \harvardand\
+  Belliveau}{2015}{VanNuland15}
+Van~Nuland, S.~E., Roach, V.~A., Wilson, T.~D. \harvardand\ Belliveau, D.~J.
+  \harvardyearleft 2015\harvardyearright , `Head to head: The role of academic
+  competition in undergraduate anatomical education', {\em Anatomical sciences
+  education} {\bf 8}(5),~404--412.
+
+\harvarditem{Wickham}{2016}{ggplot2}
+Wickham, H.  \harvardyearleft 2016\harvardyearright , {\em ggplot2: Elegant
+  Graphics for Data Analysis}, Springer-Verlag New York.
+\newline\harvardurl{\url{http://ggplot2.org}}
+
+\harvarditem[Wickham et~al.]{Wickham, Francois, Henry \harvardand\
+  Muller}{2017}{dplyr}
+Wickham, H., Francois, R., Henry, L. \harvardand\ Muller, K.  \harvardyearleft
+  2017\harvardyearright , {\em dplyr: A Grammar of Data Manipulation}.
+\newblock R package version 0.7.4.
+\newline\harvardurl{\url{https://CRAN.R-project.org/package=dplyr}}
+
+\harvarditem{Wickham \harvardand\ Henry}{2018}{tidyr}
+Wickham, H. \harvardand\ Henry, L.  \harvardyearleft 2018\harvardyearright ,
+  {\em tidyr: Easily Tidy Data with 'spread()' and 'gather()' Functions}.
+\newblock R package version 0.8.0.
+\newline\harvardurl{\url{https://CRAN.R-project.org/package=tidyr}}
+
+\harvarditem{Xie}{2015}{knitr}
+Xie, Y.  \harvardyearleft 2015\harvardyearright , {\em Dynamic Documents with R
+  and knitr (2nd edition)}, Chapman and Hall/CRC.
+
+\end{thebibliography}

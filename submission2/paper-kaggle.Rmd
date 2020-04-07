@@ -1,0 +1,792 @@
+---
+title: Kaggle-in-class Data Challenges Can Boost Student Learning
+
+# to produce blinded version set to 1
+blinded: 1
+
+authors: 
+  - name: Julia Polak
+    affiliation: Department of Statistics, University of Melbourne
+  - name: Dianne Cook
+    affiliation: Department of Econometrics and Business Statistics, Monash University
+
+header-includes:
+    - \usepackage{setspace}\doublespacing
+
+keywords:
+- instructional technology
+- statistical modeling
+- data science
+- statistics education
+- data mining
+
+abstract: |
+  Kaggle is a data modeling competition service, where participants compete to build a model with lower predictive error than other participants. Several years ago they released a simplified service that is ideal for instructors to run competitions in a classroom setting. This paper describes the results of an experiment to determine if participating in a predictive modeling competition enhances learning. The evidence suggests it does. In addition, students were surveyed to examine if the competition improved engagement and interest in the class.
+
+bibliography: bibliography.bib
+output: rticles::asa_article
+---
+
+<!---  define the \tightlist - space between items in the enumerate
+--->
+
+\providecommand{\tightlist}{%
+	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(
+  echo=FALSE, 
+  message=FALSE, 
+  warning=FALSE, 
+  kfigr.link=TRUE, 
+  kfigr.prefix=TRUE, 
+  cache=FALSE, 
+  fig.cap=TRUE, 
+  fig.height=3)
+```
+
+```{r cache=FALSE, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+#packages:
+library(knitr)
+library(bookdown)
+library(knitcitations)
+library(RefManageR)
+library(tidyverse)
+#library(ggpubr)
+library(readxl)
+library(gridExtra)
+library(forcats)
+
+options("citation_format" = "pandoc")
+
+BibOptions(check.entries = FALSE, style = "markdown", bib.style = "alphabetic", cite.style = 'alphabetic')
+```
+
+# Introduction
+
+Kaggle [@kaggle] is a platform for predictive modelling and analytics competitions where participants compete to produce the best predictive model for a given data set. It is well-known for its competitions (e.g. @darkmatter), some of which come with rich monetary prizes (e.g. @heritage). There are also learning competitions [@kagglelearn], designed to help novices hone their data mining skills. Winners are typically expected to share their code, and occasionally new algorithms have emerged, for example, deep neural networks [@HintonDahi12] and XGBoost [@ChenXGBoost]. 
+
+In 2015, Kaggle InClass was introduced, as a self-service platform to conduct competitions. These competitions can be private, limited to members of a university course, and are easy to setup. This is an opportunity for educators to provide a vehicle for students to objectively test their learning of predictive modelling. As a competition, with an independent clear performance metric, along with a dynamic leader board, students can see how their model predictions compare with the models produced by other students. Being able to make multiple submissions over a several week time frame, enables them to try out approaches to improve their models.  This paper examines the educational benefits of conducting predictive modeling competitions in class on performance, engagement and interest.
+
+<!--
+Background literature:
+- Data competition
+- Competition and pedagogy
+- Gold standard (randomized control studies) for evaluating new pedagogy
+- active learning
+-->
+
+In the past few years, the educational community started to collect positive evidence on including competitions in the classroom.  None of these were data analysis competitions.  @VanNuland15 ran a competition assessing anatomical knowledge, as part of an undergraduate anatomy course. @Calnon12 discusses robotics competitions as part of computer science education. @Canada15 discusses the participation of students in externally run artificial intelligence competitions. All of these studies found significant improvement in student exam marks accredited to participation in competition.
+
+Classroom competition is an example of active learning, which has been shown to be pedagogically beneficial. @Prince04 surveyed the literature and found that all forms of active learning have positive effect on the learning experience and student achievement. The magnitude of the effect of different approaches, though, varies. What's more, @Freeman14 examined 158 studies published in about 50 STEM educational journals. The authors found that student exam scores increased by almost half a standard deviation through active learning. Moreover, students in classes with traditional lecturing were 1.5 times more likely to fail than their peers in classes with active learning.
+
+A competition, like any other assessment method has its advantages and disadvantages. It brings the 'game' feeling, increases the interest level among students and motivates for higher performance (@Shindler09, p 105). But, it may have negative influence if constructed poorly. Among the negative influences are  increased stress and anxiety, induced by fearing a low ranking, failure or technology barriers. In addition, students may invest a disproportionate amount of time and effort into competition. Despite some received criticism, a properly set competition can benefit the students greatly. The competition should be relatively short in duration to avoid consuming undue energy. Students should be clear about the rules and the goal. They should be properly rewarded and most important, feel that they have reasonable chance to win or achieve high mark [@Shindler09]. 
+
+@Shelley08 raised the need for more quantitative and statistical analysis of evidence in science education. This paper contributes to this call by offering statistical analysis of theffects on learning of classroom data competitions. 
+
+
+# Experimental setup
+
+## Data collection
+
+<!-- Blinded verssion -->
+The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of AB (MAST90083), and one at CD University (ETC2420/5242). 
+
+<!-- Unblinded verssion 
+The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of Melbourne (MAST90083), and one at Monash University (ETC2420/5242). -->
+
+
+## Competition data
+
+Two data sets were compiled for the kaggle challenges: Melbourne property auction prices and spam classification. The Melbourne auction price data was collected by extracting information from real estate auction reports (pdf) collected between Feb 2, 2013 and Dec 17, 2016. The spam classification data was compiled by graduate students at Iowa State University as part of a data mining class, in 2009. Data was compiled by monitoring and extracting information from their emails by class members, over a period of a week, and manually tagging them as spam or ham.
+
+Both data sets were split into training and test sets, for the kaggle challenge. Students had access to the true response variable only for the training data.  For the Melbourne housing data, students were expected to predict price based on the property characteristics. For the spam data, students were expected to build a classifier to predict whether the email as spam or not. 
+
+Both data sets are challenging for prediction, with relatively high error rates.
+
+The training and the testing data sets of the Melbourne auction price data were similar but not identical across the two institutions. Some of the variables in the data set were simulated, e.g. property land size and house size. The simulated data was generated slightly differently for different institutions. This was done deliberately to prevent students passing answers from one institution to another. 
+
+<!-- 
+Students received clean data ready for modelling as we only aimed to examine students ability to apply covered material. If the instructor's aim is rather to mimic real-life situation when prior to modelling/forecasting data needs to be processed and cleaned, then this task should be left to students. In our opinion, this approach is more suitable for advanced classes.  
+-->
+
+
+## Participants
+
+Computational Statistics and Data Mining (MAST90083) is designed for postgraduate level  students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). This setup mimics randomized control trials, which is the 'gold standard, in experiment design (@Shelley09CH1, ch. 1).
+Students built prediction models and made submissions individually for 16 days, and then were allowed to form groups to compete for another 7 days. 
+
+The reason for this strategy was first to motivate each of the students to think about modelling and be actively engaged in the competitions through individual submission. The lecturer allowed participants to create groups towards the end of the competition to illustrate the advantages of group work and mixing models. Another motivation for this stratagem was the university policy, requiring a strategy to assign students individually in group assignments.
+
+One of the 63 students elected not to take part in the competition, and another student didn't sit the exam, producing a final sample size of 61.
+
+Statistical Thinking (ETC2420/5242), covers regression, but not classification, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (5242) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the MAST90083 competition. The 145 undergraduate (2420) students were used as controls for examining performance of the postgraduate students. Although, it may be surprising at first glance, the undergraduate students provide a reasonable control for the graduate students. The class is taught to both cohorts simultaneously. The entry requirements to the Bachelors of Commerce at Monash is high, and these students have strong mathematics backgrounds. In the years prior to this experiment, the undergraduate scores on the final exam are indistinguishable from those of the graduate students. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
+<!--
+Several undergraduates also chose to compete individually. The material on regression methods, particularly the computational methods needed to successfully predict housing prices was new to both groups of students. 
+-->
+<!--
+ETC3250, called Business Analytics, is an undergraduate course focusing on data mining. All students participated in a kaggle competition on the classification challenge. Because this group had no comparison group, it was difficult to assess performance. 
+-->
+
+<!--
+The data from the follow-up questionnaire was used to examine interest in the competition.
+
+63 enrolled students; postgraduate level; background: math & stats, IT and actuarial science;  
+
+Students were randomly assigned to one of two groups, regression (R) or classification (C). Each group will have a data competition designed for that topic, made available through kaggle in class (https://inclass.kaggle.com). Students wored individually to build predictive models, and submit predictions for the first 16 days. On the 16^{th} day of the competition students received an email that they allowed to establish groups and continue the competition as a group. The competition was continued for additional 7 days. In case they chose to form a group, the final score of the group in total was accounted as their individual mark towards the final grade for the subject and analysed in this project.  Only 3 groups were formed, two groups with 3 students and one group with two students. All other students chose to continue the competition individually.  
+
+Note that the data competition was compulsory to all the students. The volunteering part was the questionnaire at the end of the semester asking for feedback on aspects of the class such as their competition experience, their favourite topic of the semester, and their enjoyment of the material in the subject.
+
+## Platform
+
+MAST90083 used \url{https://www.kaggle.com/c/amiaspam} and \url{https://www.kaggle.com/c/melbprice}. ETC2420/5242 used \url{https://inclass.kaggle.com/c/vitticeps}. 
+-->
+
+
+
+# Methodology
+
+## Performance
+
+Better performance is equated to better understanding of the material, as measured in the final exam. MAST90083 and ETC2420/5242 included questions, with several parts, on the final exam related to kaggle challenges. These questions were identified prior to data analysis. 
+
+For all questions in the exam, difficulty and discrimination scores were computed, using the mean and standard deviations. Of the questions pre-identified as being relevant to the data challenges, only the parts that corresponded to high level of difficulty and high discrimination were included in the comparison of performance. 
+
+Scores for the relevant questions were summed, and converted into percentage of the possible score. The total exam score was converted to a percentage.
+One can expect, that on average, student's success rate for each question will be about the same as the success rate in the total exam. Understanding one topic better than another will result in higher success rate for questions asking about the better understood topic compared to the scores for other topics. For example, we would expect from a student with a 70% exam mark to get 70% marks on each of the questions in the exam, if she has similar knowledge level on all the exam topics. If in some topic, say regression, the student has better knowledge, she will perform better on the regression questions. Her success rate on regression question will be higher than 70%. Consequently, her performance on some other questions should be below 70% which is associated with lesser understanding of these topics. 
+
+Therefore, performance for each student was computed as the ratio of these two numbers, percentage success in the regression (classification) questions and percentage success in the total exam. A value of 1 would indicate that the student's performance on that set of questions was consistent with their overall exam performance, greater than 1 that they performed better than expected, and lower than 1 meant less than expected on that topic. 
+
+Using only the percentage of successes for each set of questions, instead of the proposed ratio, will not differentiate between a better performance and just a better student. Especially in the case of ETC2420/5242 that have a mixed population of master and undergraduate student.
+
+The distribution of the performance scores by group is shown as a boxplot. Focus is on the difference in median between the groups. Permutation tests were conducted to examine difference in median scores for students participating or not in a competition. 
+
+## Engagement
+
+The students were allowed to submit at most one prediction per day, while the  competitions were open. The frequency of submissions, and the accuracy (or error) of their predictions, made by individual students, is recorded as a part of the kaggle system. To examine whether engagement improved performance, scores on the questions related to the competition normalised by total exam score (as computed in the performance section) is examined in relation to frequency of submissions during the competition. In addition, performance in the competition as measured by accuracy or error, is also examined in relation to the number of submissions. Scatterplots, correlation and linear models are used to examine the associations.  
+
+## Interest
+
+Students in MAST90083 and ETC5242 were invited to give feedback about the course, in particular about the data competitions, before the final exam. This information was voluntary, and students who completed the questionnaire were rewarded with a coupon for a free coffee. The data from this survey was viewed by the researchers after all course grades had been reported. To reduce potential bias in students replies, we emphasize this point as part of the instruction at the beginning of the survey. 
+
+# Results
+
+## Performance
+
+Figure \ref{fig:MAST90083} shows the data collected in MAST90083. Performance is plotted against type of question, separately for the competition they completed.  The difference in median scores indicates performance improvement. Students who completed the classification competition (left) performed relatively better on the classification questions than the regression questions in the final exam. Conversely, students who participated in the regression competition performed relatively better on the regression questions.
+
+```{r Melb, fig.cap = "\\label{fig:MAST90083} Boxplots of performance on regression and classification questions in the final exam, by type of data competition completed in MAST90083. Students generally performed better on the questions corresponding to the competition they participated in.", fig.height=3, fig.width=6}
+library(tidyverse)
+library(gridExtra)
+library(forcats)
+UniMelbData <- read_csv(file="data/deidentified_UMelb.csv") 
+UniMelbData <- UniMelbData %>% mutate(Proj_alloc=fct_recode(Proj_alloc, "regression"="Melbourne Price", "classification"="Spam classification"))
+UniMelbData <- UniMelbData %>% 
+  mutate(perf_class = ((`Q1_p2`+`Q10_p3_A`+`Q10_p7_B`)/12)/(`Total_100`/100)) %>%
+  mutate(perf_reg = ((`Q6_p2_A`+`Q6_p2_B`+`Q6_p2_C`+`Q8_p2_C`+`Q8_p2_D`+`Q16_p2_B`)/12)/(`Total_100`/100)) 
+  
+p1 <- ggplot(UniMelbData, aes(x=Proj_alloc, y=perf_class)) +
+  geom_boxplot() +
+  xlab("Classification competition") +
+  ylab("Performance")
+p2 <- ggplot(UniMelbData, aes(x=Proj_alloc, y=perf_reg)) +
+  geom_boxplot() +
+  xlab("Regression competition") +
+  ylab("Performance")
+grid.arrange(p1, p2, ncol=2)
+```
+
+```{r eval=FALSE}
+# Didn't take into account difficulty and discrimination
+g_pte_class <- ggplot(UniMelbData, aes(Proj_alloc, pte_class)) +
+  geom_boxplot() + 
+  xlab("") + 
+  ylab("CE") + 
+  annotate("text", x=0.5, y=0.2, label="A") + 
+  ggtitle("Classification Performance")
+g_pte_reg <- ggplot(UniMelbData, aes(Proj_alloc, pte_reg)) + 
+  geom_boxplot() + 
+  xlab("") + 
+  ylab("RE") + 
+  annotate("text", x=0.5, y=0.4, label="B") + 
+  ggtitle("Regression Performance")
+g_ptq_class <- ggplot(UniMelbData, aes(Proj_alloc, ptq_class)) +
+  geom_boxplot() + 
+  xlab("Competition") + 
+  ylab("CQ") + 
+  annotate("text", x=0.5, y=1.0, label="C")
+g_ptq_reg <- ggplot(UniMelbData, aes(Proj_alloc, ptq_reg)) + 
+  geom_boxplot() + 
+  xlab("Competition") + 
+  ylab("RQ") + 
+  annotate("text", x=0.5, y=1.0, label="D")
+grid.arrange(g_pte_class, g_pte_reg, g_ptq_class, g_ptq_reg, ncol=2)
+set.seed(88888)
+pdif_C <- NULL
+for (i in 1:1000) {
+  x <- UniMelbData %>% select(Proj_alloc, pte_class)
+  x <- x %>% mutate(class = sample(Proj_alloc))
+  pdif_C <- c(pdif_C,
+            median(x$pte_class[x$class=="classification"])-
+                   median(x$pte_class[x$class=="regression"]))
+}
+dif_C <- median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="classification"])-
+       median(UniMelbData$pte_class[UniMelbData$Proj_alloc=="regression"])
+pdif_R <- NULL
+for (i in 1:1000) {
+  x <- UniMelbData %>% select(Proj_alloc, pte_reg)
+  x <- x %>% mutate(class = sample(Proj_alloc))
+  pdif_R <- c(pdif_R,
+            median(x$pte_reg[x$class=="regression"])-                   median(x$pte_reg[x$class=="classification"]))
+}
+dif_R <- median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="regression"])-
+       median(UniMelbData$pte_reg[UniMelbData$Proj_alloc=="classification"])
+pdif_CQ <- NULL
+for (i in 1:1000) {
+  x <- UniMelbData %>% select(Proj_alloc, ptq_class)
+  x <- x %>% mutate(class = sample(Proj_alloc))
+  pdif_CQ <- c(pdif_CQ,
+            median(x$ptq_class[x$class=="classification"])-
+            median(x$ptq_class[x$class=="regression"]))
+}
+dif_CQ <- median(UniMelbData$ptq_class[UniMelbData$Proj_alloc=="classification"])-
+       median(UniMelbData$ptq_class[UniMelbData$Proj_alloc=="regression"])
+pdif_RQ <- NULL
+for (i in 1:1000) {
+  x <- UniMelbData %>% select(Proj_alloc, ptq_reg)
+  x <- x %>% mutate(class = sample(Proj_alloc))
+  pdif_RQ <- c(pdif_RQ,
+            median(x$ptq_reg[x$class=="regression"])-
+              median(x$ptq_reg[x$class=="classification"]))
+}
+dif_RQ <- median(UniMelbData$ptq_reg[UniMelbData$Proj_alloc=="regression"])-
+       median(UniMelbData$ptq_reg[UniMelbData$Proj_alloc=="classification"])
+```
+
+```{r eval=FALSE}
+# This code was used to examine the scores across all questions, 
+# and understand the variability among the groups.
+# Difficulty and discrimination for each question is computed. 
+UniMelbData_Qs <- UniMelbData %>% 
+  select(ID,Q1_p2:Q16_p2_B) %>%
+  gather(Q, score, -ID) %>%
+  separate(Q, c("Q", "pts", "part")) %>%
+  mutate(pts = as.numeric(sub("p", "", pts))) %>%
+  mutate(pct = score/pts*100)
+diff_discr <- UniMelbData_Qs %>% 
+  group_by(Q, part) %>%
+  summarise(m = mean(pct, na.rm=TRUE), s = sd(pct, na.rm=TRUE))
+diff_discr %>% arrange(m) 
+diff_discr %>% arrange(desc(s))
+library(plotly)
+ggplot(diff_discr, aes(x=m, y=s, label=paste(Q, part))) + geom_point()
+ggplotly()
+keep <- diff_discr %>% filter(m<71, s>20)
+# 1,10, 16B, 6A,B,C, 8C,D, 2,3,4
+```
+
+```{r}
+# This code conducts the permutation test
+pdif_cl <- NULL
+pdif_reg <- NULL
+for (i in 1:1000) {
+  x <- UniMelbData %>% select(Proj_alloc, perf_class)
+  x <- x %>% mutate(class = sample(Proj_alloc))
+  pdif_cl <- c(pdif_cl,
+            median(x$perf_class[x$class=="classification"])-
+              median(x$perf_class[x$class=="regression"]))
+  pdif_reg <- c(pdif_reg,
+            median(x$perf_reg[x$class=="regression"])-
+              median(x$perf_reg[x$class=="classification"]))
+}
+pdif_cl_true <- median(UniMelbData$perf_class[UniMelbData$Proj_alloc=="classification"])-
+              median(UniMelbData$perf_class[UniMelbData$Proj_alloc=="regression"])
+pdif_reg_true <- median(UniMelbData$perf_reg[UniMelbData$Proj_alloc=="regression"])-
+              median(UniMelbData$perf_reg[UniMelbData$Proj_alloc=="classification"])
+pval_cl <- length(pdif_cl[pdif_cl > pdif_cl_true])/1000
+pval_reg <- length(pdif_reg[pdif_reg > pdif_reg_true])/1000
+```
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|r|r|}\hline
+Question Set & Median difference & Permutation $p$-value \\\hline
+Classification & 0.250 & 0.033\\
+Regression & 0.104 & 0.000\\\hline
+\end{tabular}
+\caption{Comparison of median difference in performance by competition group, for MAST90083 students, using permutation tests. Both sets of medians are significantly different, indicating improved scores for questions on the topic related to the Kaggle competition.}
+\end{center}
+\label{tab:Melb_Perm}
+\end{table}
+
+Table 1 shows the results of permutation testing of median difference between the groups. Generally the results support the competition improved performance. Students who participated in the kaggle challenge for classification scored higher than those that did the regression competition, on the classification problem. Using a permutation test, this corresponds to a significant difference in medians. Similarly the results show that students who did the regression challenge, performed better on these exam questions.
+
+Figure \ref{fig:ETC5242} shows the results for students ETC2420/5242. The boxplots suggest that the students who participated in the challenge performed relatively better than those that didn't on the regression question than expected given their total exam performance. 
+
+Only the post-graduate students participated in the regression competition, as their additional assessment requirement. Scores for the question on regression (Q7a,b,c) in the final exam were compared with the total exam score (RE). On these question parts, a, b, c, over all the students all three were in the top 10 of difficulty, with students scoring less than 70%, on average. Parts b, c were in the top 10 for discrimination, and part a was at rank 13. 
+
+```{r ETC5242, fig.cap = "\\label{fig:ETC5242} Performance for regression question relative to total exam score for students who did and didn't do the regression data competition in ETC2420/5242.", fig.width=4, fig.height=3}
+scores_5242 <- read_csv("data/deidentified_scores_5242.csv")
+scores_2420 <- read_csv("data/deidentified_scores_2420.csv")
+
+scores_5242$`Exam Tot` <- apply(scores_5242[,4:27], 1, sum, na.rm=T)
+scores_2420$`Exam Tot` <- apply(scores_2420[,4:27], 1, sum, na.rm=T)
+
+scores_5242 <- scores_5242 %>% mutate(perf = ((`7a (10)` + `7b (8)` + `7c (3)`)/21)/(`Exam Tot`/100))
+scores_2420 <- scores_2420 %>% mutate(perf = ((`7a (10)` + `7b (8)` + `7c (3)`)/21)/(`Exam Tot`/100))
+scores_5242 <- scores_5242 %>% mutate(class="Yes") %>%
+  filter(!is.na(perf))
+scores_2420 <- scores_2420 %>% mutate(class="No") %>%
+  filter(!is.na(perf))
+
+scores <- bind_rows(scores_5242, scores_2420)
+ggplot(scores, aes(x=class, y=perf)) + 
+  geom_boxplot() + 
+  xlab("Participated in competition") +
+  ylab("Performance")
+```
+
+```{r eval=FALSE}
+# This code was used to examine the scores across all questions, and understand 
+# the variability in the two groups.
+# Difficulty and discrimination for each question is computed. 
+# Parts a, b, c of Q7 for ETC2420/5242 are both high in difficulty and discrimination.
+# 
+scores_5242 <- read_csv("data/deidentified_scores_5242.csv")
+scores_2420 <- read_csv("data/deidentified_scores_2420.csv")
+poss_marks <- c(4, 2, 2, 2, 3, 3, 9, 8, 5, 2, 2, 3, 3, 3, 2, 3, 3, 6, 10, 8, 3, 3, 3, 2, 4, 2)
+scores_pct <- bind_rows(scores_2420, scores_5242)
+scores_pct$group <- c(rep("2420", 145), rep("5242", 34))
+scores_pct <- scores_pct %>% filter(!is.na(`9b (2)`))
+for (i in 1:26)
+  scores_pct[,i+1] <- scores_pct[,i+1]/poss_marks[i]
+
+scores_pct_long <- scores_pct %>% gather(q, mark, -group, -id)
+
+# Difficulty
+scores_pct_long %>% group_by(q) %>% 
+  summarise(m=mean(mark)) %>% 
+  arrange(m) %>% print(n=30)
+# Discrimination
+scores_pct_long %>% group_by(q) %>% 
+  summarise(s=sd(mark)) %>% 
+  arrange(desc(s)) %>% print(n=30)
+
+scores_pct_m <- scores_pct %>% 
+  group_by(group) %>% summarise_all(mean, na.rm=T) %>% select(-id)
+scores_pct_s <- scores_pct %>% 
+  group_by(group) %>% summarise_all(sd, na.rm=T) %>% select(-id)
+scores_pct_s[1,-1] <- scores_pct_s[1,-1]/sqrt(140)*1.96
+scores_pct_s[2,-1] <- scores_pct_s[2,-1]/sqrt(34)*1.96
+
+ms <- bind_cols(gather(scores_pct_m, q, value, -group), 
+                gather(scores_pct_s, q, value, -group)) %>%
+  select(-group1, -q1) %>%
+  rename(m=value, s=value1)
+ggplot(ms, aes(x=q, y=m, colour=group)) + 
+  geom_errorbar(aes(ymin=m-s, ymax=m+s), position="dodge")
+```
+
+```{r eval=FALSE}
+# This is not the right approach
+scores_5242 <- scores_5242 %>% mutate(`adj Exam Tot` = `Exam Tot` - `7b (8)`) %>%
+  mutate(`std adj Exam Tot`=(`adj Exam Tot`-mean(`adj Exam Tot`, na.rm=TRUE))/(sd(`adj Exam Tot`, na.rm=TRUE)),
+         `std 7b (8)` = (`7b (8)`-mean(`7b (8)`, na.rm=TRUE))/sd(`7b (8)`, na.rm=TRUE))
+scores_2420 <- scores_2420 %>% mutate(`adj Exam Tot` = `Exam Tot` - `7b (8)`) %>%
+  mutate(`std adj Exam Tot`=(`adj Exam Tot`-mean(`adj Exam Tot`, na.rm=TRUE))/(sd(`adj Exam Tot`, na.rm=TRUE)),
+         `std 7b (8)` = (`7b (8)`-mean(`7b (8)`, na.rm=TRUE))/sd(`7b (8)`, na.rm=TRUE))
+
+
+scores_5242 <- scores_5242 %>% mutate(perf2 = `std 7b (8)` - `std adj Exam Tot`)
+scores_2420 <- scores_2420 %>% mutate(perf2 = `std 7b (8)` - `std adj Exam Tot`)
+scores_5242 <- scores_5242 %>% mutate(class="Yes") %>%
+  filter(!is.na(perf2))
+scores_2420 <- scores_2420 %>% mutate(class="No") %>%
+  filter(!is.na(perf2))
+scores <- bind_rows(scores_5242, scores_2420)
+
+ggplot(scores, aes(x=class, y=perf2)) + 
+  geom_boxplot() + 
+  xlab("Participated in competiton") +
+  ylab("Standardized RE")
+```
+
+```{r permtest}
+pdif <- NULL
+for (i in 1:1000) {
+  x <- scores %>% select(class, perf)
+  x <- x %>% mutate(class = sample(class))
+  pdif <- c(pdif,
+            median(x$perf[x$class=="Yes"])-
+                   median(x$perf[x$class=="No"]))
+}
+dif <- median(scores$perf[scores$class=="Yes"])-
+       median(scores$perf[scores$class=="No"])
+```
+
+Based on the median, the students who participated in the kaggle challenge scored `r round(dif, 2)` higher than those that didn't, a median of `r round(median(scores$perf[scores$class=="Yes"]), 2)` in comparison to `r round(median(scores$perf[scores$class=="No"]), 2)`. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r round(length(pdif[pdif >= dif])/1000, 3)`. 
+
+
+```{r crossperformances, echo=FALSE, fig.cap="\\label{fig:crossperformances} Students performance in classification and regression questions by competition type.", fig.width=6,fig.height=5  } 
+
+t <- UniMelbData %>%
+ count(Proj_alloc, perf_class >=1, perf_reg >=1, sort = TRUE) %>%
+  setNames(., c("Proj_alloc", "outperf_class", "outperf_reg" , "n"))
+
+a <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == FALSE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == FALSE)["n"]) ,")")
+
+b <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == TRUE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == TRUE)["n"]) ,")")
+
+c <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == TRUE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == TRUE)["n"]) ,")")
+
+d <- paste( "(", as.character( filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == FALSE)["n"]), ",", 
+                 as.character( filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == FALSE)["n"]) ,")")
+
+a <- "Overall weak students"
+b <- "Regression competition \n students perform well\n on regression questions" 
+c <- "Overall strong students"
+d <- "Classification competition \n students perform well\n on classification questions"
+
+# filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg >=1) %>% select(., perf_class, perf_reg)
+# filter(UniMelbData, Proj_alloc == "regression" , perf_class < 1, perf_reg <1) %>% select(., perf_class, perf_reg)
+
+
+
+ggplot() +
+      annotate("rect", xmin = 0, xmax = 0.99, ymin = 1.01, ymax = 2, fill = "yellow", alpha = 0.25) +
+      annotate("rect", xmin = 1.01, xmax = 2, ymin = 0, ymax = 0.99, fill = "yellow", alpha = 0.25) +
+      geom_point(data=UniMelbData, aes(x=perf_class, y=perf_reg, color = Proj_alloc), size=3, alpha=0.8) +
+      ylab("Regression questions performance") + 
+      xlab("Classification questions performance") +
+      xlim(0,2) + ylim(0, 2) +
+      scale_color_brewer(palette="Dark2", name="Competition", 
+                          breaks=c("regression", "classification"),   
+                          labels=c("Regression", "Classification")) +
+      geom_hline(yintercept = 1, color = "gray", size=0.7) +  #linetype="dotted",
+      geom_vline(xintercept = 1, color = "gray", size=0.7) +
+      annotate("text", x = c(0.3,0.32,1.7,1.61), y=c(0.1,1.85,1.95,0.18), 
+               label = c(  a,  #(1,1)
+                           b,  # "(2,2)"
+                           c,  #"(3,3)"
+                           d )) +
+  theme_bw() +
+        theme(legend.position="bottom") 
+#"(4,4)"
+      # annotate("text", x=0.1, y=1.8, label= "(,)")
+
+```
+    
+
+Figure \ref{fig:crossperformances} presents students' scores for classification and regression questions. A score over 1 is considered outperformance (relative to the expectation). Quarters one and three include students that underperform or outperform on both types of questions, respectively. In both cases the number of students that participated in the classification competition is very close to the number of students that participated in the regression competition (excluding a few regression students on the border of score 1). Students in quarters two and four outperform on one type of questions but not on the other type. We can see that more regression students outperform on regression questions than classification students 
+(`r filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 12 --> vs. 
+ `r filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 7 -->). 
+Similarly, classification students do better on classification questions 
+(`r filter(t, Proj_alloc == "classification" , outperf_class == TRUE,  outperf_reg == FALSE)["n"]`<!-- 11 --> vs. 
+ `r filter(t, Proj_alloc == "regression" ,     outperf_class == TRUE,  outperf_reg == FALSE)["n"]`<!-- 3 -->). 
+This is another evidence towards positive influence of the data competition on student's performances.
+
+
+
+
+## Engagement
+
+The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} (top row) shows performance on the classification and regression questions, respectively, against their frequency of prediction submissions for the three student groups (MAST90083 classification and regression, ETC5242 regression) competitions. The relationship is weak in all groups, and this mirrors insignificant results from a linear model fit to both subsets. On the other hand, the predictive accuracy improved with the number of submissions for the regression competitions. There appears to be some nonlinearity present in these plots, suggesting reduced returns. That is reasonable to expect. Also, some students strategically make very poor initial predictions, to get a baseline on error equivalent to guessing. 
+
+The competition performance relative to number of submissions is shown in plots (d)-(f). Each point corresponds to one student, and accuracy or error of the best predictions submitted is used. The regression competition seemed to engage students more than the classification challenge. Students submitted more predictions, and their models improved with more submissions.
+
+<!--
+To examine the correlation between students engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions ($PTQ$) and once normalizing by total exam marks ($PTE$). For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
+-->
+
+
+
+
+
+```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplots of the exam performance (a-c) and competition performance (d-f) by number of prediction submissions, for the three student groups. The relationships with exam performance are weak. For the MAST90083 and ETC5242 regression competitions, a clear pattern is that predictions improved substantially with more submissions. (House price in ETC5242 were divided by 100,000, explaining the difference in magnitude of error between two competitions.)" , fig.width=6, fig.height=5}
+etc5242 <- read_csv("data/competition_5242.csv")
+scores_5242_comp <- scores_5242 %>% left_join(etc5242, by="id")
+p1 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=perf_class)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  ylab("Classification performance") + 
+  xlab("Num submissions") +
+  xlim(c(1,5)) + ggtitle("a. MAST90083 C")
+p2 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=perf_reg)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  ylab("Regression performance") + 
+  scale_x_continuous("Num submissions", limits=c(1,13), breaks=seq(1, 13, 2)) + 
+  ggtitle("b. MAST90083 R")
+p3 <- ggplot(scores_5242_comp, aes(x=numsub, y=perf)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  ylab("Regression performance") + 
+  xlab("Num submissions") + ggtitle("c. ETC5242")
+#grid.arrange(p1, p2, ncol=2)
+p4 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=PrivetScore)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  ylab("Accuracy") + 
+  xlab("Num submissions") +
+  xlim(c(1,5)) + ggtitle("d. MAST90083 C")
+p5 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=PrivetScore)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  #ylab("Error") + 
+  scale_x_continuous("Num submissions", limits=c(1,13), breaks=seq(1, 13, 2)) + 
+  scale_y_continuous("Error ('0000s)", breaks=seq(110000, 170000, 10000), labels=seq(11,17,1)) + ggtitle("e. MAST90083 R")
+  #xlim(c(1,12))
+p6 <- ggplot(scores_5242_comp, aes(x=numsub, y=score)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) + 
+  ylab("Error") + 
+  xlab("Num submissions") + ggtitle("f. ETC5242")
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+
+```
+
+```{r eval=FALSE}
+library(broom)
+m1 <- lm(perf_class~numsub, data=filter(UniMelbData, Proj_alloc == "classification"))
+tidy(m1)
+glance(m1)
+m2 <- lm(perf_class~numsub, data=filter(UniMelbData, Proj_alloc == "regression"))
+tidy(m2)
+glance(m2)
+```
+
+```{r eval=FALSE}
+# Classification: Q1 & Q10 
+gsg <- ggplot(UniMelbData %>% filter(Proj_alloc == "Spam classification"), aes(numsub, ptq_class)) + 
+  geom_point() + xlab("Num. of submissions") + ylab("")
+
+gse <- ggplot(UniMelbData %>% filter(Proj_alloc == "Spam classification"), aes(numsub, pte_class)) + 
+  geom_point() + xlab("Num. of submissions") + ylab("")
+
+grg <- ggplot(UniMelbData %>% filter(Proj_alloc == "Melbourne Price"), aes(numsub, ptq_reg)) + 
+  geom_point() + xlab("Num. of submissions") + ylab("")
+
+gre <- ggplot(UniMelbData %>% filter(Proj_alloc == "Melbourne Price"), aes(numsub, pte_reg)) + 
+  geom_point() + xlab("Num. of submissions") + ylab("")
+
+
+pl <- list(grg, gsg,
+           gre, gse )
+
+
+# Create row and column titles
+col.titles = c("Question related to project type (PTQ)", "Total exam score (PTE)")
+row.titles = c("MElbPrice", "SPAMclass" )
+
+# Add row titles
+pl[1:2] = lapply(1:2, function(i) arrangeGrob(pl[[i]], left=row.titles[i]))
+
+# Add column titles and lay out plots
+grid.arrange(grobs=lapply(c(1,3), function(i) {
+  arrangeGrob(grobs=pl[i:(i+1)], top=col.titles[i/2 + 1], ncol=1)
+}), ncol=2)
+```
+
+<!--
+In Figure \ref{fig:numsubmition} we can clearly see a weak positive correlation between the number of submissions during the data competition and the scores normalized to the total possible marks for the relevant cluster of questions. This suggest that as more engaged the student was with the competition, the question about the methods relevant to her competition were easier to her. There is no correlation between the number of submission and the marks for the relevant cluster of questions normalized by the total exam marks ($PTE$). *BECAUSE … the questions that unrelated to the data competitions (51 points)? students put less effort to learn other material? Harder questions?*
+
+
+We didn’t found any evidence for correlation between the performances in the competition (final score) and the performances in the exam. This suggest that the single fact of participation improve the students marks in the exam. Not necessarily better students in the competition have grater chances to success in the exam. 
+-->
+
+
+
+
+
+
+## Interest
+
+<!--
+- Show interest statistics. Maybe tables.
+- Do topics match the competition they entered for MAST90083
+- Match exam performance to engagement?
+-->
+
+Figure \ref{fig:likert} shows the survey responses related to the kaggle competition, for MAST90083 and ETC5242. The response rate for MAST90083 was 55%, with 34 of 61 students completing the survey. 
+The response rate for ETC5242 was 50%, 17 students out of 34 completed the survey. Overwhelmingly, students reported that they found the competition interesting and helpful for their learning in the course.
+
+
+```{r likert, fig.cap="\\label{fig:likert}Summary of responses to survey of kaggle competition participants. Overwhelmingly the response to the competition was positive in both classes, especially the questions on enjoyment and engagement in the class, and obtaining practical experience. (Table 2 lists the questions.)"}
+MAST90083_survey <- read_xlsx("data/Data Competition Feedback MAST90083.xlsx") %>% filter(`Email Address` != "julia.polak@unimelb.edu.au")
+MAST90083_likert <- MAST90083_survey %>% 
+  rename(Q1=`1. I found the data competition is great fun.`) %>%
+  rename(Q2=`2. Taking part in the data competition contributed a lot to my engagement with the subject.`)  %>%
+  rename(Q3=`3. Taking part in the data competition improved my confidence in my understanding of the covered material.`)  %>%
+  rename(Q4=`4. Taking part in the data competition improved my confidence in my success in the final exam.`) %>%
+  rename(Q5=`5. Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.`) %>%
+  rename(Q6=`6. I feel that the required time investment in the data competition was worthy.`)
+Q1 <- MAST90083_likert %>% count(Q1) %>% filter(!is.na(Q1)) %>%
+  mutate(response = fct_relevel(Q1, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q1") %>%
+  mutate(pct = n/sum(n))
+Q2 <- MAST90083_likert %>% count(Q2) %>% filter(!is.na(Q2)) %>%
+  mutate(response = fct_relevel(Q2, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q2")  %>%
+  mutate(pct = n/sum(n))
+Q3 <- MAST90083_likert %>% count(Q3) %>% filter(!is.na(Q3)) %>%
+  mutate(response = fct_relevel(Q3, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q3")  %>%
+  mutate(pct = n/sum(n))
+Q4 <- MAST90083_likert %>% count(Q4) %>% filter(!is.na(Q4)) %>%
+  mutate(response = fct_relevel(Q4, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q4")  %>%
+  mutate(pct = n/sum(n))
+Q5 <- MAST90083_likert %>% count(Q5) %>% filter(!is.na(Q5)) %>%
+  mutate(response = fct_relevel(Q5, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q5")  %>%
+  mutate(pct = n/sum(n))
+Q6 <- MAST90083_likert %>% count(Q6) %>% filter(!is.na(Q6)) %>%
+  mutate(response = fct_relevel(Q6, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q6")  %>%
+  mutate(pct = n/sum(n))
+MAST90083_Q <- bind_rows(Q1, Q2, Q1, Q2, Q3, Q4, Q5, Q6)
+
+ETC5242_survey <- read_xlsx("data/Data Competition Feedback ETC Di.xlsx") %>% filter(Name != "Dianne Cook")
+ETC5242_likert <- ETC5242_survey %>% 
+  rename(Q1=`1. I found the data competition is great fun.`) %>%
+  rename(Q2=`2. Taking part in the data competition contributed a lot to my engagement with the subject.`)  %>%
+  rename(Q3=`3. Taking part in the data competition improved my confidence in my understanding of the covered material.`)  %>%
+  rename(Q4=`4. Taking part in the data competition improved my confidence in my success in the final exam.`) %>%
+  rename(Q5=`5. Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.`) %>%
+  rename(Q6=`6. I feel that the required time investment in the data competition was worthy.`)
+Q1 <- ETC5242_likert %>% count(Q1) %>% filter(!is.na(Q1)) %>%
+  mutate(response = fct_relevel(Q1, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q1") %>%
+  mutate(pct = n/sum(n))
+Q2 <- ETC5242_likert %>% count(Q2) %>% filter(!is.na(Q2)) %>%
+  mutate(response = fct_relevel(Q2, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q2")  %>%
+  mutate(pct = n/sum(n))
+Q3 <- ETC5242_likert %>% count(Q3) %>% filter(!is.na(Q3)) %>%
+  mutate(response = fct_relevel(Q3, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q3")  %>%
+  mutate(pct = n/sum(n))
+Q4 <- ETC5242_likert %>% count(Q4) %>% filter(!is.na(Q4)) %>%
+  mutate(response = fct_relevel(Q4, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q4")  %>%
+  mutate(pct = n/sum(n))
+Q5 <- ETC5242_likert %>% count(Q5) %>% filter(!is.na(Q5)) %>%
+  mutate(response = fct_relevel(Q5, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q5")  %>%
+  mutate(pct = n/sum(n))
+Q6 <- ETC5242_likert %>% count(Q6) %>% filter(!is.na(Q6)) %>%
+  mutate(response = fct_relevel(Q6, "Strongly Disagree", "Disagree", "No Strong Feelings", "Agree", "Strongly Agree")) %>% 
+  mutate(response = fct_recode(response, "Neutral" = "No Strong Feelings")) %>%
+  mutate(question = "Q6")  %>%
+  mutate(pct = n/sum(n))
+ETC5242_Q <- bind_rows(Q1, Q2, Q1, Q2, Q3, Q4, Q5, Q6)
+MAST90083_Q <- MAST90083_Q %>% mutate(class = "MAST90083")
+ETC5242_Q <- ETC5242_Q %>% mutate(class = "ETC5242")
+Q <- bind_rows(MAST90083_Q, ETC5242_Q)
+Q <- Q %>% mutate(class = fct_relevel(class, "MAST90083", "ETC5242"))
+ggplot(Q, aes(x=question, weight = n, 
+              fill=fct_relevel(response, "Strongly Disagree", 
+                               "Disagree", "Neutral", "Agree", 
+                               "Strongly Agree"))) + 
+  xlab("") + ylab("") +
+  facet_wrap(~class, ncol=2) +
+  geom_bar(position="fill") + coord_flip() +
+  scale_fill_manual("", values=c("#CA0020","#F4A582","#F7F7F7","#92C5DE", "#0571B0")) + 
+  theme_bw() +
+  theme(legend.position = "bottom") 
+```
+
+\begin{table}[b!]
+\begin{center}
+\begin{tabular}{|l|p{15cm}|}\hline
+Label & Question \\\hline
+Q1 & I found the data competition is great fun.\\\hline
+Q2 & Taking part in the data competition contributed a lot to my engagement with the subject.\\\hline
+Q3 & Taking part in the data competition improved my confidence in my understanding of the covered material.\\\hline
+Q4 & Taking part in the data competition improved my confidence in my success in the final exam.\\\hline
+Q5 & Taking part in the data competition improved my confidence in my ability to use the acquired knowledge in practical applications.\\\hline
+Q6 & I feel that the required time investment in the data competition was worthy. \\\hline
+\end{tabular}
+\end{center}
+\caption{Questions asked in the survey of competition participants.}
+\label{survey_Q}
+\end{table}
+
+After collecting the survey from the students we were told that the questions about students engagement were positively worded. This may have potentially led to some bias. An improved way could be to ask directly about student's engagement, e.g. "How would you rate your level of engagement in this course?" with set answer options of "not at all engaged" -- up to "extremely engaged" with several choices in between. Another improvement could be asking ETC2420 students that didn't take part in the competition about their level of engagement and compare the answers with other students of ETC5242. We acknowledge that the differences in the engagement levels may not necessarily be a result of participation in the competition but it is still an interesting aspect.
+
+The survey was not anonymous. However, the results became available to the lectures only after all the grades were realised to the students. This point was emphasized in the instructions to the students at the beginning of the survey.
+
+# Teachers' corner 
+
+Creating a new competition is surprisingly easy. Information on setting up a Kaggle InClass challenge is available on the service's web site (https://www.kaggle.com/about/inclass/overview). There is a setup wizard for step-by-step guidance on getting your competition underway. We have created a short video illustrating the steps to establish a new competition, available on the web (\url{https://www.youtube.com/XXXX}).
+
+<!-- Unblinded verssion -->
+<!-- https://www.youtube.com/watch?v=tqbps4vq2Mc&t=32s -->
+
+The kaggle service provides some data sets, primarily for student self-learning. These are not suitable for use in a class challenge, because all the data is available, and solutions are also provided. We recommend providing your own data for the class challenge.  Finding a suitable data set for a competition can be a difficult task. The criteria for a good data set are:
+
+
+
+1. the full set is not available to the students, to avoid cheating.
+2. the data is not too easy, or too hard, to model so that there is some discriminatory power in the results.
+3. data should be relatively clean, to the point where the instructor has tested that a model can be fitted.
+4. contains some challenges, that make standard off-the-shelf modeling less successful, like different variable types that need processing or transforming, some outliers, large number of variables. 
+5. if it is a classification challenge, it will work better with relatively balanced classes, because the overall accuracy is the easiest metric to use. 
+
+<!--It is not recommended to take freely available data sets from the Internet. A clever student will always try to check if the data is on the web. If it is, she will use the answers from the data set instead of predicting the answers with a self-developed model. As a statistician, and an instructor in a subject, you or one of your colleagues usually have some interesting data set to use. In such a case, the data set and particularly the target values will be unfamiliar to the students.
+-->
+
+Choosing the metric upon which to evaluate the model is another decision. Our advice is to keep it simple, so you, and the students, can understand the student scores. If you are running a regression challenge, then "Root Mean Squared Error (RMSE)". It is is a classification challenge, then "Categorization Accuracy", the percentage correct is reasonable. 
+
+The data needs to be split into training and testing sets. Kaggle will then split your test set into two, a public set that is used to provide ongoing scores to participants, and a private set, on which performance is revealed only after the competition closes. If you have categorical variables in the data set, you will want to make sure that all categories are present in both training and test sets. The training set will have both predictors and response, but the test set will have the response variable removed. Each observation needs to be assigned an id, because this will be needed to evaluate predictions. The solution file, containing the id and the true response, is provided to the system for evaluating submissions, and is kept private. A sample submission file needs to be provided. Participants will submit their solutions in the same format. 
+
+It is a good idea to build a basic model yourself on the training data, and predict the test data. The performance of this model can be provided to the participants as baseline to beat. 
+
+The competition needs to run without any intervention from the instructor. The instructor can monitor students progress: the number of submissions, student scores and even the uploaded data at any time. When the competition ends the "Leaderboard" page provides a list of students ordered by the final score. It also provides all the scores from all past submissions (under "Raw Data" on "Public Leaderboard"). 
+
+It may be recommended to limit students to one submission per day. It encourages students to think about more efficient improvement of their model before the next submission. It also prevents the student spending too much time building and submitting models. Some students will become so engaged in the competition that they might neglect their other coursework. About halfway through the coompetition, students might be allowed to form teams, to learn how averaging models can boost performance. 
+
+In awarding course points to student effort, we typically align it to performance. Participant ranks based on their performance on the private part of the test data are recorded. Performance scores that are pretty close to each other should be given the same rank, reflecting that there may not be a significant difference between them. The best gets perhaps, 5 points, then a half a point drop until about 2.5 points, so that the worst performing students still get 50% for the task. Kaggle does not allow you to download participants email addresses. All you see is their kaggle name. Record the student names in kaggle to match with your class records. 
+
+Along with the competition, students were expected to submit a report that explained their modeling strategy, and what they had learned about the data beyond the modeling. The overall score for this part of the course was a combination of the mark for their report and their performance in the challenge. In both courses this accounted for 10% of the final mark. 
+
+From an instructor perspective, its very rewarding watching the students participate in the competition. It provides a truly objective way to assess their ability to model in practice. Students are often motivated to consult with the instructor about why their model is underperforming, or what other approaches might produce better results. 
+
+
+# Discussion
+
+This paper has described the setup and results of an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The experiment was conducted in the classroom settings as part of the normal teaching of the courses, which imposes limitations on the design. However, with both MAST90083 and ETC2420/5242, either a randomized assignment of students to two topic groups, or a control group, was possible, which enabled comparing performance. 
+
+The primary finding, is that participating in a data challenge competition,  produces a statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, anecdotally, the competitions enhanced interest and engagement in the course. 
+
+# Future work
+
+This work is one of a few quantitative analyses of data competition influences on students' performance. More evidence needs to be collected from other STEM courses to explore consistent positive influence. Moreover, future investigation is required to understand the influence of the different aspects of data competition implementation on the magnitude of the performance improvement. For example, the competition duration, availability and accessibility of additional material, requirement of writing a final report or giving a short oral presentation are elements worth investigating. Prior and post testing of students might provide a better experimental design. <!--In this work we couldn't provide statistically significant evidence for positive influence of the data competition on the engagement and the interest. This should be addressed in a future work.Finally, it will be interesting to investigate if some sub-groups of students benefit more from competitions, e.g. undergraduate vs graduate students or female vs male students.--> 
+
+
+# Acknowledgments
+
+This project (title: Effect of Data Competition on Learning Experience) has been approved by the Faculty of Science Human Ethics Advisory Group University of AB (ID: 1749858.1 on September 4, 2017) and by CD University Human Research Ethics Committee (ID: 9985 on August 24, 2017). 
+
+This document was produced in R [@R] with the package knitr [@knitr]. Data cleaning was conducted using tidyr [@tidyr], dplyr [@dplyr] and plots were made with ggplot2 [@ggplot2]. The materials to reproduce the work are available at https://github.com/XXX.
+
+<!--
+https://github.com/dicook/paper-quoll. 
+-->
+
