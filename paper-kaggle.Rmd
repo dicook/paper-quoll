@@ -27,6 +27,14 @@ bibliography: bibliography.bib
 output: rticles::asa_article
 ---
 
+<!---  define the \tightlist - space between items in the enumerate
+--->
+
+\providecommand{\tightlist}{%
+	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(
   echo=FALSE, 
@@ -83,7 +91,12 @@ A competition, like any other assessment method has its advantages and disadvant
 
 ## Data collection
 
+<!-- Blinded verssion -->
 The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of AB (MAST90083), and one at CD University (ETC2420/5242). 
+
+<!-- Unblinded verssion 
+The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of Melbourne (MAST90083), and one at Monash University (ETC2420/5242). -->
+
 
 ## Competition data
 
@@ -487,7 +500,7 @@ The number of submissions that a student made, may be an indicator of performanc
 The competition performance relative to number of submissions is shown in plots (d)-(f). Each point corresponds to one student, and accuracy or error of the best predictions submitted is used. The regression competition seemed to engage students more than the classification challenge. Students submitted more predictions, and their models improved with more submissions.
 
 <!--
-To examine the correlation between student’s engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions ($PTQ$) and once normalizing by total exam marks ($PTE$). For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
+To examine the correlation between students engagement levels and the performances in the exam we plot the number of submission during the competition versus the performances in the exam, Figure \ref{fig:numsubmition}. Once again we exam the performances based on two normalizations. Once normalizing by the total possible marks for the relevant cluster of questions ($PTQ$) and once normalizing by total exam marks ($PTE$). For the students participated in the Melbourne Price competition is the cluster of regression questions. For the students participated in the Spam Classification competition is the cluster of questions about classification methods. 
 -->
 
 
@@ -721,9 +734,14 @@ The survey was not anonymous. However, the results became available to the lectu
 
 # Teachers' corner 
 
-Creating a new competition is surprisingly easy. Information on setting up a Kaggle InClass challenge is available on the service's web site (https://www.kaggle.com/about/inclass/overview). There is a setup wizard for step-by-step guidance on getting your competition underway. We have created a short video illustrating the steps to establish a new competition, and this is provided in supplementary material for the paper.
+Creating a new competition is surprisingly easy. Information on setting up a Kaggle InClass challenge is available on the service's web site (https://www.kaggle.com/about/inclass/overview). There is a setup wizard for step-by-step guidance on getting your competition underway. We have created a short video illustrating the steps to establish a new competition, available on the web (\url{https://www.youtube.com/XXXX}).
+
+<!-- Unblinded verssion -->
+<!-- https://www.youtube.com/watch?v=tqbps4vq2Mc&t=32s -->
 
 The kaggle service provides some data sets, primarily for student self-learning. These are not suitable for use in a class challenge, because all the data is available, and solutions are also provided. We recommend providing your own data for the class challenge.  Finding a suitable data set for a competition can be a difficult task. The criteria for a good data set are:
+
+
 
 1. the full set is not available to the students, to avoid cheating.
 2. the data is not too easy, or too hard, to model so that there is some discriminatory power in the results.
