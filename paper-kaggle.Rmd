@@ -66,7 +66,7 @@ BibOptions(check.entries = FALSE, style = "markdown", bib.style = "alphabetic", 
 
 # Introduction
 
-Kaggle [@kaggle] is a platform for predictive modelling and analytics competitions where participants compete to produce the best predictive model for a given data set. It is well-known for its competitions (e.g. @darkmatter), some of which come with rich monetary prizes (e.g. @heritage). There are also learning competitions [@kagglelearn], designed to help novices hone their data mining skills. Winners are typically expected to share their code, and occasionally new algorithms have emerged, for example, deep neural networks [@HintonDahi12] and XGBoost [@ChenXGBoost]. 
+Kaggle [@kaggle] is a platform for predictive modelling and analytics competitions where participants compete to produce the best predictive model for a given data set. It is well-known for its competitions (e.g. @darkmatter), some of which come with rich monetary prizes (e.g. @heritage). There are also learning competitions [@kagglelearn], designed to help novices hone their data mining skills. Winners are typically expected to share their code, and occasionally newly emerged algorithms are introduced to the broad community, for example, deep neural networks [@HintonDahi12] and XGBoost [@ChenXGBoost]. 
 
 In 2015, Kaggle InClass was introduced, as a self-service platform to conduct competitions. These competitions can be private, limited to members of a university course, and are easy to setup. This is an opportunity for educators to provide a vehicle for students to objectively test their learning of predictive modelling. As a competition, with an independent clear performance metric, along with a dynamic leader board, students can see how their model predictions compare with the models produced by other students. Being able to make multiple submissions over a several week time frame, enables them to try out approaches to improve their models.  This paper examines the educational benefits of conducting predictive modeling competitions in class on performance, engagement and interest.
 
@@ -82,9 +82,9 @@ In the past few years, the educational community started to collect positive evi
 
 Classroom competition is an example of active learning, which has been shown to be pedagogically beneficial. @Prince04 surveyed the literature and found that all forms of active learning have positive effect on the learning experience and student achievement. The magnitude of the effect of different approaches, though, varies. What's more, @Freeman14 examined 158 studies published in about 50 STEM educational journals. The authors found that student exam scores increased by almost half a standard deviation through active learning. Moreover, students in classes with traditional lecturing were 1.5 times more likely to fail than their peers in classes with active learning.
 
-A competition, like any other assessment method has its advantages and disadvantages. It brings the 'game' feeling, increases the interest level among students and motivates for higher performance (@Shindler09, p 105). But, it may have negative influence if constructed poorly. Among the negative influences are  increased stress and anxiety, induced by fearing a low ranking, failure or technology barriers. In addition, students may invest a disproportionate amount of time and effort into competition. Despite some received criticism, a properly set competition can benefit the students greatly. The competition should be relatively short in duration to avoid consuming undue energy. Students should be clear about the rules and the goal. They should be properly rewarded and most important, feel that they have reasonable chance to win or achieve high mark [@Shindler09]. 
+A competition, like any other active learning method, that used for assessment, has its advantages and disadvantages. It brings the 'game' feeling, increases the interest level among students and motivates for higher performance (@Shindler09, p 105). However, it may have negative influence if constructed poorly. Among the negative influences are increased stress and anxiety, induced by fearing a low ranking, failure or technology barriers. In addition, students may invest a disproportionate amount of time and effort into competition. Despite some received criticism, a properly set competition can benefit the students greatly. The competition should be relatively short in duration to avoid consuming undue energy. Students should be clear about the rules and the goal. They should be properly rewarded and most important, feel that they have reasonable chance to win or achieve high mark [@Shindler09]. 
 
-@Shelley08 raised the need for more quantitative and statistical analysis of evidence in science education. This paper contributes to this call by offering statistical analysis of theffects on learning of classroom data competitions. 
+@Shelley08 raised the need for more quantitative and statistical analysis of evidence in science education. This paper contributes to this call by offering statistical analysis of the effects on learning of classroom data competitions. 
 
 
 # Experimental setup
@@ -100,7 +100,7 @@ The experiment was conducted during Semester 2 2017. Data was collected during t
 
 ## Competition data
 
-Two data sets were compiled for the kaggle challenges: Melbourne property auction prices and spam classification. The Melbourne auction price data was collected by extracting information from real estate auction reports (pdf) collected between Feb 2, 2013 and Dec 17, 2016. The spam classification data was compiled by graduate students at Iowa State University as part of a data mining class, in 2009. Data was compiled by monitoring and extracting information from their emails by class members, over a period of a week, and manually tagging them as spam or ham.
+Two data sets were compiled for the kaggle challenges: Melbourne property auction prices and spam classification. The Melbourne auction price data was collected by extracting information from real estate auction reports (pdf) collected between Feb 2, 2013 and Dec 17, 2016. The spam classification data was compiled by graduate students at Iowa State University as part of a data mining class in 2009. Data was compiled by monitoring and extracting information from their emails by class members, over a period of a week, and manually tagging them as spam or ham.
 
 Both data sets were split into training and test sets, for the kaggle challenge. Students had access to the true response variable only for the training data.  For the Melbourne housing data, students were expected to predict price based on the property characteristics. For the spam data, students were expected to build a classifier to predict whether the email as spam or not. 
 
@@ -115,14 +115,14 @@ Students received clean data ready for modelling as we only aimed to examine stu
 
 ## Participants
 
-Computational Statistics and Data Mining (MAST90083) is designed for postgraduate level  students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). This setup mimics randomized control trials, which is the 'gold standard, in experiment design (@Shelley09CH1, ch. 1).
+Computational Statistics and Data Mining (MAST90083) is designed for postgraduate level  students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). This setup mimics randomized control trials, which is the gold standard, in experiment design (@Shelley09CH1, ch. 1).
 Students built prediction models and made submissions individually for 16 days, and then were allowed to form groups to compete for another 7 days. 
 
-The reason for this strategy was first to motivate each of the students to think about modelling and be actively engaged in the competitions through individual submission. The lecturer allowed participants to create groups towards the end of the competition to illustrate the advantages of group work and mixing models. Another motivation for this stratagem was the university policy, requiring a strategy to assign students individually in group assignments.
+The reason for this strategy was first to motivate each of the students to think about modelling and be actively engaged in the competitions through individual submission. The lecturer allowed participants to create groups towards the end of the competition to illustrate the advantages of group work and ensemble models. Another reason for this stratagem was the university policy, requiring a strategy to assign students individually in group assignments. When the team members develop the model together, it is quite difficult to accurately assess the individual contribution of each student. The individual submissions helped to encourage each student to engage in the modelling process. In addition, it helped to assess the individual component of the final score for the competition.
 
 One of the 63 students elected not to take part in the competition, and another student didn't sit the exam, producing a final sample size of 61.
 
-Statistical Thinking (ETC2420/5242), covers regression, but not classification, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (5242) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the MAST90083 competition. The 145 undergraduate (2420) students were used as controls for examining performance of the postgraduate students. Although, it may be surprising at first glance, the undergraduate students provide a reasonable control for the graduate students. The class is taught to both cohorts simultaneously. The entry requirements to the Bachelors of Commerce at Monash is high, and these students have strong mathematics backgrounds. In the years prior to this experiment, the undergraduate scores on the final exam are indistinguishable from those of the graduate students. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
+Statistical Thinking (ETC2420/5242), covers regression, but not classification, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (5242) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the MAST90083 competition. The 145 undergraduate (2420) students were used as comparison for examining performance of the postgraduate students. Although, it may be surprising at first glance, the undergraduate students provide a reasonable comparison for the graduate students. The class is taught to both cohorts simultaneously. The entry requirements to the Bachelors of Commerce at Monash is high, and these students have strong mathematics backgrounds. In the years prior to this experiment, the undergraduate scores on the final exam are indistinguishable from those of the graduate students. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
 <!--
 Several undergraduates also chose to compete individually. The material on regression methods, particularly the computational methods needed to successfully predict housing prices was new to both groups of students. 
 -->
@@ -197,6 +197,9 @@ p2 <- ggplot(UniMelbData, aes(x=Proj_alloc, y=perf_reg)) +
   ylab("Performance")
 grid.arrange(p1, p2, ncol=2)
 ```
+
+
+
 
 ```{r eval=FALSE}
 # Didn't take into account difficulty and discrimination
@@ -508,6 +511,9 @@ To examine the correlation between students engagement levels and the performanc
 
 
 ```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplots of the exam performance (a-c) and competition performance (d-f) by number of prediction submissions, for the three student groups. The relationships with exam performance are weak. For the MAST90083 and ETC5242 regression competitions, a clear pattern is that predictions improved substantially with more submissions. (House price in ETC5242 were divided by 100,000, explaining the difference in magnitude of error between two competitions.)" , fig.width=6, fig.height=5}
+
+library(grid)
+
 etc5242 <- read_csv("data/competition_5242.csv")
 scores_5242_comp <- scores_5242 %>% left_join(etc5242, by="id")
 p1 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=perf_class)) +
@@ -515,38 +521,43 @@ p1 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, 
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Classification performance") + 
   xlab("Num submissions") +
-  xlim(c(1,5)) + ggtitle("a. MAST90083 C")
+  xlim(c(1,5)) + ggtitle("a. MAST90083",  subtitle = "Classification")
 p2 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=perf_reg)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Regression performance") + 
   scale_x_continuous("Num submissions", limits=c(1,13), breaks=seq(1, 13, 2)) + 
-  ggtitle("b. MAST90083 R")
+  ggtitle("b. MAST90083",  subtitle = "Regression")
 p3 <- ggplot(scores_5242_comp, aes(x=numsub, y=perf)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Regression performance") + 
-  xlab("Num submissions") + ggtitle("c. ETC5242")
+  xlab("Num submissions") + ggtitle("c. ETC5242",  subtitle = "Regression")
 #grid.arrange(p1, p2, ncol=2)
 p4 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=PrivetScore)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Accuracy") + 
   xlab("Num submissions") +
-  xlim(c(1,5)) + ggtitle("d. MAST90083 C")
+  xlim(c(1,5)) + ggtitle("d. MAST90083",  subtitle = "Classification")
 p5 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=PrivetScore)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   #ylab("Error") + 
   scale_x_continuous("Num submissions", limits=c(1,13), breaks=seq(1, 13, 2)) + 
-  scale_y_continuous("Error ('0000s)", breaks=seq(110000, 170000, 10000), labels=seq(11,17,1)) + ggtitle("e. MAST90083 R")
+  scale_y_continuous("Error ('0000s)", breaks=seq(110000, 170000, 10000), labels=seq(11,17,1)) + ggtitle("e. MAST90083",  subtitle = "Regression")
   #xlim(c(1,12))
 p6 <- ggplot(scores_5242_comp, aes(x=numsub, y=score)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Error") + 
-  xlab("Num submissions") + ggtitle("f. ETC5242")
-grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+  xlab("Num submissions") + ggtitle("f. ETC5242",  subtitle = "Regression")
+
+#gtext <- grid::textGrob("MAST90083 R - Regression challenge, \nMAST90083 C - Classification challenge,\nETC5242 - Regression challenge", x =unit(0.3, "npc"), y = unit(0.7, "npc") , 
+#                        just = "left") 
+#grid.arrange(p1, p2, p3, p4, p5, p6, gtext, ncol=3) 
+
+grid.arrange(p1, p2, p3, p4, p5, p6,  ncol=3)
 
 ```
 
@@ -743,7 +754,7 @@ The kaggle service provides some data sets, primarily for student self-learning.
 
 
 
-1. the full set is not available to the students, to avoid cheating.
+1. the full set is not available to the students, to avoid plagiarism and use of unauthorized assistance.
 2. the data is not too easy, or too hard, to model so that there is some discriminatory power in the results.
 3. data should be relatively clean, to the point where the instructor has tested that a model can be fitted.
 4. contains some challenges, that make standard off-the-shelf modeling less successful, like different variable types that need processing or transforming, some outliers, large number of variables. 
@@ -752,13 +763,15 @@ The kaggle service provides some data sets, primarily for student self-learning.
 <!--It is not recommended to take freely available data sets from the Internet. A clever student will always try to check if the data is on the web. If it is, she will use the answers from the data set instead of predicting the answers with a self-developed model. As a statistician, and an instructor in a subject, you or one of your colleagues usually have some interesting data set to use. In such a case, the data set and particularly the target values will be unfamiliar to the students.
 -->
 
-Choosing the metric upon which to evaluate the model is another decision. Our advice is to keep it simple, so you, and the students, can understand the student scores. If you are running a regression challenge, then "Root Mean Squared Error (RMSE)". It is is a classification challenge, then "Categorization Accuracy", the percentage correct is reasonable. 
+Choosing the metric upon which to evaluate the model is another decision. Our advice is to keep it simple, so you, and the students, can understand the student scores. If you are running a regression challenge, then the "Root Mean Squared Error (RMSE)" is a good choice. If it is a classification challenge, then "Categorization Accuracy", the percent of correct classifications, is reasonable. 
 
 The data needs to be split into training and testing sets. Kaggle will then split your test set into two, a public set that is used to provide ongoing scores to participants, and a private set, on which performance is revealed only after the competition closes. If you have categorical variables in the data set, you will want to make sure that all categories are present in both training and test sets. The training set will have both predictors and response, but the test set will have the response variable removed. Each observation needs to be assigned an id, because this will be needed to evaluate predictions. The solution file, containing the id and the true response, is provided to the system for evaluating submissions, and is kept private. A sample submission file needs to be provided. Participants will submit their solutions in the same format. 
 
 It is a good idea to build a basic model yourself on the training data, and predict the test data. The performance of this model can be provided to the participants as baseline to beat. 
 
-The competition needs to run without any intervention from the instructor. The instructor can monitor students progress: the number of submissions, student scores and even the uploaded data at any time. When the competition ends the "Leaderboard" page provides a list of students ordered by the final score. It also provides all the scores from all past submissions (under "Raw Data" on "Public Leaderboard"). 
+The competition needs to run without any intervention from the instructor. 
+Exception is, of course, an academic discussion motivated by the competition between the teaching team and the students. For example, a discussion about different models, their advantages and limitations. 
+The instructor can monitor students progress: the number of submissions, student scores and even the uploaded data at any time. When the competition ends the "Leaderboard" page provides a list of students ordered by the final score. It also provides all the scores from all past submissions (under "Raw Data" on "Public Leaderboard"). 
 
 It may be recommended to limit students to one submission per day. It encourages students to think about more efficient improvement of their model before the next submission. It also prevents the student spending too much time building and submitting models. Some students will become so engaged in the competition that they might neglect their other coursework. About halfway through the coompetition, students might be allowed to form teams, to learn how averaging models can boost performance. 
 
@@ -773,7 +786,7 @@ From an instructor perspective, its very rewarding watching the students partici
 
 This paper has described the setup and results of an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The experiment was conducted in the classroom settings as part of the normal teaching of the courses, which imposes limitations on the design. However, with both MAST90083 and ETC2420/5242, either a randomized assignment of students to two topic groups, or a control group, was possible, which enabled comparing performance. 
 
-The primary finding, is that participating in a data challenge competition,  produces a statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, anecdotally, the competitions enhanced interest and engagement in the course. 
+The primary finding, is that participating in a data challenge competition,  produces a statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, the competitions enhanced interest and engagement in the course. 
 
 # Future work
 
