@@ -92,7 +92,7 @@ A competition, like any other active learning method, that used for assessment, 
 ## Data collection
 
 <!-- Blinded verssion -->
-The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of AB (MAST90083), and one at CD University (ETC2420/5242). 
+The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of AB (Computational statistics and data mining ,MAST90083, denoted as CSDM), and one at CD University (Statistical thinking, ETC2420/5242, denoted as ST). 
 
 <!-- Unblinded verssion 
 The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of Melbourne (MAST90083), and one at Monash University (ETC2420/5242). -->
@@ -115,7 +115,7 @@ Students received clean data ready for modelling as we only aimed to examine stu
 
 ## Participants
 
-Computational Statistics and Data Mining (MAST90083) is designed for postgraduate level  students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). This setup mimics randomized control trials, which is the gold standard, in experiment design (@Shelley09CH1, ch. 1).
+Computational Statistics and Data Mining (CSDM) is designed for postgraduate level  students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). This setup mimics randomized control trials, which is the gold standard, in experiment design (@Shelley09CH1, ch. 1).
 Students built prediction models and made submissions individually for 16 days, and then were allowed to form groups to compete for another 7 days. 
 
 The reason for this strategy was first to motivate each of the students to think about modelling and be actively engaged in the competitions through individual submission. The lecturer allowed participants to create groups towards the end of the competition to illustrate the advantages of group work and ensemble models. Another reason for this approach was the university policy, requiring a strategy to assign students individually in group assignments. When the team members develop the model together, it is quite difficult to accurately assess the individual contribution of each student. The individual submissions helped to encourage each student to engage in the modelling process. In addition, it helped to assess the individual component of the final score for the competition.
@@ -138,7 +138,7 @@ Exam   & Regression      & 30 &  66.9 (14.1)  &   36 &  57.5 &   69.2 &  77.5 & 
                     & Classification  &    31  & 8.01 (2.96)  &  0  & 7.8  &  9.30   &  9.9  &   10 \\\hline
 
 \end{tabular}
-\caption{MAST90083: Basics summary statistics of the exam score (out of 100) and the second assignment (out of 10) for the two competition groups.}
+\caption{Computational statistics and data mining: Basics summary statistics of the exam score (out of 100) and the second assignment (out of 10) for the two competition groups.}
 \end{center}
 \label{tab:Melb_Group_Compare}
 \end{table}
@@ -146,10 +146,10 @@ Exam   & Regression      & 30 &  66.9 (14.1)  &   36 &  57.5 &   69.2 &  77.5 & 
 
 
 
-Statistical Thinking (ETC2420/5242), covers regression, but not classification, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (5242) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the MAST90083 competition. The 145 undergraduate (2420) students were used as comparison for examining performance of the postgraduate students. Although, it may be surprising at first glance, the undergraduate students provide a reasonable comparison for the graduate students. The class is taught to both cohorts simultaneously. The entry requirements to the Bachelors of Commerce at Monash is high, and these students have strong mathematics backgrounds. In the years prior to this experiment, the undergraduate scores on the final exam are indistinguishable from those of the graduate students. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
+Statistical Thinking (ST), covers regression, but not classification, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (ST-PG) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the CSDM competition. The 145 undergraduate (ST-UG) students were used as comparison for examining performance of the postgraduate students. Although, it may be surprising at first glance, the undergraduate students provide a reasonable comparison for the graduate students. The class is taught to both cohorts simultaneously. The entry requirements to the Bachelors of Commerce at Monash is high, and these students have strong mathematics backgrounds. In the years prior to this experiment, the undergraduate scores on the final exam are indistinguishable from those of the graduate students. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
 
 
-Similarly, to Table 1, Table 2 shows some summary statistics of the exam scores for the 34 postgraduate (ETC5242) students and for the 145 undergraduate (ETC2420) students. The mean and the median scores of postgraduate students are a bit lower than the corresponding scores of undergraduate students. However, the interquartile range is quite the same. Therefore, we do not have a principal evidence that postgraduate students are a stronger cohort. Interesting the highest exam score was received by an undergraduate student. Also, the mean and the median of the undergraduate students are a bit higher. 
+Similarly, to Table 1, Table 2 shows some summary statistics of the exam scores for the 34 postgraduate (ST-PG) students and for the 145 undergraduate (ST-UG) students. The mean and the median scores of postgraduate students are a bit lower than the corresponding scores of undergraduate students. However, the interquartile range is quite the same. Therefore, we do not have a principal evidence that postgraduate students are a stronger cohort. Interesting the highest exam score was received by an undergraduate student. Also, the mean and the median of the undergraduate students are a bit higher. 
 
 <!-- The numbers calculated as part of the `Melb` chank -->
 
@@ -157,29 +157,32 @@ Similarly, to Table 1, Table 2 shows some summary statistics of the exam scores 
 \begin{center}
 \begin{tabular}{l l r r r r r r r}\hline
 Score & Competition group & N & Mean (SD)   & Min  &  Q1 & Median  &  Q3  & Max \\\hline
-Exam   & ETC5242      & 34  & 61.8 (12.2)  &  35 & 57.2  &   61  & 72.2  & 81.5 \\
-       & ETC2420         & 145 & 63.0 (15.4)  &   0 & 56.0  &   64  & 73.0   & 90.0\\\hline
+Exam   & ST-PG      & 34  & 61.8 (12.2)  &  35 & 57.2  &   61  & 72.2  & 81.5 \\
+       & ST-UG         & 145 & 63.0 (15.4)  &   0 & 56.0  &   64  & 73.0   & 90.0\\\hline
 \end{tabular}
-\caption{ETC2420/5242: Basics summary statistics of the exam score (out of 100) for the two groups.}
+\caption{Statistical thinking: Basics summary statistics of the exam score (out of 100) for the two groups.}
 \end{center}
 \label{tab:Melb_Group_Compare}
 \end{table}
 
-Figure \ref{fig:Monash_quiz} presents the means and the standard deviations of the quizzes taken by the undergraduate (ETC2420) and postgraduate (ETC5242) students. 
+Figure \ref{fig:Monash_quiz} presents the means and the standard deviations of the quizzes taken by the undergraduate (ST-UG) and postgraduate (ST-PG) students. 
 
 Postgraduate students have slightly higher average marks on quizzes and much smaller standard deviation. However, the median is only higher by up to 1 point for postgraduate students (except for quiz 5, the difference is 2 points). It could suggest that they are a bit stronger cohort than the undergraduate students. But it also could be that they have a more serious attitude to the quizzes. Considering their performance in the exam the latter is more likely. 
 
 
 
-```{r Monash_quiz, fig.cap = "\\label{fig:Monash_quiz} Means and error bars of undergraduate (ETC2420) and postgraduate (ETC5242) students quizes during the semester.", fig.height=4.5, fig.width=6}
+```{r Monash_quiz, fig.cap = "\\label{fig:Monash_quiz} Means and error bars of undergraduate (ST-UG) and postgraduate (ST-PG) students quizes during the semester.", fig.height=4.5, fig.width=6}
 library(tidyverse)
 library(gridExtra)
 quiz <- read_csv(file="data/quiz_scores_by_unit_2420_5442.csv") 
 
 quiz <- quiz %>% mutate(unit = as.character(unit)) %>%
-  mutate(quiz = factor(quiz, levels = c('Quiz 1','Quiz 2','Quiz 3','Quiz 4','Quiz 5','Quiz 6','Quiz 7','Quiz 8','Quiz 9','Quiz 10','Quiz 11','Quiz Tot')))
+  mutate(quiz = factor(quiz, levels = c('Quiz 1','Quiz 2','Quiz 3','Quiz 4','Quiz 5','Quiz 6','Quiz 7','Quiz 8','Quiz 9','Quiz 10','Quiz 11','Quiz Tot'))) 
 
-quiz %>% ggplot(aes(x=unit, y=mean, colour=unit)) +
+quiz1 <- quiz %>%   mutate(unit=replace(unit, unit=='2420','ST-UG')) %>%
+  mutate(unit=replace(unit, unit=='5242','ST-PG'))
+
+quiz1 %>% ggplot(aes(x=unit, y=mean, colour=unit)) +
   geom_point(aes(color=unit), size = 2) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2, 
                 position=position_dodge(.9)) +
@@ -190,7 +193,7 @@ quiz %>% ggplot(aes(x=unit, y=mean, colour=unit)) +
 ```
 
 
-```{r Monash_quiz_mean_diff, fig.cap = "\\label{fig:Monash_quiz_mean_diff} Mean difference of undergraduate (ETC2420) and postgraduate (ETC5242) students quizes scores and CI.", fig.height=4.5, fig.width=6}
+```{r Monash_quiz_mean_diff, fig.cap = "\\label{fig:Monash_quiz_mean_diff} Mean difference of undergraduate (ST-UG) and postgraduate (ST-PG) students quizes scores and CI.", fig.height=4.5, fig.width=6}
 
 # Calculate CI for the differences in mean
 t <- quiz %>% select(unit,quiz,mean,sd) %>%
@@ -272,7 +275,7 @@ MAST90083 used \url{https://www.kaggle.com/c/amiaspam} and \url{https://www.kagg
 
 ## Performance
 
-Better performance is equated to better understanding of the material, as measured in the final exam. MAST90083 and ETC2420/5242 included questions, with several parts, on the final exam related to kaggle challenges. These questions were identified prior to data analysis. 
+Better performance is equated to better understanding of the material, as measured in the final exam. CSDM and ST included questions, with several parts, on the final exam related to kaggle challenges. These questions were identified prior to data analysis. 
 
 For all questions in the exam, difficulty and discrimination scores were computed, using the mean and standard deviations. Of the questions pre-identified as being relevant to the data challenges, only the parts that corresponded to high level of difficulty and high discrimination were included in the comparison of performance. 
 
@@ -281,7 +284,7 @@ One can expect, that on average, student's success rate for each question will b
 
 Therefore, performance for each student was computed as the ratio of these two numbers, percentage success in the regression (classification) questions and percentage success in the total exam. A value of 1 would indicate that the student's performance on that set of questions was consistent with their overall exam performance, greater than 1 that they performed better than expected, and lower than 1 meant less than expected on that topic. 
 
-Using only the percentage of successes for each set of questions, instead of the proposed ratio, will not differentiate between a better performance and just a better student. Especially in the case of ETC2420/5242 that have a mixed population of master and undergraduate student.
+Using only the percentage of successes for each set of questions, instead of the proposed ratio, will not differentiate between a better performance and just a better student. Especially in the case of ST that have a mixed population of master and undergraduate student.
 
 The distribution of the performance scores by group is shown as a boxplot. Focus is on the difference in median between the groups. Permutation tests were conducted to examine difference in median scores for students participating or not in a competition. 
 
@@ -291,15 +294,15 @@ The students were allowed to submit at most one prediction per day, while the  c
 
 ## Interest
 
-Students in MAST90083 and ETC5242 were invited to give feedback about the course, in particular about the data competitions, before the final exam. This information was voluntary, and students who completed the questionnaire were rewarded with a coupon for a free coffee. The data from this survey was viewed by the researchers after all course grades had been reported. To reduce potential bias in students replies, we emphasize this point as part of the instruction at the beginning of the survey. 
+Students in CSDM and ST-PG were invited to give feedback about the course, in particular about the data competitions, before the final exam. This information was voluntary, and students who completed the questionnaire were rewarded with a coupon for a free coffee. The data from this survey was viewed by the researchers after all course grades had been reported. To reduce potential bias in students replies, we emphasize this point as part of the instruction at the beginning of the survey. 
 
 # Results
 
 ## Performance
 
-Figure \ref{fig:MAST90083} shows the data collected in MAST90083. Performance is plotted against type of question, separately for the competition they completed.  The difference in median scores indicates performance improvement. Students who completed the classification competition (left) performed relatively better on the classification questions than the regression questions in the final exam. Conversely, students who participated in the regression competition performed relatively better on the regression questions.
+Figure \ref{fig:MAST90083} shows the data collected in CSDM. Performance is plotted against type of question, separately for the competition they completed.  The difference in median scores indicates performance improvement. Students who completed the classification competition (left) performed relatively better on the classification questions than the regression questions in the final exam. Conversely, students who participated in the regression competition performed relatively better on the regression questions.
 
-```{r Melb, fig.cap = "\\label{fig:MAST90083} Boxplots of performance on regression and classification questions in the final exam, by type of data competition completed in MAST90083. Students generally performed better on the questions corresponding to the competition they participated in.", fig.height=3, fig.width=6}
+```{r Melb, fig.cap = "\\label{fig:MAST90083} Boxplots of performance on regression and classification questions in the final exam, by type of data competition completed in CSDM. Students generally performed better on the questions corresponding to the competition they participated in.", fig.height=3, fig.width=6}
 library(tidyverse)
 library(gridExtra)
 library(forcats)
@@ -466,18 +469,18 @@ Question Set & Median difference & Permutation $p$-value \\\hline
 Classification & 0.250 & 0.033\\
 Regression & 0.104 & 0.000\\\hline
 \end{tabular}
-\caption{Comparison of median difference in performance by competition group, for MAST90083 students, using permutation tests. Both sets of medians are significantly different, indicating improved scores for questions on the topic related to the Kaggle competition.}
+\caption{Comparison of median difference in performance by competition group, for CSDM students, using permutation tests. Both sets of medians are significantly different, indicating improved scores for questions on the topic related to the Kaggle competition.}
 \end{center}
 \label{tab:Melb_Perm}
 \end{table}
 
-Table 1 shows the results of permutation testing of median difference between the groups. Generally the results support the competition improved performance. Students who participated in the kaggle challenge for classification scored higher than those that did the regression competition, on the classification problem. Using a permutation test, this corresponds to a significant difference in medians. Similarly the results show that students who did the regression challenge, performed better on these exam questions.
+Table 3 shows the results of permutation testing of median difference between the groups. Generally the results support the competition improved performance. Students who participated in the kaggle challenge for classification scored higher than those that did the regression competition, on the classification problem. Using a permutation test, this corresponds to a significant difference in medians. Similarly the results show that students who did the regression challenge, performed better on these exam questions.
 
-Figure \ref{fig:ETC5242} shows the results for students ETC2420/5242. The boxplots suggest that the students who participated in the challenge performed relatively better than those that didn't on the regression question than expected given their total exam performance. 
+Figure \ref{fig:ETC5242} shows the results for ST students. The boxplots suggest that the students who participated in the challenge performed relatively better than those that didn't on the regression question than expected given their total exam performance. 
 
 Only the post-graduate students participated in the regression competition, as their additional assessment requirement. Scores for the question on regression (Q7a,b,c) in the final exam were compared with the total exam score (RE). On these question parts, a, b, c, over all the students all three were in the top 10 of difficulty, with students scoring less than 70%, on average. Parts b, c were in the top 10 for discrimination, and part a was at rank 13. 
 
-```{r ETC5242, fig.cap = "\\label{fig:ETC5242} Performance for regression question relative to total exam score for students who did and didn't do the regression data competition in ETC2420/5242.", fig.width=4, fig.height=3}
+```{r ETC5242, fig.cap = "\\label{fig:ETC5242} Performance for regression question relative to total exam score for students who did and didn't do the regression data competition in Statistical thinking.", fig.width=4, fig.height=3}
 scores_5242 <- read_csv("data/deidentified_scores_5242.csv")
 scores_2420 <- read_csv("data/deidentified_scores_2420.csv")
 
@@ -666,7 +669,7 @@ This is another evidence towards positive influence of the data competition on s
 
 ## Engagement
 
-The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} (top row) shows performance on the classification and regression questions, respectively, against their frequency of prediction submissions for the three student groups (MAST90083 classification and regression, ETC5242 regression) competitions. The relationship is weak in all groups, and this mirrors insignificant results from a linear model fit to both subsets. On the other hand, the predictive accuracy improved with the number of submissions for the regression competitions. There appears to be some nonlinearity present in these plots, suggesting reduced returns. That is reasonable to expect. Also, some students strategically make very poor initial predictions, to get a baseline on error equivalent to guessing. 
+The number of submissions that a student made, may be an indicator of performance on the exam questions related to the competition.  A student who is more engaged in the competition may learn more about the material, and consequently perform better on the exam. Figure \ref{fig:numsubmition} (top row) shows performance on the classification and regression questions, respectively, against their frequency of prediction submissions for the three student groups (CSDM classification and regression, ST-PG regression) competitions. The relationship is weak in all groups, and this mirrors insignificant results from a linear model fit to both subsets. On the other hand, the predictive accuracy improved with the number of submissions for the regression competitions. There appears to be some nonlinearity present in these plots, suggesting reduced returns. That is reasonable to expect. Also, some students strategically make very poor initial predictions, to get a baseline on error equivalent to guessing. 
 
 The competition performance relative to number of submissions is shown in plots (d)-(f). Each point corresponds to one student, and accuracy or error of the best predictions submitted is used. The regression competition seemed to engage students more than the classification challenge. Students submitted more predictions, and their models improved with more submissions.
 
@@ -678,7 +681,7 @@ To examine the correlation between students engagement levels and the performanc
 
 
 
-```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplots of the exam performance (a-c) and competition performance (d-f) by number of prediction submissions, for the three student groups. The relationships with exam performance are weak. For the MAST90083 and ETC5242 regression competitions, a clear pattern is that predictions improved substantially with more submissions. (House price in ETC5242 were divided by 100,000, explaining the difference in magnitude of error between two competitions.)" , fig.width=6, fig.height=5}
+```{r numsubmition, echo = FALSE, fig.cap = "\\label{fig:numsubmition} Scatterplots of the exam performance (a-c) and competition performance (d-f) by number of prediction submissions, for the three student groups. The relationships with exam performance are weak. For the CSDM and ST-PG regression competitions, a clear pattern is that predictions improved substantially with more submissions. (House price in ST-PG were divided by 100,000, explaining the difference in magnitude of error between two competitions.)" , fig.width=6, fig.height=5}
 
 library(grid)
 
@@ -689,37 +692,37 @@ p1 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, 
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Classification performance") + 
   xlab("Num submissions") +
-  xlim(c(1,5)) + ggtitle("a. MAST90083",  subtitle = "Classification")
+  xlim(c(1,5)) + ggtitle("a. CSDM",  subtitle = "Classification")
 p2 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=perf_reg)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Regression performance") + 
   scale_x_continuous("Num submissions", limits=c(1,13), breaks=seq(1, 13, 2)) + 
-  ggtitle("b. MAST90083",  subtitle = "Regression")
+  ggtitle("b. CSDM",  subtitle = "Regression")
 p3 <- ggplot(scores_5242_comp, aes(x=numsub, y=perf)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Regression performance") + 
-  xlab("Num submissions") + ggtitle("c. ETC5242",  subtitle = "Regression")
+  xlab("Num submissions") + ggtitle("c. ST-PG",  subtitle = "Regression")
 #grid.arrange(p1, p2, ncol=2)
 p4 <- ggplot(filter(UniMelbData, Proj_alloc == "classification"), aes(x=numsub, y=PrivetScore)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Accuracy") + 
   xlab("Num submissions") +
-  xlim(c(1,5)) + ggtitle("d. MAST90083",  subtitle = "Classification")
+  xlim(c(1,5)) + ggtitle("d. CSDM",  subtitle = "Classification")
 p5 <- ggplot(filter(UniMelbData, Proj_alloc == "regression"), aes(x=numsub, y=PrivetScore)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   #ylab("Error") + 
   scale_x_continuous("Num submissions", limits=c(1,13), breaks=seq(1, 13, 2)) + 
-  scale_y_continuous("Error ('0000s)", breaks=seq(110000, 170000, 10000), labels=seq(11,17,1)) + ggtitle("e. MAST90083",  subtitle = "Regression")
+  scale_y_continuous("Error ('0000s)", breaks=seq(110000, 170000, 10000), labels=seq(11,17,1)) + ggtitle("e. CSDM",  subtitle = "Regression")
   #xlim(c(1,12))
 p6 <- ggplot(scores_5242_comp, aes(x=numsub, y=score)) +
   geom_point() +
   geom_smooth(method="lm", se=FALSE) + 
   ylab("Error") + 
-  xlab("Num submissions") + ggtitle("f. ETC5242",  subtitle = "Regression")
+  xlab("Num submissions") + ggtitle("f. ST-PG",  subtitle = "Regression")
 
 #gtext <- grid::textGrob("MAST90083 R - Regression challenge, \nMAST90083 C - Classification challenge,\nETC5242 - Regression challenge", x =unit(0.3, "npc"), y = unit(0.7, "npc") , 
 #                        just = "left") 
@@ -791,11 +794,11 @@ We didn’t found any evidence for correlation between the performances in the c
 - Match exam performance to engagement?
 -->
 
-Figure \ref{fig:likert} shows the survey responses related to the kaggle competition, for MAST90083 and ETC5242. The response rate for MAST90083 was 55%, with 34 of 61 students completing the survey. 
-The response rate for ETC5242 was 50%, 17 students out of 34 completed the survey. Overwhelmingly, students reported that they found the competition interesting and helpful for their learning in the course.
+Figure \ref{fig:likert} shows the survey responses related to the kaggle competition, for CSDM and ST-PG. The response rate for CSDM was 55%, with 34 of 61 students completing the survey. 
+The response rate for ST-PG was 50%, 17 students out of 34 completed the survey. Overwhelmingly, students reported that they found the competition interesting and helpful for their learning in the course.
 
 
-```{r likert, fig.cap="\\label{fig:likert}Summary of responses to survey of kaggle competition participants. Overwhelmingly the response to the competition was positive in both classes, especially the questions on enjoyment and engagement in the class, and obtaining practical experience. (Table 2 lists the questions.)"}
+```{r likert, fig.cap="\\label{fig:likert}Summary of responses to survey of kaggle competition participants. Overwhelmingly the response to the competition was positive in both classes, especially the questions on enjoyment and engagement in the class, and obtaining practical experience. (Table 4 lists the questions.)"}
 MAST90083_survey <- read_xlsx("data/Data Competition Feedback MAST90083.xlsx") %>% filter(`Email Address` != "julia.polak@unimelb.edu.au")
 MAST90083_likert <- MAST90083_survey %>% 
   rename(Q1=`1. I found the data competition is great fun.`) %>%
@@ -878,7 +881,9 @@ ETC5242_Q <- bind_rows(Q1, Q2, Q1, Q2, Q3, Q4, Q5, Q6)
 MAST90083_Q <- MAST90083_Q %>% mutate(class = "MAST90083")
 ETC5242_Q <- ETC5242_Q %>% mutate(class = "ETC5242")
 Q <- bind_rows(MAST90083_Q, ETC5242_Q)
-Q <- Q %>% mutate(class = fct_relevel(class, "MAST90083", "ETC5242"))
+Q <- Q %>% mutate(class = fct_relevel(class,"MAST90083", "ETC5242")) %>%
+           mutate(class = recode(class, "ETC5242"="ST-PG" , "MAST90083"="CSDM")) 
+
 ggplot(Q, aes(x=question, weight = n, 
               fill=fct_relevel(response, "Strongly Disagree", 
                                "Disagree", "Neutral", "Agree", 
@@ -907,7 +912,7 @@ Q6 & I feel that the required time investment in the data competition was worthy
 \label{survey_Q}
 \end{table}
 
-After collecting the survey from the students we were told that the questions about students engagement were positively worded. This may have potentially led to some bias. An improved way could be to ask directly about student's engagement, e.g. "How would you rate your level of engagement in this course?" with set answer options of "not at all engaged" -- up to "extremely engaged" with several choices in between. Another improvement could be asking ETC2420 students that didn't take part in the competition about their level of engagement and compare the answers with other students of ETC5242. We acknowledge that the differences in the engagement levels may not necessarily be a result of participation in the competition but it is still an interesting aspect.
+After collecting the survey from the students we were told that the questions about students engagement were positively worded. This may have potentially led to some bias. An improved way could be to ask directly about student's engagement, e.g. "How would you rate your level of engagement in this course?" with set answer options of "not at all engaged" -- up to "extremely engaged" with several choices in between. Another improvement could be asking ST-UG  students that didn't take part in the competition about their level of engagement and compare the answers with other students of ST-PG. We acknowledge that the differences in the engagement levels may not necessarily be a result of participation in the competition but it is still an interesting aspect.
 
 The survey was not anonymous. However, the results became available to the lectures only after all the grades were realised to the students. This point was emphasized in the instructions to the students at the beginning of the survey.
 
@@ -954,9 +959,9 @@ From an instructor perspective, its very rewarding watching the students partici
 
 # Discussion
 
-This paper has described the setup and results of an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The experiment was conducted in the classroom settings as part of the normal teaching of the courses, which imposes limitations on the design. However, with both MAST90083 and ETC2420/5242, either a randomized assignment of students to two topic groups, or a control group, was possible, which enabled comparing performance.
+This paper has described the setup and results of an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The experiment was conducted in the classroom settings as part of the normal teaching of the courses, which imposes limitations on the design. However, with both CSDM and ST, either a randomized assignment of students to two topic groups, or a control group, was possible, which enabled comparing performance.
 
-Running an experiment in the classroom setting imposes, of course, some limitations. One of them is a relatively small sample size of each group. The other is the need to address the university policies, such as the group assessment approach we took for MAST90083.  
+Running an experiment in the classroom setting imposes, of course, some limitations. One of them is a relatively small sample size of each group. The other is the need to address the university policies, such as the group assessment approach we took for CSDM.  
 
 One of the major limitations is the ability to include such a control group that it is easy to show that its members are equal to the case group members. In the case of Statistical Thinking subject the control group was taken as the undergraduate students that took this subject. At first, using undergraduate students as a control group for graduate students may be surprising.  However, the experience of teaching this subject over several years and some statistical comparison of the two groups can justify this decision. Undergraduate students that took this subject are strong students. Their performance in other tasks and exam questions, not relevant to the competition, was equivalent to the postgraduate students cohort.     
 
