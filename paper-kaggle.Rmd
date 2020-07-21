@@ -176,14 +176,23 @@ library(tidyverse)
 library(gridExtra)
 quiz <- read_csv(file="data/quiz_scores_by_unit_2420_5442.csv") 
 
-quiz <- quiz %>% mutate(unit = as.character(unit))
-quiz %>%ggplot(aes(x=unit, y=mean, colour=unit)) +
+quiz <- quiz %>% mutate(unit = as.character(unit)) %>%
+  mutate(quiz = factor(quiz, levels = c('Quiz 1','Quiz 2','Quiz 3','Quiz 4','Quiz 5','Quiz 6','Quiz 7','Quiz 8','Quiz 9','Quiz 10','Quiz 11','Quiz Tot')))
+
+quiz %>% ggplot(aes(x=unit, y=mean, colour=unit)) +
   geom_point(aes(color=unit), size = 2) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2, 
                 position=position_dodge(.9)) +
-  facet_wrap(~quiz)
+  facet_wrap(~quiz) + 
+  labs(y="Score",x="") +
+   theme(legend.position = "none") 
 
-# Calculate CI 
+```
+
+
+```{r Monash_quiz_mean_diff, fig.cap = "\\label{fig:Monash_quiz_mean_diff} Mean difference of undergraduate (ETC2420) and postgraduate (ETC5242) students quizes scores and CI.", fig.height=4.5, fig.width=6}
+
+# Calculate CI for the differences in mean
 t <- quiz %>% select(unit,quiz,mean,sd) %>%
       gather(statistics, value, -(quiz:unit)) %>%
       unite(temp, unit, statistics) %>%
@@ -197,11 +206,40 @@ t <- t %>% mutate(mean_dif = `5242_mean` - `2420_mean`,
                   lower.CI = mean_dif - t_q*sd,
                   upper.CI = mean_dif + t_q*sd
 )   
+t %>% ggplot(aes(x=factor(quiz, levels = c('Quiz 1','Quiz 2','Quiz 3','Quiz 4','Quiz 5','Quiz 6','Quiz 7','Quiz 8','Quiz 9','Quiz 10','Quiz 11','Quiz Tot')) , 
+                 y=mean_dif)) +
+  geom_point( size = 2) +
+  geom_errorbar(aes(ymin=lower.CI, ymax=upper.CI), width=.2, 
+                position=position_dodge(.9)) +
+  labs(y="Score",x="") +
+   theme(legend.position = "none") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
 
+```{r Monash_quiz_CI, fig.cap = "\\label{fig:Monash_quiz_CI} Means and CI bars of undergraduate (ETC2420) and postgraduate (ETC5242) students quizes during the semester.", fig.height=4.5, fig.width=6}
 
+# Calculation CI for each mean
 
+t_5242 <- quiz %>% filter( unit=='5242') %>%
+      mutate(t_q = qt( .975, df=(34-1)),
+                  lower.CI = mean - t_q*sd/sqrt(34),
+                  upper.CI = mean + t_q*sd/sqrt(34))
+
+t_2420 <- quiz %>% filter( unit=='2420') %>%
+      mutate(t_q = qt( .975, df=(145-1)),
+                  lower.CI = mean - t_q*sd/sqrt(145),
+                  upper.CI = mean + t_q*sd/sqrt(145))
+t <- bind_rows(t_2420,t_5242)
+
+t %>% ggplot(aes(x=unit, y=mean, colour=unit)) +
+  geom_point(aes(color=unit), size = 2) +
+  geom_errorbar(aes(ymin=lower.CI, ymax=upper.CI), width=.2, 
+                position=position_dodge(.9)) +
+  facet_wrap(~quiz) + 
+  labs(y="Score",x="") +
+   theme(legend.position = "none") 
+```
 
 
 
@@ -890,6 +928,8 @@ The kaggle service provides some data sets, primarily for student self-learning.
 4. contains some challenges, that make standard off-the-shelf modeling less successful, like different variable types that need processing or transforming, some outliers, large number of variables. 
 5. if it is a classification challenge, it will work better with relatively balanced classes, because the overall accuracy is the easiest metric to use. 
 
+The data sets used in our competitions can be shared with other instructors by request. 
+
 <!--It is not recommended to take freely available data sets from the Internet. A clever student will always try to check if the data is on the web. If it is, she will use the answers from the data set instead of predicting the answers with a self-developed model. As a statistician, and an instructor in a subject, you or one of your colleagues usually have some interesting data set to use. In such a case, the data set and particularly the target values will be unfamiliar to the students.
 -->
 
@@ -914,7 +954,11 @@ From an instructor perspective, its very rewarding watching the students partici
 
 # Discussion
 
-This paper has described the setup and results of an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The experiment was conducted in the classroom settings as part of the normal teaching of the courses, which imposes limitations on the design. However, with both MAST90083 and ETC2420/5242, either a randomized assignment of students to two topic groups, or a control group, was possible, which enabled comparing performance. 
+This paper has described the setup and results of an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The experiment was conducted in the classroom settings as part of the normal teaching of the courses, which imposes limitations on the design. However, with both MAST90083 and ETC2420/5242, either a randomized assignment of students to two topic groups, or a control group, was possible, which enabled comparing performance.
+
+Running an experiment in the classroom setting imposes, of course, some limitations. One of them is a relatively small sample size of each group. The other is the need to address the university policies, such as the group assessment approach we took for MAST90083.  
+
+One of the major limitations is the ability to include such a control group that it is easy to show that its members are equal to the case group members. In the case of Statistical Thinking subject the control group was taken as the undergraduate students that took this subject. At first, using undergraduate students as a control group for graduate students may be surprising.  However, the experience of teaching this subject over several years and some statistical comparison of the two groups can justify this decision. Undergraduate students that took this subject are strong students. Their performance in other tasks and exam questions, not relevant to the competition, was equivalent to the postgraduate students cohort.     
 
 The primary finding, is that participating in a data challenge competition,  produces a statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, the competitions enhanced interest and engagement in the course. 
 
