@@ -115,85 +115,89 @@ Students received clean data ready for modelling as we only aimed to examine stu
 
 ## Participants
 
-Computational Statistics and Data Mining (CSDM) is designed for postgraduate level  students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). This setup mimics randomized control trials, which is the gold standard, in experiment design (@Shelley09CH1, ch. 1).
+Computational Statistics and Data Mining (CSDM) is designed for postgraduate level  students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). (One of the 63 students elected not to take part in the competition, and another student didn't sit the exam, producing a final sample size of 61.) This setup mimics randomized control trials, which is the gold standard, in experiment design (@Shelley09CH1, ch. 1).
 Students built prediction models and made submissions individually for 16 days, and then were allowed to form groups to compete for another 7 days. 
 
 The reason for this strategy was first to motivate each of the students to think about modelling and be actively engaged in the competitions through individual submission. The lecturer allowed participants to create groups towards the end of the competition to illustrate the advantages of group work and ensemble models. Another reason for this approach was the university policy, requiring a strategy to assign students individually in group assignments. When the team members develop the model together, it is quite difficult to accurately assess the individual contribution of each student. The individual submissions helped to encourage each student to engage in the modelling process. In addition, it helped to assess the individual component of the final score for the competition.
 
-One of the 63 students elected not to take part in the competition, and another student didn't sit the exam, producing a final sample size of 61.
 
-Table 1 shows some summary statistics for the two groups. We examine the percentage correct overall on the final exam for the different groups and the scores the students received for the second assignment. The second assignment examined students knowledge about computational methods and absolutely unrelated to the classification and regression methods. The difference between the two group are inconsiderable taking into the account the relatively small sample size of the groups.
+
+Table 1 compares the summary statistics for the two groups. We examine the percentage correct overall on the final exam for the different groups and the scores the students received for the second assignment. The second assignment examined students knowledge about computational methods, unrelated to the classification and regression methods. The two groups statistics are similar.
 
 
 <!-- The numbers calculated as part of the `Melb` chank -->
 
 \begin{table}[h]
 \begin{center}
-\begin{tabular}{l l r r r r r r r}\hline
-Score & Competition group & N & Mean (SD)   & Min  &  Q1 & Median  &  Q3  & Max \\\hline
-Exam   & Regression      & 30 &  66.9 (14.1)  &   36 &  57.5 &   69.2 &  77.5 &   88.5\\
-       & Classification & 31 &  62.1 (17.2)  &   20  & 52.2  &  68.0   &  75.2 &  85.5\\\hline
+\begin{tabular}{l l | r | r | r r r r r}\hline
+Score & Comp. group & N & Mean (SD)   & Min  &  Q1 & Median  &  Q3  & Max \\\hline
+Exam   & Regression      & 30 &  66.9 (14.1)  &   36.0 &  57.5 &   69.2 &  77.5 &   88.5\\
+       & Classification & 31 &  62.1 (17.2)  &   20.0  & 52.2  &  68.0   &  75.2 &  85.5\\\hline
 
-2$^{nd}$ assignment & Regression      &    30  & 8.16 (2.15)  &  0  & 7.02 &  8.35   &  9.9  &   10 \\
-                    & Classification  &    31  & 8.01 (2.96)  &  0  & 7.8  &  9.30   &  9.9  &   10 \\\hline
+2$^{nd}$ assignment & Regression      &    30  & 8.2 (2.2)  &  0.0  & 7.0 &  8.4   &  9.9  &   10.0 \\
+                    & Classification  &    31  & 8.0 (3.0)  &  0.0  & 7.8  &  9.3   &  9.9  &   10.0 \\\hline
 
 \end{tabular}
-\caption{Computational statistics and data mining: Basics summary statistics of the exam score (out of 100) and the second assignment (out of 10) for the two competition groups.}
+\caption{Computational statistics and data mining: Summary statistics of the exam score (out of 100) and the second assignment (out of 10) for the two competition groups.}
 \end{center}
 \label{tab:Melb_Group_Compare}
 \end{table}
-
-
-
 
 Statistical Thinking (ST), covers regression, but not classification, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (ST-PG) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the CSDM competition. The 145 undergraduate (ST-UG) students were used as comparison for examining performance of the postgraduate students. Although, it may be surprising at first glance, the undergraduate students provide a reasonable comparison for the graduate students. The class is taught to both cohorts simultaneously. The entry requirements to the Bachelors of Commerce at Monash is high, and these students have strong mathematics backgrounds. In the years prior to this experiment, the undergraduate scores on the final exam are indistinguishable from those of the graduate students. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
 
-
-Similarly, to Table 1, Table 2 shows some summary statistics of the exam scores for the 34 postgraduate (ST-PG) students and for the 145 undergraduate (ST-UG) students. The mean and the median scores of postgraduate students are a bit lower than the corresponding scores of undergraduate students. However, the interquartile range is quite the same. Therefore, we do not have a principal evidence that postgraduate students are a stronger cohort. Interesting the highest exam score was received by an undergraduate student. Also, the mean and the median of the undergraduate students are a bit higher. 
+Table 2 shows the summary statistics of the exam scores for the 34 postgraduate (ST-PG) students and for the 145 undergraduate (ST-UG) students. The mean and the median scores of postgraduate students are a bit lower than the corresponding scores of undergraduate students. However, the interquartile range is similar. Interestingly, the highest exam score was received by an undergraduate student.  
 
 <!-- The numbers calculated as part of the `Melb` chank -->
 
 \begin{table}[h]
 \begin{center}
-\begin{tabular}{l l r r r r r r r}\hline
+\begin{tabular}{l l | r | r | r r r r r}\hline
 Score & Competition group & N & Mean (SD)   & Min  &  Q1 & Median  &  Q3  & Max \\\hline
-Exam   & ST-PG      & 34  & 61.8 (12.2)  &  35 & 57.2  &   61  & 72.2  & 81.5 \\
-       & ST-UG         & 145 & 63.0 (15.4)  &   0 & 56.0  &   64  & 73.0   & 90.0\\\hline
+Exam   & ST-PG      & 34  & 61.8 (12.2)  &  35.0 & 57.2  &   61.0  & 72.2  & 81.5 \\
+       & ST-UG         & 145 & 63.0 (15.4)  &   0.0 & 56.0  &   64.0  & 73.0   & 90.0\\\hline
 \end{tabular}
-\caption{Statistical thinking: Basics summary statistics of the exam score (out of 100) for the two groups.}
+\caption{Statistical thinking: Summary statistics of the exam score (out of 100) for the two groups.}
 \end{center}
 \label{tab:Melb_Group_Compare}
 \end{table}
 
-Figure \ref{fig:Monash_quiz} presents the means and the standard deviations of the quizzes taken by the undergraduate (ST-UG) and postgraduate (ST-PG) students. 
+Figure \ref{fig:Monash_quiz} displays the quiz scores taken by the undergraduate (ST-UG) and postgraduate (ST-PG) students, as a beeswarm plot [@beeswarm]. The distribution of quiz scores are similar, except that undergaduates tend to have a longer lower tail. 
 
-Postgraduate students have slightly higher average marks on quizzes and much smaller standard deviation. However, the median is only higher by up to 1 point for postgraduate students (except for quiz 5, the difference is 2 points). It could suggest that they are a bit stronger cohort than the undergraduate students. But it also could be that they have a more serious attitude to the quizzes. Considering their performance in the exam the latter is more likely. 
+<!-- Postgraduate students have slightly higher average marks on quizzes and much smaller standard deviation. However, the median is only higher by up to 1 point for postgraduate students (except for quiz 5, the difference is 2 points). It could suggest that they are a bit stronger cohort than the undergraduate students. But it also could be that they have a more serious attitude to the quizzes. Considering their performance in the exam the latter is more likely.--> 
 
 
 
-```{r Monash_quiz, fig.cap = "\\label{fig:Monash_quiz} Means and error bars of undergraduate (ST-UG) and postgraduate (ST-PG) students quizes during the semester.", fig.height=4.5, fig.width=6}
+```{r Monash_quiz, fig.cap = "\\label{fig:Monash_quiz}Beeswarm plots of undergraduate (ST-UG) and postgraduate (ST-PG) students quizzes during the semester. The scores are very similar, although undergraduates have a longer lower tail.", fig.height=6, fig.width=6}
 library(tidyverse)
 library(gridExtra)
-quiz <- read_csv(file="data/quiz_scores_by_unit_2420_5442.csv") 
+library(ggbeeswarm)
+library(forcats)
+quiz <- read_csv(file="data/quiz_scores_by_unit_2420_5242.csv") 
 
-quiz <- quiz %>% mutate(unit = as.character(unit)) %>%
-  mutate(quiz = factor(quiz, levels = c('Quiz 1','Quiz 2','Quiz 3','Quiz 4','Quiz 5','Quiz 6','Quiz 7','Quiz 8','Quiz 9','Quiz 10','Quiz 11','Quiz Tot'))) 
+quiz <- quiz %>% # mutate(unit = as.character(unit)) %>%
+  mutate(quiz = factor(quiz, levels = c('Quiz 1','Quiz 2','Quiz 3','Quiz 4','Quiz 5','Quiz 6','Quiz 7','Quiz 8','Quiz 9','Quiz 10','Quiz 11','Quiz Tot'))) %>%
+  mutate(unit = factor(unit, levels=c("ST_UG", "ST_PG"))) %>%
+  group_by(quiz) %>%
+  mutate(score = score/max(score)*100)
 
-quiz1 <- quiz %>%   mutate(unit=replace(unit, unit=='2420','ST-UG')) %>%
-  mutate(unit=replace(unit, unit=='5242','ST-PG'))
-
-quiz1 %>% ggplot(aes(x=unit, y=mean, colour=unit)) +
-  geom_point(aes(color=unit), size = 2) +
-  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2, 
-                position=position_dodge(.9)) +
+ggplot(quiz, aes(x=unit, y=score, colour=unit)) +
+  geom_beeswarm(alpha=0.5) +
   facet_wrap(~quiz) + 
-  labs(y="Score",x="") +
-   theme(legend.position = "none") 
+  xlab("") + ylab("Score (%)") +
+  theme(legend.position="none")
+
+#quiz1 %>% ggplot(aes(x=unit, y=mean, colour=unit)) +
+#  geom_point(aes(color=unit), size = 2) +
+#  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2, 
+#                position=position_dodge(.9)) +
+#  facet_wrap(~quiz) + 
+#  labs(y="Score",x="") +
+#   theme(legend.position = "none") 
 
 ```
 
 
-```{r Monash_quiz_mean_diff, fig.cap = "\\label{fig:Monash_quiz_mean_diff} Mean difference of undergraduate (ST-UG) and postgraduate (ST-PG) students quizes scores and CI.", fig.height=4.5, fig.width=6}
+```{r Monash_quiz_mean_diff, fig.cap = "\\label{fig:Monash_quiz_mean_diff} Mean difference of undergraduate (ST-UG) and postgraduate (ST-PG) students quizes scores and CI.", fig.height=4.5, fig.width=6, eval=FALSE}
 
 # Calculate CI for the differences in mean
 t <- quiz %>% select(unit,quiz,mean,sd) %>%
@@ -217,10 +221,12 @@ t %>% ggplot(aes(x=factor(quiz, levels = c('Quiz 1','Quiz 2','Quiz 3','Quiz 4','
   labs(y="Score",x="") +
    theme(legend.position = "none") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
 ```
 
 
-```{r Monash_quiz_CI, fig.cap = "\\label{fig:Monash_quiz_CI} Means and CI bars of undergraduate (ETC2420) and postgraduate (ETC5242) students quizes during the semester.", fig.height=4.5, fig.width=6}
+```{r Monash_quiz_CI, fig.cap = "\\label{fig:Monash_quiz_CI} Means and CI bars of undergraduate (ETC2420) and postgraduate (ETC5242) students quizes during the semester.", fig.height=4.5, fig.width=6, eval=FALSE}
 
 # Calculation CI for each mean
 
