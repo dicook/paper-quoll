@@ -1,4 +1,8 @@
 data/*
 TempLocal/*
 .Rproj.user
-
+.RData
+.Rhistory
+iftex.sty
+ifvtex.sty
+paper-quoll.Rproj
