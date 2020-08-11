@@ -115,85 +115,89 @@ Students received clean data ready for modelling as we only aimed to examine stu
 
 ## Participants
 
-Computational Statistics and Data Mining (CSDM) is designed for postgraduate level  students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). This setup mimics randomized control trials, which is the gold standard, in experiment design (@Shelley09CH1, ch. 1).
+Computational Statistics and Data Mining (CSDM) is designed for postgraduate level  students with math, statistics, information technology or actuarial backgrounds. It covers modelling both continuous (regression) and categorical (classification) response variables. The 63 students were randomized into one of two kaggle competitions, one focused on regression (R) and the other classification (C). (One of the 63 students elected not to take part in the competition, and another student didn't sit the exam, producing a final sample size of 61.) This setup mimics randomized control trials, which is the gold standard, in experiment design (@Shelley09CH1, ch. 1).
 Students built prediction models and made submissions individually for 16 days, and then were allowed to form groups to compete for another 7 days. 
 
 The reason for this strategy was first to motivate each of the students to think about modelling and be actively engaged in the competitions through individual submission. The lecturer allowed participants to create groups towards the end of the competition to illustrate the advantages of group work and ensemble models. Another reason for this approach was the university policy, requiring a strategy to assign students individually in group assignments. When the team members develop the model together, it is quite difficult to accurately assess the individual contribution of each student. The individual submissions helped to encourage each student to engage in the modelling process. In addition, it helped to assess the individual component of the final score for the competition.
 
-One of the 63 students elected not to take part in the competition, and another student didn't sit the exam, producing a final sample size of 61.
 
-Table 1 shows some summary statistics for the two groups. We examine the percentage correct overall on the final exam for the different groups and the scores the students received for the second assignment. The second assignment examined students knowledge about computational methods and absolutely unrelated to the classification and regression methods. The difference between the two group are inconsiderable taking into the account the relatively small sample size of the groups.
+
+Table 1 compares the summary statistics for the two groups. We examine the percentage correct overall on the final exam for the different groups and the scores the students received for the second assignment. The second assignment examined students knowledge about computational methods, unrelated to the classification and regression methods. The two groups statistics are similar.
 
 
 <!-- The numbers calculated as part of the `Melb` chank -->
 
 \begin{table}[h]
 \begin{center}
-\begin{tabular}{l l r r r r r r r}\hline
-Score & Competition group & N & Mean (SD)   & Min  &  Q1 & Median  &  Q3  & Max \\\hline
-Exam   & Regression      & 30 &  66.9 (14.1)  &   36 &  57.5 &   69.2 &  77.5 &   88.5\\
-       & Classification & 31 &  62.1 (17.2)  &   20  & 52.2  &  68.0   &  75.2 &  85.5\\\hline
+\begin{tabular}{l l | r | r | r r r r r}\hline
+Score & Comp. group & N & Mean (SD)   & Min  &  Q1 & Median  &  Q3  & Max \\\hline
+Exam   & Regression      & 30 &  66.9 (14.1)  &   36.0 &  57.5 &   69.2 &  77.5 &   88.5\\
+       & Classification & 31 &  62.1 (17.2)  &   20.0  & 52.2  &  68.0   &  75.2 &  85.5\\\hline
 
-2$^{nd}$ assignment & Regression      &    30  & 8.16 (2.15)  &  0  & 7.02 &  8.35   &  9.9  &   10 \\
-                    & Classification  &    31  & 8.01 (2.96)  &  0  & 7.8  &  9.30   &  9.9  &   10 \\\hline
+2$^{nd}$ assignment & Regression      &    30  & 8.2 (2.2)  &  0.0  & 7.0 &  8.4   &  9.9  &   10.0 \\
+                    & Classification  &    31  & 8.0 (3.0)  &  0.0  & 7.8  &  9.3   &  9.9  &   10.0 \\\hline
 
 \end{tabular}
-\caption{Computational statistics and data mining: Basics summary statistics of the exam score (out of 100) and the second assignment (out of 10) for the two competition groups.}
+\caption{Computational statistics and data mining: Summary statistics of the exam score (out of 100) and the second assignment (out of 10) for the two competition groups.}
 \end{center}
 \label{tab:Melb_Group_Compare}
 \end{table}
-
-
-
 
 Statistical Thinking (ST), covers regression, but not classification, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (ST-PG) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the CSDM competition. The 145 undergraduate (ST-UG) students were used as comparison for examining performance of the postgraduate students. Although, it may be surprising at first glance, the undergraduate students provide a reasonable comparison for the graduate students. The class is taught to both cohorts simultaneously. The entry requirements to the Bachelors of Commerce at Monash is high, and these students have strong mathematics backgrounds. In the years prior to this experiment, the undergraduate scores on the final exam are indistinguishable from those of the graduate students. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
 
-
-Similarly, to Table 1, Table 2 shows some summary statistics of the exam scores for the 34 postgraduate (ST-PG) students and for the 145 undergraduate (ST-UG) students. The mean and the median scores of postgraduate students are a bit lower than the corresponding scores of undergraduate students. However, the interquartile range is quite the same. Therefore, we do not have a principal evidence that postgraduate students are a stronger cohort. Interesting the highest exam score was received by an undergraduate student. Also, the mean and the median of the undergraduate students are a bit higher. 
+Table 2 shows the summary statistics of the exam scores for the 34 postgraduate (ST-PG) students and for the 145 undergraduate (ST-UG) students. The mean and the median scores of postgraduate students are a bit lower than the corresponding scores of undergraduate students. However, the interquartile range is similar. Interestingly, the highest exam score was received by an undergraduate student.  
 
 <!-- The numbers calculated as part of the `Melb` chank -->
 
 \begin{table}[h]
 \begin{center}
-\begin{tabular}{l l r r r r r r r}\hline
+\begin{tabular}{l l | r | r | r r r r r}\hline
 Score & Competition group & N & Mean (SD)   & Min  &  Q1 & Median  &  Q3  & Max \\\hline
-Exam   & ST-PG      & 34  & 61.8 (12.2)  &  35 & 57.2  &   61  & 72.2  & 81.5 \\
-       & ST-UG         & 145 & 63.0 (15.4)  &   0 & 56.0  &   64  & 73.0   & 90.0\\\hline
+Exam   & ST-PG      & 34  & 61.8 (12.2)  &  35.0 & 57.2  &   61.0  & 72.2  & 81.5 \\
+       & ST-UG         & 145 & 63.0 (15.4)  &   0.0 & 56.0  &   64.0  & 73.0   & 90.0\\\hline
 \end{tabular}
-\caption{Statistical thinking: Basics summary statistics of the exam score (out of 100) for the two groups.}
+\caption{Statistical thinking: Summary statistics of the exam score (out of 100) for the two groups.}
 \end{center}
 \label{tab:Melb_Group_Compare}
 \end{table}
 
-Figure \ref{fig:Monash_quiz} presents the means and the standard deviations of the quizzes taken by the undergraduate (ST-UG) and postgraduate (ST-PG) students. 
+Figure \ref{fig:Monash_quiz} displays the quiz scores taken by the undergraduate (ST-UG) and postgraduate (ST-PG) students, as a beeswarm plot [@beeswarm]. The distribution of quiz scores are similar, except that undergraduates tend to have a longer lower tail. 
 
-Postgraduate students have slightly higher average marks on quizzes and much smaller standard deviation. However, the median is only higher by up to 1 point for postgraduate students (except for quiz 5, the difference is 2 points). It could suggest that they are a bit stronger cohort than the undergraduate students. But it also could be that they have a more serious attitude to the quizzes. Considering their performance in the exam the latter is more likely. 
+<!-- Postgraduate students have slightly higher average marks on quizzes and much smaller standard deviation. However, the median is only higher by up to 1 point for postgraduate students (except for quiz 5, the difference is 2 points). It could suggest that they are a bit stronger cohort than the undergraduate students. But it also could be that they have a more serious attitude to the quizzes. Considering their performance in the exam the latter is more likely.--> 
 
 
 
-```{r Monash_quiz, fig.cap = "\\label{fig:Monash_quiz} Means and error bars of undergraduate (ST-UG) and postgraduate (ST-PG) students quizes during the semester.", fig.height=4.5, fig.width=6}
+```{r Monash_quiz, fig.cap = "\\label{fig:Monash_quiz}Beeswarm plots of undergraduate (ST-UG) and postgraduate (ST-PG) students quizzes during the semester. The scores are very similar, although undergraduates have a longer lower tail.", fig.height=6, fig.width=6}
 library(tidyverse)
 library(gridExtra)
-quiz <- read_csv(file="data/quiz_scores_by_unit_2420_5442.csv") 
+library(ggbeeswarm)
+library(forcats)
+quiz <- read_csv(file="data/quiz_scores_by_unit_2420_5242.csv") 
 
-quiz <- quiz %>% mutate(unit = as.character(unit)) %>%
-  mutate(quiz = factor(quiz, levels = c('Quiz 1','Quiz 2','Quiz 3','Quiz 4','Quiz 5','Quiz 6','Quiz 7','Quiz 8','Quiz 9','Quiz 10','Quiz 11','Quiz Tot'))) 
+quiz <- quiz %>% # mutate(unit = as.character(unit)) %>%
+  mutate(quiz = factor(quiz, levels = c('Quiz 1','Quiz 2','Quiz 3','Quiz 4','Quiz 5','Quiz 6','Quiz 7','Quiz 8','Quiz 9','Quiz 10','Quiz 11','Quiz Tot'))) %>%
+  mutate(unit = factor(unit, levels=c("ST_UG", "ST_PG"))) %>%
+  group_by(quiz) %>%
+  mutate(score = score/max(score)*100)
 
-quiz1 <- quiz %>%   mutate(unit=replace(unit, unit=='2420','ST-UG')) %>%
-  mutate(unit=replace(unit, unit=='5242','ST-PG'))
-
-quiz1 %>% ggplot(aes(x=unit, y=mean, colour=unit)) +
-  geom_point(aes(color=unit), size = 2) +
-  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2, 
-                position=position_dodge(.9)) +
+ggplot(quiz, aes(x=unit, y=score, colour=unit)) +
+  geom_beeswarm(alpha=0.5) +
   facet_wrap(~quiz) + 
-  labs(y="Score",x="") +
-   theme(legend.position = "none") 
+  xlab("") + ylab("Score (%)") +
+  theme(legend.position="none")
+
+#quiz1 %>% ggplot(aes(x=unit, y=mean, colour=unit)) +
+#  geom_point(aes(color=unit), size = 2) +
+#  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), width=.2, 
+#                position=position_dodge(.9)) +
+#  facet_wrap(~quiz) + 
+#  labs(y="Score",x="") +
+#   theme(legend.position = "none") 
 
 ```
 
 
-```{r Monash_quiz_mean_diff, fig.cap = "\\label{fig:Monash_quiz_mean_diff} Mean difference of undergraduate (ST-UG) and postgraduate (ST-PG) students quizes scores and CI.", fig.height=4.5, fig.width=6}
+```{r Monash_quiz_mean_diff, fig.cap = "\\label{fig:Monash_quiz_mean_diff} Mean difference of undergraduate (ST-UG) and postgraduate (ST-PG) students quizes scores and CI.", fig.height=4.5, fig.width=6, eval=FALSE}
 
 # Calculate CI for the differences in mean
 t <- quiz %>% select(unit,quiz,mean,sd) %>%
@@ -217,10 +221,12 @@ t %>% ggplot(aes(x=factor(quiz, levels = c('Quiz 1','Quiz 2','Quiz 3','Quiz 4','
   labs(y="Score",x="") +
    theme(legend.position = "none") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
 ```
 
 
-```{r Monash_quiz_CI, fig.cap = "\\label{fig:Monash_quiz_CI} Means and CI bars of undergraduate (ETC2420) and postgraduate (ETC5242) students quizes during the semester.", fig.height=4.5, fig.width=6}
+```{r Monash_quiz_CI, fig.cap = "\\label{fig:Monash_quiz_CI} Means and CI bars of undergraduate (ETC2420) and postgraduate (ETC5242) students quizes during the semester.", fig.height=4.5, fig.width=6, eval=FALSE}
 
 # Calculation CI for each mean
 
@@ -260,7 +266,7 @@ The data from the follow-up questionnaire was used to examine interest in the co
 
 63 enrolled students; postgraduate level; background: math & stats, IT and actuarial science;  
 
-Students were randomly assigned to one of two groups, regression (R) or classification (C). Each group will have a data competition designed for that topic, made available through kaggle in class (https://inclass.kaggle.com). Students wored individually to build predictive models, and submit predictions for the first 16 days. On the 16^{th} day of the competition students received an email that they allowed to establish groups and continue the competition as a group. The competition was continued for additional 7 days. In case they chose to form a group, the final score of the group in total was accounted as their individual mark towards the final grade for the subject and analysed in this project.  Only 3 groups were formed, two groups with 3 students and one group with two students. All other students chose to continue the competition individually.  
+Students were randomly assigned to one of two groups, regression (R) or classification (C). Each group will have a data competition designed for that topic, made available through kaggle in class (https://inclass.kaggle.com). Students worked individually to build predictive models, and submit predictions for the first 16 days. On the 16^{th} day of the competition students received an email that they allowed to establish groups and continue the competition as a group. The competition was continued for additional 7 days. In case they chose to form a group, the final score of the group in total was accounted as their individual mark towards the final grade for the subject and analysed in this project.  Only 3 groups were formed, two groups with 3 students and one group with two students. All other students chose to continue the competition individually.  
 
 Note that the data competition was compulsory to all the students. The volunteering part was the questionnaire at the end of the semester asking for feedback on aspects of the class such as their competition experience, their favourite topic of the semester, and their enjoyment of the material in the subject.
 
@@ -656,7 +662,7 @@ ggplot() +
 ```
     
 
-Figure \ref{fig:crossperformances} presents students' scores for classification and regression questions. A score over 1 is considered outperformance (relative to the expectation). Quarters one and three include students that underperform or outperform on both types of questions, respectively. In both cases the number of students that participated in the classification competition is very close to the number of students that participated in the regression competition (excluding a few regression students on the border of score 1). Students in quarters two and four outperform on one type of questions but not on the other type. We can see that more regression students outperform on regression questions than classification students 
+Figure \ref{fig:crossperformances} presents students' scores for classification and regression questions. A score over 1 is considered as outperform (relative to the expectation). Quarters one and three include students that underperform or outperform on both types of questions, respectively. In both cases the number of students that participated in the classification competition is very close to the number of students that participated in the regression competition (excluding a few regression students on the border of score 1). Students in quarters two and four outperform on one type of questions but not on the other type. We can see that more regression students outperform on regression questions than classification students 
 (`r filter(t, Proj_alloc == "regression" ,     outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 12 --> vs. 
  `r filter(t, Proj_alloc == "classification" , outperf_class == FALSE,  outperf_reg == TRUE)["n"]`<!-- 7 -->). 
 Similarly, classification students do better on classification questions 
@@ -948,7 +954,7 @@ The competition needs to run without any intervention from the instructor.
 Exception is, of course, an academic discussion motivated by the competition between the teaching team and the students. For example, a discussion about different models, their advantages and limitations. 
 The instructor can monitor students progress: the number of submissions, student scores and even the uploaded data at any time. When the competition ends the "Leaderboard" page provides a list of students ordered by the final score. It also provides all the scores from all past submissions (under "Raw Data" on "Public Leaderboard"). 
 
-It may be recommended to limit students to one submission per day. It encourages students to think about more efficient improvement of their model before the next submission. It also prevents the student spending too much time building and submitting models. Some students will become so engaged in the competition that they might neglect their other coursework. About halfway through the coompetition, students might be allowed to form teams, to learn how averaging models can boost performance. 
+It may be recommended to limit students to one submission per day. It encourages students to think about more efficient improvement of their model before the next submission. It also prevents the student spending too much time building and submitting models. Some students will become so engaged in the competition that they might neglect their other coursework. About halfway through the competition, students might be allowed to form teams, to learn how averaging models can boost performance. 
 
 In awarding course points to student effort, we typically align it to performance. Participant ranks based on their performance on the private part of the test data are recorded. Performance scores that are pretty close to each other should be given the same rank, reflecting that there may not be a significant difference between them. The best gets perhaps, 5 points, then a half a point drop until about 2.5 points, so that the worst performing students still get 50% for the task. Kaggle does not allow you to download participants email addresses. All you see is their kaggle name. Record the student names in kaggle to match with your class records. 
 
@@ -959,13 +965,10 @@ From an instructor perspective, its very rewarding watching the students partici
 
 # Discussion
 
-This paper has described the setup and results of an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The experiment was conducted in the classroom settings as part of the normal teaching of the courses, which imposes limitations on the design. However, with both CSDM and ST, either a randomized assignment of students to two topic groups, or a control group, was possible, which enabled comparing performance.
+This paper has described an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The primary finding, is that participating in a data challenge competition,  produces a statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, the competitions enhanced interest and engagement in the course. 
 
-Running an experiment in the classroom setting imposes, of course, some limitations. One of them is a relatively small sample size of each group. The other is the need to address the university policies, such as the group assessment approach we took for CSDM.  
+Because the experiment was conducted in the classroom setting as part of the normal teaching of the courses, which imposed limitations on the design. However, performance comparison was enabled in CSDM by a randomized assignment of students to two topic groups, and in ST by using a control group. In CDSM, the group sizes were relatively small, approximately 30 students per group. For ST the control group was the undergraduate students that took class. Using undergraduate students as a control group for graduate students may be surprising.  However, the experience of teaching this subject over several years and some statistical comparison of the two groups justifies the approach. Undergraduate students performance in other tasks and exam questions, not relevant to the competition, was equivalent to the postgraduate students cohort.   
 
-One of the major limitations is the ability to include such a control group that it is easy to show that its members are equal to the case group members. In the case of Statistical Thinking subject the control group was taken as the undergraduate students that took this subject. At first, using undergraduate students as a control group for graduate students may be surprising.  However, the experience of teaching this subject over several years and some statistical comparison of the two groups can justify this decision. Undergraduate students that took this subject are strong students. Their performance in other tasks and exam questions, not relevant to the competition, was equivalent to the postgraduate students cohort.     
-
-The primary finding, is that participating in a data challenge competition,  produces a statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, the competitions enhanced interest and engagement in the course. 
 
 # Future work
 
