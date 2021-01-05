@@ -495,9 +495,9 @@ scores_2420$`Exam Tot` <- apply(scores_2420[,4:27], 1, sum, na.rm=T)
 
 scores_5242 <- scores_5242 %>% mutate(perf = ((`7a (10)` + `7b (8)` + `7c (3)`)/21)/(`Exam Tot`/100))
 scores_2420 <- scores_2420 %>% mutate(perf = ((`7a (10)` + `7b (8)` + `7c (3)`)/21)/(`Exam Tot`/100))
-scores_5242 <- scores_5242 %>% mutate(class="Yes") %>%
+scores_5242 <- scores_5242 %>% mutate(class="Yes (ST-PG)") %>%
   filter(!is.na(perf))
-scores_2420 <- scores_2420 %>% mutate(class="No") %>%
+scores_2420 <- scores_2420 %>% mutate(class="No (ST-UG)") %>%
   filter(!is.na(perf))
 
 scores <- bind_rows(scores_5242, scores_2420)
@@ -890,13 +890,13 @@ Q <- bind_rows(MAST90083_Q, ETC5242_Q)
 Q <- Q %>% mutate(class = fct_relevel(class,"MAST90083", "ETC5242")) %>%
            mutate(class = recode(class, "ETC5242"="ST-PG" , "MAST90083"="CSDM")) 
 
-ggplot(Q, aes(x=question, weight = n, 
+ggplot(Q, aes(x= reorder(question, desc(question)) , weight = n, 
               fill=fct_relevel(response, "Strongly Disagree", 
                                "Disagree", "Neutral", "Agree", 
                                "Strongly Agree"))) + 
-  xlab("") + ylab("") +
+  xlab("") + ylab("Proportion of students") +
   facet_wrap(~class, ncol=2) +
-  geom_bar(position="fill") + coord_flip() +
+  geom_bar(position=position_fill(reverse = TRUE)) + coord_flip() +
   scale_fill_manual("", values=c("#CA0020","#F4A582","#F7F7F7","#92C5DE", "#0571B0")) + 
   theme_bw() +
   theme(legend.position = "bottom") 
@@ -967,7 +967,7 @@ From an instructor perspective, its very rewarding watching the students partici
 
 This paper has described an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The primary finding, is that participating in a data challenge competition,  produces a statistically significant improvement in the learning of the topic, although the effect size is small.  Secondarily, the competitions enhanced interest and engagement in the course. 
 
-Because the experiment was conducted in the classroom setting as part of the normal teaching of the courses, which imposed limitations on the design. However, performance comparison was enabled in CSDM by a randomized assignment of students to two topic groups, and in ST by using a control group. In CDSM, the group sizes were relatively small, approximately 30 students per group. For ST the control group was the undergraduate students that took class. Using undergraduate students as a control group for graduate students may be surprising.  However, the experience of teaching this subject over several years and some statistical comparison of the two groups justifies the approach. Undergraduate students performance in other tasks and exam questions, not relevant to the competition, was equivalent to the postgraduate students cohort.   
+Because the experiment was conducted in the classroom setting as part of the normal teaching of the courses, which imposed limitations on the design. However, performance comparison was enabled in CSDM by a randomized assignment of students to two topic groups, and in ST by using a comparison group. In CDSM, the group sizes were relatively small, approximately 30 students per group. For ST the control group was the undergraduate students that took class. Using undergraduate students as a control group for graduate students may be surprising.  However, the experience of teaching this subject over several years and some statistical comparison of the two groups justifies the approach. Undergraduate students performance in other tasks and exam questions, not relevant to the competition, was equivalent to the postgraduate students cohort.   
 
 
 # Future work
