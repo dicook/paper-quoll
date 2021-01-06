@@ -1,5 +1,5 @@
 ---
-title: Kaggle-in-class Data Challenges Can Boost Student Learning
+title: A study of student performance, engagement and experience when using Kaggle-in-class data challenges 
 
 # to produce blinded version set to 1
 blinded: 1
@@ -293,7 +293,7 @@ MAST90083 used \url{https://www.kaggle.com/c/amiaspam} and \url{https://www.kagg
 
 ## Performance
 
-Better performance is equated to better understanding of the material, as measured in the final exam. CSDM and ST included questions, with several parts, on the final exam related to kaggle challenges. These questions were identified prior to data analysis. 
+Better performance is equated to better understanding of the material, as measured in the final exam. CSDM and ST each included some questions, with several parts, on the final exam related to kaggle challenges. (Note that these were not the same between the two classes, but similar in content and rigor.) These questions were identified prior to data analysis. 
 
 For all questions in the exam, difficulty and discrimination scores were computed, using the mean and standard deviations. Of the questions pre-identified as being relevant to the data challenges, only the parts that corresponded to high level of difficulty and high discrimination were included in the comparison of performance. 
 
@@ -484,8 +484,8 @@ pval_reg <- length(pdif_reg[pdif_reg > pdif_reg_true])/1000
 \begin{center}
 \begin{tabular}{|l|r|r|}\hline
 Question Set & Median difference & Permutation $p$-value \\\hline
-Classification & 0.250 & 0.033\\
-Regression & 0.104 & 0.000\\\hline
+Classification & 0.250 & 0.03\\
+Regression & 0.104 & 0.00\\\hline
 \end{tabular}
 \caption{Comparison of median difference in performance by competition group, for CSDM students, using permutation tests. Both sets of medians are significantly different, indicating improved scores for questions on the topic related to the Kaggle competition.}
 \end{center}
@@ -618,7 +618,7 @@ dif <- median(scores$perf[scores$class=="Yes"])-
        median(scores$perf[scores$class=="No"])
 ```
 
-Based on the median, the students who participated in the kaggle challenge scored `r round(dif, 2)` higher than those that didn't, a median of `r round(median(scores$perf[scores$class=="Yes"]), 2)` in comparison to `r round(median(scores$perf[scores$class=="No"]), 2)`. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r round(length(pdif[pdif >= dif])/1000, 3)`. 
+Based on the median, the students who participated in the kaggle challenge scored `r round(dif, 2)` higher than those that didn't, a median of `r round(median(scores$perf[scores$class=="Yes"]), 2)` in comparison to `r round(median(scores$perf[scores$class=="No"]), 2)`. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r round(length(pdif[pdif >= dif])/1000, 2)`. 
 
 
 ```{r crossperformances, echo=FALSE, fig.cap="\\label{fig:crossperformances} Students performance in classification and regression questions by competition type.", fig.width=6,fig.height=5  } 
