@@ -1,5 +1,5 @@
 ---
-title: A study of student performance, engagement and experience when using Kaggle-in-class data challenges 
+title: Student performance, engagement and experience when teaching includes Kaggle-in-class data challenges 
 
 # to produce blinded version set to 1
 blinded: 1
@@ -611,14 +611,14 @@ for (i in 1:1000) {
   x <- scores %>% select(class, perf)
   x <- x %>% mutate(class = sample(class))
   pdif <- c(pdif,
-            median(x$perf[x$class=="Yes"])-
-                   median(x$perf[x$class=="No"]))
+            median(x$perf[x$class=="Yes (ST-PG)"])-
+                   median(x$perf[x$class=="No (ST-UG)"]))
 }
-dif <- median(scores$perf[scores$class=="Yes"])-
-       median(scores$perf[scores$class=="No"])
+dif <- median(scores$perf[scores$class=="Yes (ST-PG)"])-
+       median(scores$perf[scores$class=="No (ST-UG)"])
 ```
 
-Based on the median, the students who participated in the kaggle challenge scored `r round(dif, 2)` higher than those that didn't, a median of `r round(median(scores$perf[scores$class=="Yes"]), 2)` in comparison to `r round(median(scores$perf[scores$class=="No"]), 2)`. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r round(length(pdif[pdif >= dif])/1000, 2)`. 
+Based on the median, the students who participated in the kaggle challenge scored `r round(dif, 2)` higher than those that didn't, a median of `r round(median(scores$perf[scores$class=="Yes (ST-PG)"]), 2)` in comparison to `r round(median(scores$perf[scores$class=="No (ST-UG)"]), 2)`. Using a permutation test, this corresponds to a significant difference in medians, with $p$-value of `r round(length(pdif[pdif >= dif])/1000, 2)`. 
 
 
 ```{r crossperformances, echo=FALSE, fig.cap="\\label{fig:crossperformances} Students performance in classification and regression questions by competition type.", fig.width=6,fig.height=5  } 
