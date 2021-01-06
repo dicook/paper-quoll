@@ -1,5 +1,5 @@
 ---
-title: Student performance, engagement and experience when teaching includes Kaggle-in-class data challenges 
+title: A study on student performance, engagement and experience with Kaggle-in-class data challenges
 
 # to produce blinded version set to 1
 blinded: 1
