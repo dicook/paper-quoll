@@ -167,7 +167,7 @@ Figure \ref{fig:Monash_quiz} displays the quiz scores taken by the undergraduate
 
 
 
-```{r Monash_quiz, fig.cap = "\\label{fig:Monash_quiz}Beeswarm plots of undergraduate (ST-UG) and postgraduate (ST-PG) students quizzes during the semester. The scores are very similar, although undergraduates have a longer lower tail.", fig.height=6, fig.width=6}
+```{r Monash_quiz, fig.cap = "\\label{fig:Monash_quiz}Beeswarm plots of undergraduate (ST-UG) and postgraduate (ST-PG) students quizzes during the semester. The scores are very similar, although undergraduates have a longer lower tail.", fig.height=6, fig.width=6, eval=FALSE}
 library(tidyverse)
 library(gridExtra)
 library(ggbeeswarm)
@@ -183,6 +183,17 @@ quiz <- quiz %>% # mutate(unit = as.character(unit)) %>%
 ggplot(quiz, aes(x=unit, y=score, colour=unit)) +
   geom_beeswarm(alpha=0.5) +
   facet_wrap(~quiz) + 
+  xlab("") + ylab("Score (%)") +
+  theme(legend.position="none")
+
+# investigate similarity/differences between scores
+quiz <- quiz %>%
+  filter(score > 0)
+
+
+ggplot(quiz, aes(x=score^4, colour=unit, fill=unit)) +
+  geom_density(alpha=0.5) +
+  facet_grid(unit~quiz, scales="free") + 
   xlab("") + ylab("Score (%)") +
   theme(legend.position="none")
 
@@ -918,9 +929,9 @@ Q6 & I feel that the required time investment in the data competition was worthy
 \label{survey_Q}
 \end{table}
 
-After collecting the survey from the students we were told that the questions about students engagement were positively worded. This may have potentially led to some bias. An improved way could be to ask directly about student's engagement, e.g. "How would you rate your level of engagement in this course?" with set answer options of "not at all engaged" -- up to "extremely engaged" with several choices in between. Another improvement could be asking ST-UG  students that didn't take part in the competition about their level of engagement and compare the answers with other students of ST-PG. We acknowledge that the differences in the engagement levels may not necessarily be a result of participation in the competition but it is still an interesting aspect.
+After collecting the survey from the students we realized that the questions about student engagement were positively worded, which has the potential to for bias in response. An improved wording would be to ask neutrally about engagement, e.g. "How would you rate your level of engagement in this course?" with set answer options of "not at all engaged" -- up to "extremely engaged" with several choices in between. Another improvement could be asking ST-UG  students that didn't take part in the competition about their level of engagement and compare the answers with other students of ST-PG. We acknowledge that the differences in the engagement levels may not necessarily be a result of participation in the competition but it is still an interesting aspect.
 
-The survey was not anonymous. However, the results became available to the lectures only after all the grades were realised to the students. This point was emphasized in the instructions to the students at the beginning of the survey.
+The survey was not anonymous. However, the results became available to the lecturers only after all the grades were realised to the students. This point was emphasized in the instructions to the students at the beginning of the survey.
 
 # Teachers' corner 
 
@@ -944,7 +955,7 @@ The data sets used in our competitions can be shared with other instructors by r
 <!--It is not recommended to take freely available data sets from the Internet. A clever student will always try to check if the data is on the web. If it is, she will use the answers from the data set instead of predicting the answers with a self-developed model. As a statistician, and an instructor in a subject, you or one of your colleagues usually have some interesting data set to use. In such a case, the data set and particularly the target values will be unfamiliar to the students.
 -->
 
-Choosing the metric upon which to evaluate the model is another decision. Our advice is to keep it simple, so you, and the students, can understand the student scores. If you are running a regression challenge, then the "Root Mean Squared Error (RMSE)" is a good choice. If it is a classification challenge, then "Categorization Accuracy", the percent of correct classifications, is reasonable. 
+Choosing the metric upon which to evaluate the model is another decision. Our advice is to keep it simple, so you, and the students, can understand the student scores. If you are running a regression challenge, then the "Root Mean Squared Error (RMSE)" is a good choice. If it is a balanced class classification challenge, then "Categorization Accuracy", the percent of correct classifications, is reasonable. 
 
 The data needs to be split into training and testing sets. Kaggle will then split your test set into two, a public set that is used to provide ongoing scores to participants, and a private set, on which performance is revealed only after the competition closes. If you have categorical variables in the data set, you will want to make sure that all categories are present in both training and test sets. The training set will have both predictors and response, but the test set will have the response variable removed. Each observation needs to be assigned an id, because this will be needed to evaluate predictions. The solution file, containing the id and the true response, is provided to the system for evaluating submissions, and is kept private. A sample submission file needs to be provided. Participants will submit their solutions in the same format. 
 
