@@ -143,9 +143,9 @@ Exam   & Regression      & 30 &  66.9 (14.1)  &   36.0 &  57.5 &   69.2 &  77.5 
 \label{tab:Melb_Group_Compare}
 \end{table}
 
-Statistical Thinking (ST), covers regression, but not classification, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (ST-PG) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the CSDM competition. The 145 undergraduate (ST-UG) students were used as comparison for examining performance of the postgraduate students. Although, it may be surprising at first glance, the undergraduate students provide a reasonable comparison for the graduate students. The class is taught to both cohorts simultaneously. The entry requirements to the Bachelors of Commerce at Monash is high, and these students have strong mathematics backgrounds. In the years prior to this experiment, the undergraduate scores on the final exam are indistinguishable from those of the graduate students. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
+Statistical Thinking (ST), covers regression, but not classification, and has a mix of undergraduate and postgraduate students. Only the 34 postgraduate (ST-PG) students were required to participate in the kaggle competition, and competed in the regression (R) challenge. This was run independently from the CSDM competition. The 141 undergraduate (ST-UG) students were used for comparison when examining the performance of the postgraduate students. Although, it may be surprising, the undergraduate students provide a reasonable comparison for the graduate students. The class is taught to both cohorts simultaneously. The entry requirements to the Bachelor of Commerce at Monash is high, and these students have strong mathematics backgrounds. In the years prior to this experiment, the undergraduate scores on the final exam are comparable to those of the graduate students, although undergraduates typically have a larger range with both higher and lower scores. The competition ran for one month. Students formed their own teams of 2-4 members to compete. 
 
-Table 2 shows the summary statistics of the exam scores for the 34 postgraduate (ST-PG) students and for the 145 undergraduate (ST-UG) students. The mean and the median scores of postgraduate students are a bit lower than the corresponding scores of undergraduate students. However, the interquartile range is similar. Interestingly, the highest exam score was received by an undergraduate student.  
+Table 2 shows the summary statistics of the exam scores and in-semester quiz scores for the 34 postgraduate (ST-PG) students and for the 141 undergraduate (ST-UG) students. The mean and the median exam scores of postgraduate students are a bit lower than the corresponding scores of undergraduate students. However, the interquartile range is similar. Interestingly, the highest exam score was received by an undergraduate student. For comparison, the quiz scores for various topics taken during the semester show the same interquartile ranges for the two groups, but post-graduate students tend to score a little higher in mean and median. (Zero scores were removed to reflect actual attempts at the quizzes.) These statistics are consistent with historic scores for the class, that the undergraduates tend to have a wider range than post-graduates but generally quite similar averages. 
 
 <!-- The numbers calculated as part of the `Melb` chank -->
 
@@ -154,20 +154,22 @@ Table 2 shows the summary statistics of the exam scores for the 34 postgraduate 
 \begin{tabular}{l l | r | r | r r r r r}\hline
 Score & Competition group & N & Mean (SD)   & Min  &  Q1 & Median  &  Q3  & Max \\\hline
 Exam   & ST-PG      & 34  & 61.8 (12.2)  &  35.0 & 57.2  &   61.0  & 72.2  & 81.5 \\
-       & ST-UG         & 145 & 63.0 (15.4)  &   0.0 & 56.0  &   64.0  & 73.0   & 90.0\\\hline
+       & ST-UG         & 141 & 64.8 (11.3)  &   39.0 & 56.0  &   64.0  & 73.5   & 90.0\\\hline
+Quizzes & ST-PG     & 34  & 88.4 (14.0)  &  20.0 & 80.0  &   93.3  & 100.0  & 100.0 \\
+      & ST-UG         & 141 & 84.5 (16.1)  &   6.7 & 80.0  &   86.7  & 100.0   & 100.0\\\hline
 \end{tabular}
-\caption{Statistical Thinking: Summary statistics of the exam score (out of 100) for the two groups.}
+\caption{Statistical Thinking: Summary statistics of the exam score (out of 100) for the two groups, and the 10 quizzes taken during the semester.}
 \end{center}
 \label{tab:Melb_Group_Compare}
 \end{table}
 
-Figure \ref{fig:Monash_quiz} displays the quiz scores taken by the undergraduate (ST-UG) and postgraduate (ST-PG) students, as a beeswarm plot [@beeswarm]. The distribution of quiz scores are similar, except that undergraduates tend to have a longer lower tail. 
+<!-- Figure \ref{fig:Monash_quiz} displays the quiz scores taken by the undergraduate (ST-UG) and postgraduate (ST-PG) students, as a beeswarm plot [@beeswarm]. The distribution of quiz scores are similar, except that undergraduates tend to have a longer lower tail. -->
 
 <!-- Postgraduate students have slightly higher average marks on quizzes and much smaller standard deviation. However, the median is only higher by up to 1 point for postgraduate students (except for quiz 5, the difference is 2 points). It could suggest that they are a bit stronger cohort than the undergraduate students. But it also could be that they have a more serious attitude to the quizzes. Considering their performance in the exam the latter is more likely.--> 
 
 
 
-```{r Monash_quiz, fig.cap = "\\label{fig:Monash_quiz}Beeswarm plots of undergraduate (ST-UG) and postgraduate (ST-PG) students quizzes during the semester. The scores are very similar, although undergraduates have a longer lower tail.", fig.height=4, fig.width=6}
+```{r Monash_quiz, fig.cap = "\\label{fig:Monash_quiz}Beeswarm plots of undergraduate (ST-UG) and postgraduate (ST-PG) students quizzes during the semester. The scores are very similar, although undergraduates have a longer lower tail.", fig.height=4, fig.width=6, eval=FALSE}
 library(tidyverse)
 library(gridExtra)
 library(ggbeeswarm)
@@ -188,9 +190,32 @@ quiz <- quiz %>% # mutate(unit = as.character(unit)) %>%
 
 # investigate similarity/differences between scores
 quiz <- quiz %>%
-  filter(score > 0)
+  filter(score > 0) %>%
+  filter(quiz != "Quiz Tot")
 
+quiz %>% group_by(unit) %>%
+    summarize(mn = mean(score, na.rm=TRUE), 
+            stdd = sd(score, na.rm=TRUE),
+            min = min(score, na.rm=TRUE),
+            q1 = quantile(score, .25), 
+            med = quantile(score, .5), 
+            q3 = quantile(score, .75), 
+            max = max(score))
 
+quiz_means <- quiz %>%
+  group_by(unit, quiz) %>%
+  summarise(m = mean(score, na.rm=TRUE)) %>%
+  ungroup() 
+quiz_means %>%  
+    group_by(unit) %>%
+    summarize(mn = mean(m, na.rm=TRUE), 
+            stdd = sd(m, na.rm=TRUE),
+            min = min(m, na.rm=TRUE),
+            q1 = quantile(m, .25), 
+            med = quantile(m, .5), 
+            q3 = quantile(m, .75), 
+            max = max(m))
+  
 ggplot(quiz, aes(x=score, colour=unit, fill=unit)) +
   stat_ecdf(alpha=0.5) +
   facet_wrap(~quiz) + 
@@ -550,7 +575,7 @@ scores_5242 <- read_csv("data/deidentified_scores_5242.csv")
 scores_2420 <- read_csv("data/deidentified_scores_2420.csv")
 poss_marks <- c(4, 2, 2, 2, 3, 3, 9, 8, 5, 2, 2, 3, 3, 3, 2, 3, 3, 6, 10, 8, 3, 3, 3, 2, 4, 2)
 scores_pct <- bind_rows(scores_2420, scores_5242)
-scores_pct$group <- c(rep("2420", 145), rep("5242", 34))
+scores_pct$group <- c(rep("2420", nrow(scores_5242)), rep("5242", nrow(scores_2420)))
 scores_pct <- scores_pct %>% filter(!is.na(`9b (2)`))
 for (i in 1:26)
   scores_pct[,i+1] <- scores_pct[,i+1]/poss_marks[i]
