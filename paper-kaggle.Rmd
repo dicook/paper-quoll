@@ -2,7 +2,7 @@
 title: A study on student performance, engagement and experience with Kaggle InClass data challenges
 
 # to produce blinded version set to 1
-blinded: 1
+blinded: 0
 
 authors: 
   - name: Julia Polak
@@ -91,11 +91,11 @@ A competition, like any other active learning method, that used for assessment, 
 
 ## Data collection
 
-<!-- Blinded verssion -->
-The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of AB (Computational Statistics and Data Mining, MAST90083, denoted as CSDM), and one at CD University (Statistical Thinking, ETC2420/5242, denoted as ST). 
+<!-- Blinded verssion 
+The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of AB (Computational Statistics and Data Mining, MAST90083, denoted as CSDM), and one at CD University (Statistical Thinking, ETC2420/5242, denoted as ST). -->
 
-<!-- Unblinded verssion 
-The experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of Melbourne (MAST90083), and one at Monash University (ETC2420/5242). -->
+<!-- Unblinded verssion -->
+he experiment was conducted during Semester 2 2017. Data was collected during two classes, one at the University of Melbourne (Computational Statistics and Data Mining, MAST90083, denoted as CSDM), and one at Monash University (Statistical Thinking, ETC2420/5242, denoted as ST).
 
 
 ## Competition data
@@ -962,7 +962,7 @@ The survey was not anonymous. However, the results became available to the lectu
 
 # Teachers' corner 
 
-Creating a new competition is surprisingly easy. Information on setting up a Kaggle InClass challenge is available on the service's web site (https://www.kaggle.com/about/inclass/overview). There is a setup wizard for step-by-step guidance on getting your competition underway. We have created a short video illustrating the steps to establish a new competition, available on the web (\url{https://www.youtube.com/XXXX}).
+Creating a new competition is surprisingly easy. Information on setting up a Kaggle InClass challenge is available on the service's web site (https://www.kaggle.com/about/inclass/overview). There is a setup wizard for step-by-step guidance on getting your competition underway. We have created a short video illustrating the steps to establish a new competition, available on the web (\url{https://www.youtube.com/watch?v=tqbps4vq2Mc&t=32s}).
 
 <!-- Unblinded verssion -->
 <!-- https://www.youtube.com/watch?v=tqbps4vq2Mc&t=32s -->
@@ -1005,7 +1005,7 @@ From an instructor perspective, its very rewarding watching the students partici
 
 This paper has described an experiment to examine the effectiveness of data competitions on student learning, using Kaggle InClass as the vehicle for conducting the competition. The primary finding, is that participating in a data challenge competition, produces a statistically discernible improvement in the learning of the topic, although the effect size is small.  Secondarily, the competitions enhanced interest and engagement in the course. 
 
-Because the experiment was conducted in the classroom setting as part of the normal teaching of the courses, which imposed limitations on the design. However, performance comparison was enabled in CSDM by a randomized assignment of students to two topic groups, and in ST by using a comparison group. In CSDM, the group sizes were relatively small, approximately 30 students per group. For ST the control group was the undergraduate students that took class. Using undergraduate students as a control group for graduate students may be surprising.  However, the experience of teaching this subject over several years and some statistical comparison of the two groups justifies the approach. Undergraduate students performance in other tasks and exam questions, not relevant to the competition, was equivalent to the postgraduate students cohort.   
+Because the experiment was conducted in the classroom setting as part of the normal teaching of the courses, which imposed limitations on the design. However, performance comparison was enabled in CSDM by a randomized assignment of students to two topic groups, and in ST by using a comparison group. In CSDM, the group sizes were relatively small, approximately 30 students per group. For ST the comparison group was the undergraduate students that took class. Using undergraduate students as a comparison group for graduate students may be surprising.  However, the experience of teaching this subject over several years and some statistical comparison of the two groups justifies the approach. Undergraduate students performance in other tasks and exam questions, not relevant to the competition, was equivalent to the postgraduate students cohort.   
 
 
 # Future work
